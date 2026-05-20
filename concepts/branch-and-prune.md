@@ -10,13 +10,13 @@ The Branch-and-Prune (BP) algorithm is the standard method for solving Discretiz
 
 At each level of the tree (representing a vertex $v_i$), the algorithm:
 1. **Branches**: Generates exactly two candidate positions $\{x_i^+, x_i^-\}$ using $K$-lateration (circle/sphere intersection).
-2. **Prunes**: Checks if the candidate positions satisfy any known distances associated with **pruning edges** (edges $\{v_h, v_i\}$ where $h < i - K$). If a candidate position violates a distance constraint within a given tolerance $\varepsilon$, the algorithm prunes that entire branch of the search tree immediately, avoiding the need to explore its descendants.
+2. **Prunes**: Checks if the candidate positions satisfy any known distances associated with [pruning edges](pruning-edge.md) (in the DMDGP, edges $\{v_h, v_i\}$ where $h < i - K$). If a candidate position violates a distance constraint within a given tolerance $\varepsilon$, the algorithm prunes that entire branch of the search tree immediately, avoiding the need to explore its descendants.
 
 If a leaf node is successfully reached (level $n$), a valid full realization of the graph has been found. The algorithm can then backtrack to find alternative solutions, or terminate. BP is highly efficient because pruning edges occur frequently in real-world instances like protein conformations, dramatically cutting down the exponential size of the tree.
 
 ## Formal definition
 
-Let $(G, K)$ be a DMDGP instance with $G = (V, E, d)$, and let $E = E_D \cup E_P$ be the partition of edges into discretization edges $E_D$ and pruning edges $E_P$. 
+Let $(G, K)$ be a DMDGP instance with $G = (V, E, d)$, and let $E = E_D \cup E_P$ be the partition of edges into [discretization edges](discretization-edge.md) $E_D$ and [pruning edges](pruning-edge.md) $E_P$. 
 
 The BP algorithm can be recursively defined for step $i$ (with $i > K$, after fixing the initial clique $x_1, \dots, x_K$):
 

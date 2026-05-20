@@ -9,10 +9,10 @@ sources: [liberti2011number]
 The Discretizable Distance Geometry Problem (DDGP) is a generalization of the [Discretizable Molecular Distance Geometry Problem (DMDGP)](discretizable-molecular-distance-geometry-problem.md). In both problems, the goal is to find a coordinate embedding of a graph in $\mathbb{R}^K$ by exploiting sequential vertex ordering, which allows the search space to be represented as a discrete binary tree and solved via the [Branch-and-Prune (BP) Algorithm](branch-and-prune.md).
 
 The key difference lies in the choice of predecessors used to locate the next vertex $v$:
-* In the **DMDGP**, vertex $v$ must have known distances to its $K$ **immediate** predecessors in the vertex order (i.e., $v_{i-1}, \dots, v_{i-K}$).
-* In the **DDGP**, vertex $v$ only needs to have known distances to **any** $K$ predecessors that appear earlier in the vertex order, not necessarily the immediate ones.
+* In the **DMDGP**, vertex $v$ must have known distances to its $K$ **immediate** predecessors in the vertex order (i.e., $v_{i-1}, \dots, v_{i-K}$). These distances define the [discretization edges](discretization-edge.md).
+* In the **DDGP**, vertex $v$ only needs to have known distances to **any** $K$ predecessors that appear earlier in the vertex order, not necessarily the immediate ones. The discretization edges are therefore relative to the chosen predecessor set.
 
-While the DDGP encompasses a larger set of instances, this relaxation has a significant theoretical cost. In the DMDGP, the use of immediate predecessors ensures that partial reflections across hyperplanes map valid embeddings to valid embeddings, guaranteeing that the number of solutions is always a power of two with probability 1. In the DDGP, because the hyperplanes are defined by non-adjacent predecessors, reflections do not necessarily preserve validity, meaning the "power of two" solution count property does not generally hold.
+While the DDGP encompasses a larger set of instances, this relaxation has a significant theoretical cost. In the DMDGP, the use of immediate predecessors ensures that partial reflections across hyperplanes map valid embeddings to valid embeddings, guaranteeing that the number of solutions is always a power of two with probability 1. In the DDGP, because the hyperplanes are defined by non-adjacent predecessors, reflections do not necessarily preserve validity, meaning the "power of two" solution count property does not generally hold. Additional known distances not chosen for discretization act as [pruning edges](pruning-edge.md).
 
 ## Formal definition
 

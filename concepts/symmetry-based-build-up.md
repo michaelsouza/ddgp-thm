@@ -8,11 +8,11 @@ sources: [goncalves2021new]
 
 The Symmetry-based Build-up (SBBU) algorithm is a novel algorithm for solving the DMDGP proposed by Gonçalves et al. (2021). 
 
-While the classic Branch-and-Prune (BP) algorithm uses standard depth-first search (DFS) with backtracking, which can become extremely slow if pruning edges occur late or are highly sparse, SBBU takes a different approach by exploiting the mathematical symmetry of the discretizable space.
+While the classic Branch-and-Prune (BP) algorithm uses standard depth-first search (DFS) with backtracking, which can become extremely slow if [pruning edges](pruning-edge.md) occur late or are highly sparse, SBBU takes a different approach by exploiting the mathematical symmetry of the discretizable space.
 
 Instead of searching the tree, SBBU solves the DMDGP as a sequence of **nested subproblems**, each spanned by a single pruning edge.
 1. The algorithm first orders the pruning edges in a specific way: sorting in increasing order of the target vertex index, followed by a decreasing order of the source vertex index.
-2. It starts with an initial possible realization that satisfies only the discretization edges.
+2. It starts with an initial possible realization that satisfies only the [discretization edges](discretization-edge.md).
 3. For each pruning edge $\{i, j\}$ in the sequence, the algorithm identifies the set of "necessary symmetry vertices" ($S^{ij}$) that control the relative positions between $i$ and $j$.
 4. It then performs an exhaustive search over the local symmetry combination, applying compositions of partial reflections *only* to the candidate position of $x_j$ until the distance constraint $\|x_i - x_j\| = d_{ij}$ is satisfied.
 5. Once the correct local reflection choice is found, it updates the realization. Because of the symmetry properties, this update is guaranteed to not violate any of the previous subproblem constraints.
@@ -21,7 +21,7 @@ By using this build-up approach, SBBU avoids the deep backtracking typical of DF
 
 ## Formal definition
 
-Given a feasible DMDGP $(G, K)$ with $G = (V, E, d)$ and $E = E_D \cup E_P$, SBBU operates as follows:
+Given a feasible DMDGP $(G, K)$ with $G = (V, E, d)$ and $E = E_D \cup E_P$, where $E_D$ are discretization edges and $E_P$ are pruning edges, SBBU operates as follows:
 
 1. **Pruning Edge Ordering**: Sort the pruning edges $e_1, \dots, e_m \in E_P$ such that $\{u, w\} < \{i, j\}$ if $w < j$ or ($w = j$ and $u > i$).
 2. **Subproblem Definition**: Define $P^{ij} := \{e' \in E_P \mid e' < \{i, j\}\}$. The subproblem $(G^{ij}, K)$ includes discretization edges $E_D$ and the subset of pruning edges $P^{ij} \cup \{i, j\}$.

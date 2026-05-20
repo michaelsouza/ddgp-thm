@@ -8,7 +8,7 @@ sources: [goncalves2021new]
 
 A fascinating property of the Discretizable Molecular Distance Geometry Problem (DMDGP) is that its search space contains a high degree of symmetry. Because each candidate position $x_i$ for a vertex $v_i$ is determined by $K$-lateration, it has precisely two options ($x_i^+$ or $x_i^-$) that are reflections of each other across a local hyperplane.
 
-This local reflection structure forms a group of symmetry operations. Crucially, this means that if we find *just one* valid realization that satisfies all distance constraints (both discretization and pruning), we can generate all other valid solutions simply by applying specific combinations of partial reflections. The vertices whose reflections do not violate any pruning edge constraints are called **symmetry vertices** ($S$). 
+This local reflection structure forms a group of symmetry operations. Crucially, this means that if we find *just one* valid realization that satisfies all distance constraints (both [discretization edges](discretization-edge.md) and [pruning edges](pruning-edge.md)), we can generate all other valid solutions simply by applying specific combinations of partial reflections. The vertices whose reflections do not violate any pruning edge constraints are called **symmetry vertices** ($S$). 
 
 Knowing this structure allows us to:
 1. Predict the exact number of solutions a priori from the graph topology.
@@ -24,7 +24,7 @@ $$
 
 Where:
 * $v_{K+1}$ is always in $S$ because the first $K$ vertices define a global symmetry hyperplane.
-* If a vertex $v_\ell \in S$ (for $\ell > K + 1$), it means there is no "pruning edge" that spans across the local reflection hyperplane at $\ell$ (i.e., no edge goes from a vertex $v_i$ before $\ell-K$ to a vertex $v_j$ at or after $\ell$).
+* If a vertex $v_\ell \in S$ (for $\ell > K + 1$), it means there is no [pruning edge](pruning-edge.md) that spans across the local reflection hyperplane at $\ell$ (i.e., no edge goes from a vertex $v_i$ before $\ell-K$ to a vertex $v_j$ at or after $\ell$).
 
 Under standard non-degeneracy conditions, with probability 1, the total number of incongruent valid realizations of a feasible DMDGP instance is:
 
