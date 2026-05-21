@@ -1,7 +1,11 @@
 # Concepts index
 
-_Auto-generated. 23 concept(s). Edit individual files, not this index._
+_Auto-generated. 27 concept(s). Edit individual files, not this index._
 
+
+## algebra
+
+- [Discretization Field](discretization-field.md) (`algebra`, `geometry`, `combinatorial-optimization`)
 
 ## algorithms
 
@@ -23,7 +27,9 @@ _Auto-generated. 23 concept(s). Edit individual files, not this index._
 - [DMDGP Symmetries](dmdgp-symmetries.md) (`geometry`, `group-theory` — goncalves2021new)
 - [Endpoint-Separating Cone](endpoint-separating-cone.md) (`geometry`, `group-theory`, `combinatorial-optimization`)
 - [Euclidean Distance Matrix Completion Problem (EDMCP)](euclidean-distance-matrix-completion-problem.md) (`geometry`, `optimization` — liberti2011number)
+- [Generic Mirror Independence](generic-mirror-independence.md) (`geometry`, `group-theory`, `combinatorial-optimization`)
 - [K-lateration](k-lateration.md) (`geometry`, `algorithms` — goncalves2021new)
+- [Labelled Presentation Property](labelled-presentation-property.md) (`geometry`, `group-theory`, `combinatorial-optimization`)
 - [Labelled Violation Kernel](labelled-violation-kernel.md) (`geometry`, `group-theory`, `combinatorial-optimization`)
 - [Local Solution Code](local-solution-code.md) (`geometry`, `group-theory`, `combinatorial-optimization`)
 - [Mirror-Compatible Graph Mask](mirror-compatible-graph-mask.md) (`geometry`, `group-theory`, `combinatorial-optimization`)
@@ -31,3 +37,7 @@ _Auto-generated. 23 concept(s). Edit individual files, not this index._
 - [Pruning Edge](pruning-edge.md) (`geometry`, `combinatorial-optimization` — goncalves2021new, liberti2011number)
 - [Sphere Intersection Property (SIP)](sphere-intersection-property.md) (`geometry`, `mathematics` — liberti2011number)
 - [Strict Simplex Inequalities](strict-simplex-inequalities.md) (`geometry`, `mathematics` — liberti2011number)
+
+## linear-algebra
+
+- [Labelled Obstruction Quotient](labelled-obstruction-quotient.md) (`linear-algebra`, `geometry`, `group-theory`, `combinatorial-optimization`)

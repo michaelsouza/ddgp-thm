@@ -6,13 +6,13 @@ sources: []
 
 ## Intuition
 
-The labelled violation kernel is a linear-algebraic object used to combine local graph-mask symmetries in the presence of multiple pruning edges.
+The labelled violation kernel is a linear-algebraic object used to combine local graph-mask symmetries in the presence of active edge constraints.
 
-For one pruning edge, it is often enough to keep graph masks that are individually [mirror-compatible](mirror-compatible-graph-mask.md) with that edge. With multiple pruning edges, this is too restrictive: two masks may each violate the same pruning edge, but their composition may cancel the violation.
+For one edge, it is often enough to keep graph masks that are individually [mirror-compatible](mirror-compatible-graph-mask.md) with that edge. With multiple active edges, this is too restrictive: two masks may each violate the same edge, but their composition may cancel the violation.
 
-The cancellation is not purely by pruning-edge parity. Experiments show that the violation should be labelled by both:
+The cancellation is not purely by edge parity. Experiments show that the violation should be labelled by both:
 
-- the pruning edge being violated;
+- the active edge being violated;
 - the mirror clique of the graph mask causing the violation.
 
 Thus, two violations cancel only when they have the same labelled type.
@@ -25,14 +25,14 @@ $$
 g=(m_g,C_g),
 $$
 
-where $m_g\in\mathbb{F}_2^{B}$ is the binary mask and $C_g$ is its mirror clique. Assume each $g\in\mathcal{G}$ is mirror-compatible with the local base edge set.
+where $m_g\in\mathbb{F}_2^{B}$ is the binary mask and $C_g$ is its mirror clique.
 
-Let $P$ be a set of pruning edges. Define the labelled violation set
+Let $F$ be a set of active edges. Define the labelled violation set
 
 $$
 \mathcal{L}
 =
-\{(e,C_g) \mid g\in\mathcal{G},\ e\in P,\ g \text{ is not mirror-compatible with } e\}.
+\{(e,C_g) \mid g\in\mathcal{G},\ e\in F,\ g \text{ is not mirror-compatible with } e\}.
 $$
 
 The violation signature of a generator $g$ is the vector
@@ -64,7 +64,7 @@ $$
 The corresponding mask space is the projection
 
 $$
-\mathcal{K}_P
+\mathcal{K}_F
 =
 \left\{
 \bigoplus_{g\in\mathcal{G}}\alpha_g m_g
@@ -81,7 +81,7 @@ Let $M$ be the matrix whose columns are the support masks $m_g$, and let $V$ be 
 The rank of the projected kernel can be computed without enumerating the kernel:
 
 $$
-\operatorname{rank}(\mathcal{K}_P)
+\operatorname{rank}(\mathcal{K}_F)
 =
 \operatorname{rank}
 \begin{bmatrix}
@@ -94,14 +94,19 @@ $$
 
 This follows by viewing the column span of $\begin{bmatrix}M\\V\end{bmatrix}$ and taking its intersection with the subspace whose violation coordinates are zero.
 
-## Counting hypothesis
+This rank identity is the algebraic core of the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md). The geometric part requires the [labelled presentation property](labelled-presentation-property.md): violations with different labels should not cancel outside exceptional coordinate sets. This is the same genericity issue described by [generic mirror independence](generic-mirror-independence.md).
 
-For generic DDGP instances with a pruning-edge set $P$, experiments suggest that the local valid solution count is
+When the same branch mask has multiple generator presentations, the invariant
+obstruction lives in the [labelled obstruction quotient](labelled-obstruction-quotient.md), not in the raw labelled violation space.
+
+## Counting role
+
+For generic DDGP instances with an active local edge set $F$, the labelled-presentation theorem would give
 
 $$
-|\Xi_P|
+|\Xi_F|
 =
-2^{\operatorname{rank}(\mathcal{K}_P)}.
+2^{\operatorname{rank}(\mathcal{K}_F)}.
 $$
 
-This extends the one-pruning-edge mirror-compatible mask rule to multiple pruning edges. The corresponding algorithmic form is the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md).
+For local pruning-count experiments, $F=E_0[L_P]\cup P$. This extends the one-pruning-edge mirror-compatible mask rule to base and pruning edges simultaneously. The corresponding algorithmic form is the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md).

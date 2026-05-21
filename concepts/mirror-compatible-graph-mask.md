@@ -56,8 +56,8 @@ For a pruning edge $e=\{u,v\}$, a graph mask can be tested against:
 - the local base edge set, to decide whether it preserves the local base solution code;
 - the single pruning edge $e$, to decide whether it survives the pruning constraint.
 
-Experiments suggest that the number of local valid solutions can be predicted by the rank of the span of graph-derived masks that are mirror-compatible with both the local base edges and the pruning edge.
+For one pruning edge, this individual mirror-compatibility test is often enough to predict the number of local valid solutions from the rank of the compatible graph-mask span.
 
 This criterion is intended as a generic graph-theoretic test. Nongeneric coordinate coincidences can create additional symmetries, for example when an endpoint not belonging to the mirror clique nevertheless lies geometrically on the mirror hyperplane.
 
-For multiple pruning edges, individual mirror-compatibility is too restrictive. The corresponding linear object is the [labelled violation kernel](labelled-violation-kernel.md), where violations are labelled by both pruning edge and mirror clique before cancellation.
+For multiple active edges, and for the current active-edge treatment of base and pruning edges together, individual mirror-compatibility is too restrictive. The corresponding linear object is the [labelled violation kernel](labelled-violation-kernel.md), where violations are labelled by both edge and mirror clique before cancellation.

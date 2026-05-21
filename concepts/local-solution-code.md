@@ -74,6 +74,6 @@ This is a candidate local analogue of the DMDGP symmetry count.
 
 Current experiments test whether this stabilizer can be generated from graph-derived masks, especially dependency-cone masks and [base-clique closure masks](base-clique-closure-mask.md).
 
-A graph-derived mask is a candidate generator only when it is [mirror-compatible](mirror-compatible-graph-mask.md) with the relevant edge constraints.
+A graph-derived mask is an individual symmetry candidate only when it is [mirror-compatible](mirror-compatible-graph-mask.md) with the relevant edge constraints.
 
-For multiple pruning edges, candidate generators can be combined through a [labelled violation kernel](labelled-violation-kernel.md). The resulting rank formula is recorded as the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md).
+For multiple active edge constraints, even individually non-compatible generators can be combined through a [labelled violation kernel](labelled-violation-kernel.md). When this kernel satisfies the [labelled presentation property](labelled-presentation-property.md), the local solution code is exactly one affine coset of the projected kernel. The resulting rank formula is recorded as the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md).
