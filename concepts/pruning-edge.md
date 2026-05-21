@@ -10,11 +10,11 @@ A pruning edge is an edge whose distance is not used to generate a candidate pos
 
 In the [DMDGP](discretizable-molecular-distance-geometry-problem.md), after $v_i$ is placed from its $K$ immediate predecessors, any edge from $v_i$ to an earlier vertex outside that immediate predecessor window acts as a pruning edge. In the [DDGP](discretizable-distance-geometry-problem.md), the same concept is relative to the chosen set of $K$ predecessors: an earlier edge not selected as a [discretization edge](discretization-edge.md) becomes a pruning constraint.
 
-Pruning edges are essential for reducing the number of candidate realizations. Without them, a DMDGP instance generically yields a full binary tree with up to $2^{n-K}$ leaves after the initial $K$ vertices are fixed.
+Pruning edges are essential for reducing the number of candidate realizations. With the convention used in these notes, the first $K+1$ vertices are fixed as an initial rigid simplex, so a DMDGP instance without pruning edges generically yields a full binary tree with up to $2^{n-K-1}$ leaves.
 
 ## Formal definition
 
-Let $G = (V, E, d)$ be a weighted graph with discretization order $v_1, \dots, v_n$. For each $i > K$, let $U_i$ be the set of $K$ predecessors used to place $v_i$, and let
+Let $G = (V, E, d)$ be a weighted graph with discretization order $v_1, \dots, v_n$. The first $K+1$ vertices are fixed as the initial rigid simplex. For each non-seed vertex $i > K+1$, let $U_i$ be the set of $K$ predecessors used to place $v_i$, and let
 
 $$
 E_D(i) = \{\{u, v_i\} \in E \mid u \in U_i\}
@@ -38,7 +38,7 @@ The set of pruning edges is therefore
 
 $$
 E_P =
-\{\{u, v_i\} \in E \mid i > K,\ u \in \{v_1, \dots, v_{i-1}\},\ u \notin U_i\}.
+\{\{u, v_i\} \in E \mid i > K+1,\ u \in \{v_1, \dots, v_{i-1}\},\ u \notin U_i\}.
 $$
 
 In the DMDGP special case, where $U_i = \{v_{i-1}, \dots, v_{i-K}\}$, pruning edges are exactly the edges
@@ -56,3 +56,11 @@ $$
 $$
 
 for a numerical tolerance $\varepsilon$.
+
+For solution-counting experiments, a pruning edge $\{u,v\}$ can also be studied locally on
+
+$$
+\operatorname{Fix}_U(u) \cup \operatorname{Fix}_U(v),
+$$
+
+the set of vertices needed to construct both endpoints through the selected discretization dependency structure. The binary encodings of these local realizations form a [local solution code](local-solution-code.md). Dependency cones that contain exactly one endpoint of the pruning edge are [endpoint-separating cones](endpoint-separating-cone.md).

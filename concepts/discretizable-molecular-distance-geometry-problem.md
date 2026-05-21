@@ -13,13 +13,13 @@ Discretization is achieved by ordering the vertices of the graph such that each 
 * For $K=2$ (in a 2D plane), the next point's distance from 2 predecessors is determined by the intersection of 2 circles, which yields at most 2 candidate positions.
 * For $K=3$ (in a 3D space), the next point's distance from 3 predecessors is determined by the intersection of 3 spheres, which yields at most 2 candidate positions.
 
-If the predecessors are not collinear (or in general, do not lie in a lower-dimensional affine subspace), we are guaranteed to have exactly 2 candidate positions at each step. By building these positions sequentially, we construct a binary tree of candidate realizations of size $2^{|V|-K}$. Any additional distance constraints, called [pruning edges](pruning-edge.md), can then be used to prune branches of this tree.
+If the predecessors are not collinear (or in general, do not lie in a lower-dimensional affine subspace), we are guaranteed to have exactly 2 candidate positions at each step. For solution-counting purposes in these notes, the first $K+1$ vertices are fixed as the initial rigid simplex, so the global reflection of that simplex is not counted as a branching decision. Under this convention, the binary tree has size $2^{|V|-K-1}$ before pruning. Any additional distance constraints, called [pruning edges](pruning-edge.md), can then be used to prune branches of this tree.
 
 ## Formal definition
 
 A DGP instance $(G, K)$ with $G = (V, E, d)$ is a $^K$DMDGP if there exists a vertex order $v_1, \dots, v_n \in V$ such that:
 
-1. **Initial Clique**: The induced subgraph $G[\{v_1, \dots, v_K\}]$ is a clique (all pairwise distances are known, which allows fixing the coordinate system of the first $K$ vertices).
+1. **Initial Rigid Simplex**: The induced subgraph $G[\{v_1, \dots, v_{K+1}\}]$ is a clique (all pairwise distances are known), and this simplex is fixed to remove translations, rotations, and the trivial global reflection.
 2. **Discretization Order**: For every $i > K$, $v_i$ is adjacent to $v_{i-1}, \dots, v_{i-K}$. The edges $\{v_{i-j}, v_i\}$ for $j = 1, \dots, K$ are called [discretization edges](discretization-edge.md) ($E_D$).
 3. **Non-collinearity**: The Cayley-Menger determinant of the $K$ predecessors is non-zero:
    $$CM(v_{i-1}, \dots, v_{i-K}) \neq 0$$

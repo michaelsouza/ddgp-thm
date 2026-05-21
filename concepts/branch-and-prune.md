@@ -8,7 +8,7 @@ sources: [goncalves2021new]
 
 The Branch-and-Prune (BP) algorithm is the standard method for solving Discretizable Molecular Distance Geometry Problems (DMDGP). Because the DMDGP search space is discrete, it can be represented as a binary tree of candidate positions. The BP algorithm systematically explores this tree using a depth-first search (DFS).
 
-At each level of the tree (representing a vertex $v_i$), the algorithm:
+After fixing the first $K+1$ vertices as an initial rigid simplex, each non-seed level of the tree (representing a vertex $v_i$ with $i > K+1$) is handled as follows:
 1. **Branches**: Generates exactly two candidate positions $\{x_i^+, x_i^-\}$ using $K$-lateration (circle/sphere intersection).
 2. **Prunes**: Checks if the candidate positions satisfy any known distances associated with [pruning edges](pruning-edge.md) (in the DMDGP, edges $\{v_h, v_i\}$ where $h < i - K$). If a candidate position violates a distance constraint within a given tolerance $\varepsilon$, the algorithm prunes that entire branch of the search tree immediately, avoiding the need to explore its descendants.
 
@@ -18,7 +18,7 @@ If a leaf node is successfully reached (level $n$), a valid full realization of 
 
 Let $(G, K)$ be a DMDGP instance with $G = (V, E, d)$, and let $E = E_D \cup E_P$ be the partition of edges into [discretization edges](discretization-edge.md) $E_D$ and [pruning edges](pruning-edge.md) $E_P$. 
 
-The BP algorithm can be recursively defined for step $i$ (with $i > K$, after fixing the initial clique $x_1, \dots, x_K$):
+The BP algorithm can be recursively defined for step $i$ (with $i > K+1$, after fixing the initial rigid simplex $x_1, \dots, x_{K+1}$):
 
 1. **Base Case**: If $i > n$, return the valid realization $x = (x_1, \dots, x_n)$.
 2. **Lateration Step**: Find the two solutions $\{x_i^+, x_i^-\} \subset \mathbb{R}^K$ to the system:

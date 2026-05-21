@@ -12,18 +12,18 @@ The key difference lies in the choice of predecessors used to locate the next ve
 * In the **DMDGP**, vertex $v$ must have known distances to its $K$ **immediate** predecessors in the vertex order (i.e., $v_{i-1}, \dots, v_{i-K}$). These distances define the [discretization edges](discretization-edge.md).
 * In the **DDGP**, vertex $v$ only needs to have known distances to **any** $K$ predecessors that appear earlier in the vertex order, not necessarily the immediate ones. The discretization edges are therefore relative to the chosen predecessor set.
 
-While the DDGP encompasses a larger set of instances, this relaxation has a significant theoretical cost. In the DMDGP, the use of immediate predecessors ensures that partial reflections across hyperplanes map valid embeddings to valid embeddings, guaranteeing that the number of solutions is always a power of two with probability 1. In the DDGP, because the hyperplanes are defined by non-adjacent predecessors, reflections do not necessarily preserve validity, meaning the "power of two" solution count property does not generally hold. Additional known distances not chosen for discretization act as [pruning edges](pruning-edge.md).
+While the DDGP encompasses a larger set of instances, this relaxation has a significant theoretical cost. In the DMDGP, the use of immediate predecessors ensures that partial reflections across hyperplanes map valid embeddings to valid embeddings, guaranteeing that the number of solutions is always a power of two with probability 1. In the DDGP, because the hyperplanes are defined by non-adjacent predecessors, reflections do not necessarily preserve validity, meaning the "power of two" solution count property does not generally hold. Additional known distances not chosen for discretization act as [pruning edges](pruning-edge.md), and the vertices that actually determine a later position are captured by its [discretization dependency set](discretization-dependency-set.md).
 
 ## Formal definition
 
 Let $G = (V, E)$ be an undirected graph, $d: E \to \mathbb{R}_{+}$ be an edge weight function, $K > 0$ be the dimension of the embedding space, and $<$ be a total order on $V$. Let $\gamma(v) = \{u \in V \mid u < v\}$ be the set of predecessors of $v$, and let $\rho(v)$ be the rank of $v$ in $<$.
 
-A DGP instance $(G, d, K)$ is in the **DDGP** (or $\text{DDGP}_K$) if there exists a total order $<$ and a subset of initial vertices $V_0 = \{v \in V \mid \rho(v) \le K\}$ such that:
+A DGP instance $(G, d, K)$ is in the **DDGP** (or $\text{DDGP}_K$) if there exists a total order $<$ and, for the solution-counting convention used here, a subset of fixed initial vertices $V_0 = \{v \in V \mid \rho(v) \le K+1\}$ such that:
 
-1. **Initial Clique**: The induced subgraph $G[V_0]$ is a clique $\mathbf{K}_K$, and a valid partial embedding $\bar{x}: V_0 \to \mathbb{R}^K$ exists.
+1. **Initial Rigid Simplex**: The induced subgraph $G[V_0]$ is a clique $\mathbf{K}_{K+1}$, and a valid nondegenerate partial embedding $\bar{x}: V_0 \to \mathbb{R}^K$ exists.
 2. **Discretization Condition**: For all $v \in V \setminus V_0$:
    $$|N(v) \cap \gamma(v)| \ge K$$
-   That is, each vertex $v$ of rank $> K$ is adjacent to at least $K$ of its predecessors.
+   That is, each non-seed vertex is adjacent to at least $K$ of its predecessors.
 3. **Simplex Condition**: For each $v \in V \setminus V_0$, there exists a subset $U_v \subseteq N(v) \cap \gamma(v)$ of cardinality $K$ that forms a clique $\mathbf{K}_K$ satisfying [Strict Simplex Inequalities](strict-simplex-inequalities.md):
    $$\Delta_{K-1}(U_v) > 0$$
 
