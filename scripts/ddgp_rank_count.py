@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Predict local DDGP solution counts by a labelled-violation rank formula.
+"""Predict local DDGP solution counts by an active-edge labelled-violation rank formula.
 
-The prediction is graph-combinatorial. It does not enumerate branch strings.
+The prediction treats local base and pruning edges uniformly as active edge
+constraints. It is graph-combinatorial and does not enumerate branch strings.
 Use ``--verify`` to add exact local counts by enumeration for small instances.
 """
 
@@ -85,37 +86,48 @@ def count_row(
 
     children = dependency_children(instance)
     generator_records = graph_generators(instance, children, local_vertices, decisions)
-    base_generator_records = [
-        generator
-        for generator in generator_records
-        if mirror_rule_preserves_edges(generator, local_base_edges, decisions)
-    ]
-    base_generator_masks = sorted({generator[0] for generator in base_generator_records})
+    generator_masks = sorted({generator[0] for generator in generator_records})
     individually_valid_records = [
         generator
-        for generator in base_generator_records
-        if mirror_rule_preserves_edges(generator, pruning_edges, decisions)
+        for generator in generator_records
+        if mirror_rule_preserves_edges(generator, local_valid_edges, decisions)
     ]
     individually_valid_masks = sorted({generator[0] for generator in individually_valid_records})
-    violation_vectors, labels = labelled_violation_vectors(
-        base_generator_records,
-        pruning_edges,
+    base_violation_vectors, base_labels = labelled_violation_vectors(
+        generator_records,
+        local_base_edges,
         decisions,
     )
-    combined_vectors = [
+    valid_violation_vectors, valid_labels = labelled_violation_vectors(
+        generator_records,
+        local_valid_edges,
+        decisions,
+    )
+    base_combined_vectors = [
         generator[0] + violation
-        for generator, violation in zip(base_generator_records, violation_vectors)
+        for generator, violation in zip(generator_records, base_violation_vectors)
+    ]
+    valid_combined_vectors = [
+        generator[0] + violation
+        for generator, violation in zip(generator_records, valid_violation_vectors)
     ]
 
-    base_rank = gf2_rank(base_generator_masks)
-    individual_rank = gf2_rank(individually_valid_masks)
-    labelled_rank = labelled_violation_kernel_rank(
-        base_generator_records,
-        pruning_edges,
+    generator_rank = gf2_rank(generator_masks)
+    base_rank = labelled_violation_kernel_rank(
+        generator_records,
+        local_base_edges,
         decisions,
     )
-    violation_rank = gf2_rank(violation_vectors)
-    combined_rank = gf2_rank(combined_vectors)
+    individual_rank = gf2_rank(individually_valid_masks)
+    labelled_rank = labelled_violation_kernel_rank(
+        generator_records,
+        local_valid_edges,
+        decisions,
+    )
+    base_violation_rank = gf2_rank(base_violation_vectors)
+    valid_violation_rank = gf2_rank(valid_violation_vectors)
+    base_combined_rank = gf2_rank(base_combined_vectors)
+    valid_combined_rank = gf2_rank(valid_combined_vectors)
 
     row: dict[str, object] = {
         "id": instance.instance_id,
@@ -127,20 +139,25 @@ def count_row(
         "local_vertices": format_vertices(local_vertices),
         "local_decisions": format_vertices(decisions),
         "local_decision_count": len(decisions),
-        "base_generator_count": len(base_generator_records),
-        "base_generator_rank": base_rank,
+        "graph_generator_count": len(generator_records),
+        "graph_generator_rank": generator_rank,
+        "base_labelled_violation_count": len(base_labels),
+        "base_labelled_violation_rank": base_violation_rank,
+        "base_combined_mask_violation_rank": base_combined_rank,
+        "base_kernel_rank": base_rank,
         "predicted_local_base_count": 2**base_rank,
         "individually_valid_generator_count": len(individually_valid_records),
         "individually_valid_generator_rank": individual_rank,
         "predicted_by_individual_compatibility": 2**individual_rank,
-        "labelled_violation_count": len(labels),
-        "labelled_violation_rank": violation_rank,
-        "combined_mask_violation_rank": combined_rank,
+        "valid_labelled_violation_count": len(valid_labels),
+        "valid_labelled_violation_rank": valid_violation_rank,
+        "valid_combined_mask_violation_rank": valid_combined_rank,
         "labelled_kernel_rank": labelled_rank,
         "predicted_local_valid_count": 2**labelled_rank,
-        "rank_identity_holds": labelled_rank == combined_rank - violation_rank,
-        "base_generators": ";".join(
-            format_generator(generator, decisions) for generator in base_generator_records
+        "base_rank_identity_holds": base_rank == base_combined_rank - base_violation_rank,
+        "valid_rank_identity_holds": labelled_rank == valid_combined_rank - valid_violation_rank,
+        "graph_generators": ";".join(
+            format_generator(generator, decisions) for generator in generator_records
         ),
         "individually_valid_generators": ";".join(
             format_generator(generator, decisions) for generator in individually_valid_records
