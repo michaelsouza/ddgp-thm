@@ -7,6 +7,7 @@ Research notes and glossary for the study of the Distance Geometry Problem (DGP)
 ```
 concepts/       — glossary entries (one file per concept)
 references/     — source articles (.pdf + .md notes)
+research/       — evolving hypothesis journals and experimental datasets
 scripts/        — tooling
 ```
 
@@ -62,6 +63,17 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Experimental tooling
+
+The current DDGP counting experiments use:
+
+- `scripts/ddgp_generate_single_pruning.py` to generate one-pruning-edge instances.
+- `scripts/ddgp_generate_multi_pruning.py` to generate multi-pruning-edge instances.
+- `scripts/ddgp_count_solutions.py` to enumerate exact counts for validation.
+- `scripts/ddgp_rank_count.py` to predict local valid counts by the labelled-violation rank formula without enumerating branch strings.
+
+The geometric generator and exact enumerator currently support `K=2` and `K=3`.
+
 ## Decisions
 
 | Decision | Choice | Reason | Date |
@@ -72,3 +84,4 @@ pip install -r requirements.txt
 | Index grouping | First tag | Simple heuristic; author controls grouping by ordering tags | 2026-05-20 |
 | Frontmatter parser | `python-frontmatter` | Robust YAML parsing; avoids hand-rolled regex | 2026-05-20 |
 | Concept structure | Intuition + Formal definition | Two audiences: accessible reading and mathematical precision | 2026-05-20 |
+| Solution-counting seed | Fix first `K+1` vertices | Removes the trivial global reflection; binary decisions start at vertex `K+2` | 2026-05-20 |
