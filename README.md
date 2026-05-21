@@ -7,7 +7,7 @@ Research notes and glossary for the study of the Distance Geometry Problem (DGP)
 ```
 concepts/       — glossary entries (one file per concept)
 references/     — source articles (.pdf + .md notes)
-research/       — evolving hypothesis journals and experimental datasets
+research/       — evolving hypothesis journals, proofs, and the unified rank-count theory report
 scripts/        — tooling
 ```
 
@@ -77,7 +77,9 @@ The geometric generator and exact enumerator currently support `K=2` and `K=3`.
 The current proof formulation for the rank count is in
 `research/labelled-violation-rank-proof.md`. For `K >= 2`, the generic theorem
 is formulated through the labelled presentation property and the labelled
-obstruction quotient.
+obstruction quotient. A unified, article-style presentation of the complete theory,
+proof architecture, F_2 rank-count algorithm, and experimental verification is available
+in `research/ddgp-rank-count-theory-report.md`.
 
 ## Decisions
 

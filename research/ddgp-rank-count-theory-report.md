@@ -71,7 +71,7 @@ B_P = L_P \setminus V_0
 $$
 which contains all decision variables (branch choices) that influence the local subproblem.
 
-Let $F \subseteq E[L_P]$ be the **active edge set**. In pruning experiments, $F$ typically consists of the induced local base edges $E_0[L_P]$ and the pruning edges $P$:
+Let $F \subseteq E[L_P]$ be the **active edge set**. In the rank-count theorem we assume that $F$ contains the induced local base edges $E_0[L_P]$. In pruning experiments, $F$ typically consists of these base edges together with the pruning edges $P$:
 $$
 F = E_0[L_P] \cup P
 $$
@@ -86,33 +86,179 @@ $$
 
 ## 3. Graph Generators
 
-To characterize the symmetries of the local solution code, we define a family $\mathcal{G}$ of **graph generators** over $B_P$. Each generator $g \in \mathcal{G}$ is a pair:
+The role of the graph generators is to replace the interval partial reflections
+of the DMDGP by objects that make sense on the DDGP dependency DAG.
+
+In the DMDGP, toggling a reflection at one level affects a suffix of the vertex
+order. In the DDGP there is no suffix structure: toggling the branch choice at
+a vertex affects exactly its forward dependency descendants. Thus the basic
+object is a **mask** on the local decision set $B_P$.
+
+Each generator $g\in\mathcal G$ is a pair:
+
 $$
 g = (m_g, C_g)
 $$
-where $m_g \in \mathbb{F}_2^{B_P}$ is a binary branch mask, and $C_g$ is a **mirror clique** representing the rigid coordinate hyperplane through which the mask reflects vertices. We define two types of generators:
 
-### 3.1 Dependency-Cone Generators
-For every decision vertex $q \in B_P$, the dependency-cone generator is:
+with two pieces of data:
+
+- $m_g\in\mathbb F_2^{B_P}$ is the **branch mask**. Its support says which
+  local branch bits are toggled.
+- $C_g$ is the **mirror clique**. It identifies the affine hyperplane
+  $H_{C_g}=\operatorname{aff}(C_g)$ through which the corresponding geometric
+  reflection is interpreted.
+
+The support of a mask is
+
+$$
+\operatorname{supp}(m_g)
+=
+\{z\in B_P\mid (m_g)_z=1\}.
+$$
+
+The mask and the mirror clique should not be confused. The mask tells us
+**which branch decisions change**. The mirror clique tells us **which
+hyperplane explains the geometric effect** of those branch changes.
+
+We use two kinds of graph generators.
+
+### 3.1 The Generator Mask Matrix $M$
+
+Let $A = \mathbb F_2^{\mathcal G}$ be the coefficient space of graph generators, representing linear combinations of generators over $\mathbb F_2$. The **generator mask matrix** $M$ is the $|B_P| \times |\mathcal G|$ binary matrix whose columns are the branch mask vectors $m_g$ of the generators $g \in \mathcal G$:
+
+$$
+M = \begin{bmatrix} | & | & & | \\ m_{g_1} & m_{g_2} & \cdots & m_{g_m} \\ | & | & & | \end{bmatrix}
+$$
+
+This matrix represents the linear map $M: A \to \mathbb F_2^{B_P}$ that maps a generator combination $\alpha \in A$ to its combined branch mask:
+$$
+M\alpha = \bigoplus_{g \in \operatorname{supp}(\alpha)} m_g
+$$
+
+To populate this matrix and establish the geometric relations, we define two specific types of graph generators.
+
+### 3.2 Dependency-Cone Generators
+
+The first generator type records the direct effect of changing one branch
+choice.
+
+For every decision vertex $q\in B_P$, changing the branch choice at $q$
+reflects $v_q$ through the hyperplane determined by its predecessor clique
+$U_q$. Every later vertex that depends on $q$ must then be recomputed, so
+the branch bits affected by this operation are precisely the vertices in the
+forward dependency cone of $q$.
+
+The corresponding dependency-cone generator is
+
 $$
 g_q = (m_q, U_q)
 $$
-where the support of the mask is the intersection of its dependency cone with the local decision set:
-$$
-S_q = \operatorname{supp}(m_q) = B_P \cap \operatorname{Cone}_U(q)
-$$
-The associated mirror clique is the predecessor set $U_q$.
 
-### 3.2 Base-Clique Closure Generators
-When multiple vertices share the same predecessor set (a common occurrence in non-consecutive lateration), they reflect through the same hyperplane. For every clique $C \subseteq L_P$ that serves as a predecessor set for some vertices, the base-clique closure generator is:
+with support
+
+$$
+S_q
+=
+\operatorname{supp}(m_q)
+=
+B_P \cap \operatorname{Cone}_U(q).
+$$
+
+Equivalently,
+
+$$
+(m_q)_z=1
+\quad\Longleftrightarrow\quad
+z\in B_P
+\text{ and } q\leadsto z
+\text{ in the dependency DAG}.
+$$
+
+The mirror clique of this generator is $U_q$, because the two lateration
+positions of $v_q$ are reflections through $H_{U_q}$.
+
+These cone masks span the entire local branch space. If the vertices in
+$B_P$ are ordered by the DDGP order, the cone mask of $q$ contains $q$
+and only vertices after $q$. Therefore the cone-mask matrix is triangular
+with ones on the diagonal.
+
+### 3.3 Base-Clique Closure Generators
+
+Cone masks are enough to span branch differences, but they are not enough to
+represent all geometric cancellations with the correct mirror label.
+
+The reason is that several vertices may be generated from the same predecessor
+clique $C$. Each such vertex has the same mirror hyperplane $H_C$. If these
+vertices, together with their descendants, are toggled as one block, then
+crossing-edge obstructions should be labelled by the single mirror clique
+$C$, not by a sequence of individual cone presentations.
+
+For a predecessor clique $C$, define the set of local vertices generated from
+$C$ by
+
+$$
+\operatorname{Gen}_P(C)
+=
+\{w\in L_P\setminus V_0\mid U_w=C\}.
+$$
+
+The base-clique closure generator is
+
 $$
 g_C = (m_C, C)
 $$
-where the mask support is the union of cones of all vertices that share $C$ as their predecessor set:
+
+with support
+
 $$
-S_C = \operatorname{supp}(m_C) = B_P \cap \bigcup_{w: U_w = C} \operatorname{Cone}_U(w)
+S_C
+=
+\operatorname{supp}(m_C)
+=
+B_P
+\cap
+\bigcup_{w\in \operatorname{Gen}_P(C)}
+\operatorname{Cone}_U(w).
 $$
-These closure generators do not increase the linear span of the mask space, but they are essential because a group of vertices generated from the same mirror clique can act as a single geometric reflection block.
+
+Equivalently,
+
+$$
+(m_C)_z=1
+\quad\Longleftrightarrow\quad
+z\in B_P
+\text{ and } z \text{ depends on at least one local vertex generated from } C.
+$$
+
+These closure generators may be linearly redundant as masks, since cone masks
+already span $\mathbb F_2^{B_P}$. They are not redundant in the labelled
+theory. The same branch mask can have different geometric presentations, and
+the mirror label matters when active-edge violations are cancelled.
+
+### 3.4 Why Both Generator Types Are Needed
+
+The matrix $M$ only records branch masks. From the point of view of $M$, a
+base-clique closure mask may be expressible as an XOR of cone masks. However,
+the **labelled violation matrix** $V_F$ (which is formally defined in Section 4.2 and maps each generator presentation to its set of active-edge violation labels) tracks the specific mirror clique associated with each reflection. A closure generator can therefore contribute a unique labelled obstruction $(e,C)$ that is not visible if the same mask is decomposed into cones with different mirror labels.
+
+This distinction is the reason we work with graph generators
+
+$$
+g=(m_g,C_g)
+$$
+
+rather than with masks $m_g$ alone. The branch mask controls the algebra over
+$\mathbb F_2$; the mirror clique controls the geometry of active-edge
+preservation.
+
+In summary:
+
+- dependency-cone generators describe the effect of changing one branch choice
+  and propagating through the dependency DAG;
+- base-clique closure generators describe block changes generated by a common
+  mirror clique;
+- both are needed because the rank formula depends on labelled geometric
+  obstructions, not only on the span of branch masks.
 
 ---
 
@@ -207,7 +353,7 @@ $$
 At this stage, $\mathcal{U}_F(s_0)$ is only a set of algebraic edge-preserving differences, so the statement is a translate rather than a vector-space coset. The labelled-presentation theorem below identifies it with the vector space $M(\ker V_F)$.
 
 ### Theorem 2: Generic Labelled Presentation (Lemma 6)
-Assume $K\ge2$. For a generic DDGP realization with active edge set $F$, for every feasible base code $s_0 \in \Xi_F$ and branch difference $h$:
+Assume $K\ge2$ and $E_0[L_P]\subseteq F$. For a generic DDGP realization with active edge set $F$, for every feasible base code $s_0 \in \Xi_F$ and branch difference $h$:
 $$
 h \in \mathcal{U}_F(s_0) \iff \omega_F(h) = 0
 $$
@@ -217,7 +363,7 @@ $$
 $$
 
 ### Theorem 3: Generic Labelled-Violation Rank Count
-Assume $K \ge 2$, $\Xi_F \neq \varnothing$, and the DDGP instance is generic. Then, outside a proper algebraic exceptional set, the size of the local solution code is given by:
+Assume $K \ge 2$, $E_0[L_P]\subseteq F$, $\Xi_F \neq \varnothing$, and the DDGP instance is generic. Then, outside a proper algebraic exceptional set, the size of the local solution code is given by:
 $$
 |\Xi_F| = 2^{\operatorname{rank} \begin{bmatrix} M \\ V_F \end{bmatrix} - \operatorname{rank}(V_F)}
 $$
@@ -279,7 +425,7 @@ If $a \in C$ or $b \in C$, $\mu_{e,C} = 0$, representing mirror compatibility. O
   Since distinct labels have distinct leading exponents under this specialization, any non-empty sum $B_\varphi$ has a unique largest exponent and cannot vanish identically. $\square$
 
 - **Lemma 8 (Nonzero Labelled Obstruction gives Nonzero Edge Residual)**: If $\omega_F(h) \neq 0$, the coefficient of the primitive bracket monomial in the active-edge residual contains a factor of $4 h_a h_b \neq 0$. By Lemma 7, these monomials cannot cancel each other out in the quotient, so at least one active edge residual $\Delta_{e,s_0,h}$ is not identically zero.
-- **Lemma 9 (Zero Labelled Obstruction Preserves Active Edges)**: If $\omega_F(h) = 0$, then $h \in M(\ker V_F)$. By grouping the generators by mirror clique, we apply block reflections one mirror clique at a time. Each step is mirror-compatible (Lemma 2) and preserves active edge lengths identically.
+- **Lemma 9 (Zero Labelled Obstruction Preserves Active Edges)**: If $\omega_F(h) = 0$, then $h \in M(\ker V_F)$. By grouping a zero-labelled presentation by mirror clique, we obtain BP block operations. Each block is mirror-compatible with every active edge and therefore preserves active edge lengths identically. Section 10.2 gives the normal-form proof.
 
 ### 7.4 Rank-Nullity projected kernel dimension theorem
 The linear-algebra identity for $\dim \mathcal{K}_F$ is unconditional. Define:
@@ -371,7 +517,7 @@ In non-generic coordinate configurations, the actual number of local solutions c
 
 ## 10. Refinements Toward an Academic Article
 
-To transition this research report into a journal-ready publication, two polishing tasks are identified:
+To transition this research report into a journal-ready publication, the following refinements separate the remaining edge cases from the block-normal-form proof that should be promoted into the main text.
 
 ### 10.1 The Degenerate $K=1$ Case
 When $K=1$, the distance geometry problem reduces to positioning points on a line. 
@@ -379,10 +525,211 @@ When $K=1$, the distance geometry problem reduces to positioning points on a lin
 - The bracket separation proof (Lemma 7) must be adapted because the pair-multiset argument is degenerate for 1-cliques.
 - A separate, simple linear algebra proof can be formulated for $K=1$, which should be appended to the paper for completeness.
 
-### 10.2 Block-Reflection Normal Form
-Lemma 9 uses block reflections grouped by mirror clique. For publication, this part should be expanded into a clean normal-form statement for the BP sign cover, since the order of Euclidean reflections can matter geometrically even when the induced branch masks are combined over $\mathbb F_2$.
-- The normal form should make explicit why a zero-labelled presentation gives a valid algebraic motion on the iterated quadratic coordinate cover.
-- This will strengthen the connection between the combinatorial matrix kernel and the field-theoretic stabilizer $\operatorname{Stab}_{\mathrm{BP}}(F)$.
+### 10.2 Zero-Labelled Presentations and BP Block Realization
+
+We now prove the normal-form implication needed for the rank-count theorem:
+$$
+\omega_F(h)=0
+\quad\Longrightarrow\quad
+h \text{ preserves all active edges in } F.
+$$
+
+Throughout this subsection we assume that the active edge set contains the local base edges,
+$$
+E_0[L_P]\subseteq F.
+$$
+This assumption is essential for this proof: the base edges force a reflected block to be a valid operation on the BP sign cover, rather than merely an ideal Euclidean reflection of an arbitrary subset of vertices.
+
+For notational convenience, we use the extended labelled violation space with coordinates $(e,C)$, where $e\in F$ and $C$ ranges over the mirror cliques appearing among the generators. If no generator with mirror clique $C$ violates $e$, the corresponding row is identically zero. Thus passing from the sparse labelled space to this extended labelled space only adds zero rows and does not change any rank.
+
+Let $s\in \mathbb F_2^{B_P}$ be a feasible local BP code, and let $x(s)$ denote the corresponding realization on $L_P$. For every branch mask $h\in \mathbb F_2^{B_P}$, define the BP sign transformation
+$$
+\tau_h(s)=s\oplus h.
+$$
+This transformation acts on the BP sign cover. It should not be interpreted as a fixed Euclidean reflection in the final ambient coordinate system. The masks form an abelian group over $\mathbb F_2$, while the corresponding Euclidean reflections need not commute.
+
+For a generator $g=(m_g,C_g)$, write
+$$
+S_g=\operatorname{supp}(m_g).
+$$
+For a presentation $\alpha\in\mathbb F_2^{\mathcal G}$ and a mirror clique $C$, define the $C$-block mask by
+$$
+m_C(\alpha)
+=
+\bigoplus_{\substack{g\in\mathcal G\\ C_g=C\\ \alpha_g=1}}
+m_g,
+$$
+and denote its support by
+$$
+S_C(\alpha)=\operatorname{supp}(m_C(\alpha)).
+$$
+Then
+$$
+M\alpha=\bigoplus_C m_C(\alpha).
+$$
+
+For the dependency-cone and base-clique closure generators used here, every support with label $C$ is downstream of $C$: every vertex in the support is generated after all vertices of $C$. In particular,
+$$
+S_g\cap C_g=\varnothing.
+$$
+The same downstream property holds for every block support $S_C(\alpha)$.
+
+#### Definition 9.1: Base-Admissible Block
+
+Let $C$ be a mirror clique and let $S\subseteq B_P$. We say that $S$ is **$C$-admissible** with respect to the local base graph if:
+
+- $S$ is downstream of $C$, meaning every vertex in $S$ appears after every vertex of $C$ in the DDGP order;
+- every base edge $e=\{a,b\}\in E_0[L_P]$ crossing the boundary of $S$ has its fixed endpoint in $C$:
+  $$
+  |e\cap S|=1
+  \quad\Longrightarrow\quad
+  e\setminus S\subseteq C.
+  $$
+
+The first condition is automatic for the block supports produced by our same-label graph generators, but it is needed in the BP-cover realization argument.
+
+#### Lemma 9.2: BP Block Realization
+
+Let $C$ be a mirror clique, and let $S\subseteq B_P$ be $C$-admissible with respect to $E_0[L_P]$. Let $s$ be a feasible local BP code and $x(s)$ its realization on $L_P$. Let $R_C$ denote the Euclidean reflection through the affine hyperplane
+$$
+H_C=\operatorname{aff}(x_C(s)).
+$$
+Define a new coordinate assignment $y$ by
+$$
+y_i=
+\begin{cases}
+R_C x_i(s), & i\in S,\\
+x_i(s), & i\notin S.
+\end{cases}
+$$
+Then $y$ is the realization corresponding to the BP code
+$$
+s\oplus \chi_S.
+$$
+In particular, reflecting exactly the vertices in $S$ through $H_C$ is a well-defined operation on the local BP sign cover and flips precisely the branch bits indexed by $S$.
+
+*Proof.* We prove the claim by induction along the DDGP order.
+
+For the initial simplex vertices there is nothing to prove, since branch bits are only indexed by $B_P=L_P\setminus V_0$.
+
+Let $i\in L_P\setminus V_0$, and assume the claim has already been proved for all predecessors of $i$. We compare the lateration data defining $i$ before and after the proposed block operation.
+
+First suppose $i\notin S$. If some predecessor $u\in U_i$ belonged to $S$, then the base edge $\{u,i\}\in E_0[L_P]$ would cross the boundary of $S$. Since $S$ is $C$-admissible, the fixed endpoint $i$ would have to belong to $C$. This is impossible: $u\in S$ is downstream of $C$, while $u\in U_i$ implies that $u$ precedes $i$, and $i\in C$ would imply that $i$ precedes every vertex in $S$. Hence no predecessor of $i$ belongs to $S$. Therefore the predecessor coordinates of $i$ are unchanged, $y_i=x_i(s)$, and the BP branch bit at $i$ is unchanged.
+
+Now suppose $i\in S$. Let $u\in U_i$. If $u\in S$, then by the induction hypothesis its coordinate is transformed as
+$$
+y_u=R_C x_u(s).
+$$
+If $u\notin S$, then the base edge $\{u,i\}\in E_0[L_P]$ crosses the boundary of $S$. Since $S$ is $C$-admissible, we must have $u\in C$, and therefore
+$$
+R_C x_u(s)=x_u(s)=y_u.
+$$
+Hence for every predecessor $u\in U_i$,
+$$
+y_u=R_C x_u(s).
+$$
+Thus the whole predecessor simplex of $i$ has been transformed by the same Euclidean reflection $R_C$, and $y_i=R_C x_i(s)$.
+
+Since $R_C$ is an isometry, $y_i$ satisfies the same distances to the transformed predecessor simplex. Moreover, with the standard oriented BP sign convention, $R_C$ reverses the oriented height of $x_i(s)$ over the affine span of its predecessors. Hence the two lateration choices for $i$ are exchanged, and the BP bit at $i$ is flipped.
+
+Therefore the transformation leaves exactly the bits outside $S$ unchanged and flips exactly the bits inside $S$. This proves that $y$ is the realization of $s\oplus\chi_S$. $\square$
+
+#### Lemma 9.3: Zero-Labelled Blocks Are Base-Admissible
+
+Let $\alpha\in\ker V_F$. Then for every mirror clique $C$, the block support $S_C(\alpha)$ is $C$-admissible with respect to $E_0[L_P]$.
+
+*Proof.* The downstream condition follows from the construction of the generators. If $g_q$ is a dependency-cone generator with label $C$, then $C=U_q$ and $\operatorname{supp}(m_q)\subseteq \operatorname{Cone}_U(q)$, so every vertex in its support is generated after $C$. If $g_C$ is a base-clique closure generator, its support is a union of cones rooted at vertices generated from $C$, so it is also downstream of $C$. Therefore the XOR support $S_C(\alpha)$ is downstream of $C$.
+
+It remains to prove the base-edge crossing condition. Let $e\in E_0[L_P]$. Since $E_0[L_P]\subseteq F$, the labelled coordinate $(e,C)$ belongs to the extended violation space. Because $\alpha\in\ker V_F$, we have
+$$
+(V_F\alpha)_{(e,C)}=0.
+$$
+
+Suppose, for contradiction, that $e$ crosses $S_C(\alpha)$ and that its fixed endpoint is not in $C$. Since every $C$-labelled generator support is disjoint from $C$, the $(e,C)$-coordinate of $V_F\alpha$ is exactly the parity of the selected same-label generator supports crossing $e$. Crossing parity is linear over $\mathbb F_2$, hence this parity is the crossing parity of the block support $S_C(\alpha)$. The assumed crossing would therefore give
+$$
+(V_F\alpha)_{(e,C)}=1,
+$$
+contradicting $\alpha\in\ker V_F$. Thus every base edge crossing $S_C(\alpha)$ has its fixed endpoint in $C$, which is exactly $C$-admissibility. $\square$
+
+#### Lemma 9.4: Zero-Labelled Blocks Preserve Active Edges
+
+Let $\alpha\in\ker V_F$. Then, for every mirror clique $C$, the BP block operation associated with $S_C(\alpha)$ preserves every active edge $e\in F$.
+
+*Proof.* By Lemma 9.3, $S_C(\alpha)$ is $C$-admissible with respect to the local base graph. Hence, by Lemma 9.2, reflecting exactly the vertices in $S_C(\alpha)$ through $H_C$ realizes the BP sign transformation
+$$
+s\mapsto s\oplus m_C(\alpha).
+$$
+
+It remains to check active-edge preservation. Let $e=\{a,b\}\in F$. Since $\alpha\in\ker V_F$, the coordinate $(e,C)$ of $V_F\alpha$ is zero. By the same crossing-parity argument used in Lemma 9.3, if $e$ crossed $S_C(\alpha)$ with fixed endpoint outside $C$, then the $(e,C)$-coordinate would be one. Hence no such forbidden crossing occurs.
+
+Therefore one of the following holds:
+$$
+|e\cap S_C(\alpha)|=0,
+$$
+$$
+|e\cap S_C(\alpha)|=2,
+$$
+or
+$$
+|e\cap S_C(\alpha)|=1
+\quad\text{and the fixed endpoint lies in }C.
+$$
+In the first case, neither endpoint moves. In the second case, both endpoints are reflected by the same Euclidean isometry. In the third case, one endpoint is reflected through $H_C$, while the other endpoint lies on $H_C$. In all three cases, the length of $e$ is preserved. $\square$
+
+#### Proposition 9.5: Zero-Labelled Presentations Preserve Active Edges
+
+Let $\alpha\in\ker V_F$. Then the BP sign transformation
+$$
+\tau_{M\alpha}:s\mapsto s\oplus M\alpha
+$$
+preserves every active edge in $F$. In particular, if $s\in\Xi_F$, then
+$$
+s\oplus M\alpha\in\Xi_F.
+$$
+
+*Proof.* Decompose the mask $M\alpha$ into mirror-clique blocks:
+$$
+M\alpha=\bigoplus_C m_C(\alpha).
+$$
+Apply these blocks successively in any fixed order.
+
+At each step, the current point is still a feasible local BP realization, because the previous blocks preserve the local base edges. By Lemma 9.4, the next block preserves every active edge in $F$. Therefore, after all blocks have been applied, every active edge length is still preserved.
+
+The final BP code is
+$$
+s\oplus \bigoplus_C m_C(\alpha)
+=
+s\oplus M\alpha.
+$$
+Hence
+$$
+s\oplus M\alpha\in\Xi_F.
+$$
+$\square$
+
+#### Corollary 9.6: The Zero-Obstruction Kernel Preserves Active Edges
+
+For every feasible local code $s_0\in\Xi_F$,
+$$
+M(\ker V_F)\subseteq \mathcal U_F(s_0).
+$$
+Consequently,
+$$
+\omega_F(h)=0
+\quad\Longrightarrow\quad
+h\in\mathcal U_F(s_0).
+$$
+
+*Proof.* If $h\in M(\ker V_F)$, then $h=M\alpha$ for some $\alpha\in\ker V_F$. By Proposition 9.5,
+$$
+s_0\oplus h=s_0\oplus M\alpha\in\Xi_F.
+$$
+Thus $h$ preserves all active edges from $s_0$, and therefore
+$$
+h\in\mathcal U_F(s_0).
+$$
+
+If $\omega_F(h)=0$, the projected kernel identity in Section 5.3 gives $h\in M(\ker V_F)$. Applying the first part proves the implication. $\square$
 
 ---
 
