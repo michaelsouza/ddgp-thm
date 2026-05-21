@@ -8,7 +8,7 @@ sources: [liberti2011number]
 
 A hallmark result of the [DMDGP](discretizable-molecular-distance-geometry-problem.md) is that the number of incongruent valid realizations of a YES instance is always a power of two with probability 1. This property is mathematically established by analyzing the algebraic group formed by **Allowed Partial Reflections**.
 
-When solving the DMDGP using the [Branch-and-Prune (BP) Algorithm](branch-and-prune.md), the search space is represented as a binary tree where each node represents a candidate position of a vertex. A branching occurs at level $i$ (vertex $v_i$) because there are two candidate coordinates that satisfy the discretization distances to its $K$ predecessors. 
+When solving the DMDGP using the [Branch-and-Prune (BP) Algorithm](branch-and-prune.md), the search space is represented as a binary tree where each node represents a candidate position of a vertex. In these notes, the first $K+1$ vertices are fixed as an initial rigid simplex, so branching starts at level $K+2$. A branching occurs at level $i$ (vertex $v_i$) because there are two candidate coordinates that satisfy the discretization distances to its $K$ predecessors. 
 
 A **partial reflection** $g_i$ corresponds to reflecting the coordinates of all subsequent vertices $v_i, \dots, v_n$ across the local hyperplane defined by the predecessors of $v_i$. If both branches of the search tree starting from a node at level $i$ can be extended all the way to feasible leaf nodes (representing full valid realizations), we call $g_i$ an **allowed partial reflection**. 
 
