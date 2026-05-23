@@ -122,22 +122,7 @@ hyperplane explains the geometric effect** of those branch changes.
 
 We use two kinds of graph generators.
 
-### 3.1 The Generator Mask Matrix $M$
-
-Let $A = \mathbb F_2^{\mathcal G}$ be the coefficient space of graph generators, representing linear combinations of generators over $\mathbb F_2$. The **generator mask matrix** $M$ is the $|B_P| \times |\mathcal G|$ binary matrix whose columns are the branch mask vectors $m_g$ of the generators $g \in \mathcal G$:
-
-$$
-M = \begin{bmatrix} | & | & & | \\ m_{g_1} & m_{g_2} & \cdots & m_{g_m} \\ | & | & & | \end{bmatrix}
-$$
-
-This matrix represents the linear map $M: A \to \mathbb F_2^{B_P}$ that maps a generator combination $\alpha \in A$ to its combined branch mask:
-$$
-M\alpha = \bigoplus_{g \in \operatorname{supp}(\alpha)} m_g
-$$
-
-To populate this matrix and establish the geometric relations, we define two specific types of graph generators.
-
-### 3.2 Dependency-Cone Generators
+### 3.1 Dependency-Cone Generators
 
 The first generator type records the direct effect of changing one branch
 choice.
@@ -179,19 +164,25 @@ positions of $v_q$ are reflections through $H_{U_q}$.
 
 These cone masks span the entire local branch space. If the vertices in
 $B_P$ are ordered by the DDGP order, the cone mask of $q$ contains $q$
-and only vertices after $q$. Therefore the cone-mask matrix is triangular
-with ones on the diagonal.
+and only vertices after $q$. Therefore the submatrix of $M$ formed by the
+cone-generator columns is lower triangular with ones on the diagonal:
 
-### 3.3 Base-Clique Closure Generators
+$$
+M_{\mathrm{cone}} =
+\begin{bmatrix}
+1      & 0      & 0      & \cdots & 0 \\
+*      & 1      & 0      & \cdots & 0 \\
+*      & *      & 1      & \cdots & 0 \\
+\vdots &        &        & \ddots & \vdots \\
+*      & *      & *      & \cdots & 1
+\end{bmatrix}
+$$
 
-Cone masks are enough to span branch differences, but they are not enough to
-represent all geometric cancellations with the correct mirror label.
+where rows and columns are indexed by $B_P$ in DDGP order and $*\in\{0,1\}$
+encodes DAG reachability. Since $M_{\mathrm{cone}}$ is invertible over
+$\mathbb{F}_2$, the cone generators span $\mathbb{F}_2^{B_P}$.
 
-The reason is that several vertices may be generated from the same predecessor
-clique $C$. Each such vertex has the same mirror hyperplane $H_C$. If these
-vertices, together with their descendants, are toggled as one block, then
-crossing-edge obstructions should be labelled by the single mirror clique
-$C$, not by a sequence of individual cone presentations.
+### 3.2 Base-Clique Closure Generators
 
 For a predecessor clique $C$, define the set of local vertices generated from
 $C$ by
@@ -208,32 +199,26 @@ $$
 g_C = (m_C, C)
 $$
 
-with support
+with support defined as the union of the cone supports for all vertices in $\operatorname{Gen}_P(C)$:
 
 $$
-S_C
-=
-\operatorname{supp}(m_C)
-=
-B_P
-\cap
-\bigcup_{w\in \operatorname{Gen}_P(C)}
-\operatorname{Cone}_U(w).
+S_C = \operatorname{supp}(m_C) = \bigcup_{w\in\operatorname{Gen}_P(C)} S_w
 $$
 
-Equivalently,
+Here $m_C$ is the $\mathbb{F}_2$ indicator vector of this union — not the XOR $\bigoplus_{w\in\operatorname{Gen}_P(C)} m_w$.
+
+### 3.3 The Generator Mask Matrix $M$
+
+Let $A = \mathbb F_2^{\mathcal G}$ be the coefficient space of graph generators, representing linear combinations of generators over $\mathbb F_2$. The **generator mask matrix** $M$ is the $|B_P| \times |\mathcal G|$ binary matrix whose columns are the branch mask vectors $m_g$ of the generators $g \in \mathcal G$:
 
 $$
-(m_C)_z=1
-\quad\Longleftrightarrow\quad
-z\in B_P
-\text{ and } z \text{ depends on at least one local vertex generated from } C.
+M = \begin{bmatrix} | & | & & | \\ m_{g_1} & m_{g_2} & \cdots & m_{g_m} \\ | & | & & | \end{bmatrix}
 $$
 
-These closure generators may be linearly redundant as masks, since cone masks
-already span $\mathbb F_2^{B_P}$. They are not redundant in the labelled
-theory. The same branch mask can have different geometric presentations, and
-the mirror label matters when active-edge violations are cancelled.
+This matrix represents the linear map $M: A \to \mathbb F_2^{B_P}$ that maps a generator combination $\alpha \in A$ to its combined branch mask:
+$$
+M\alpha = \bigoplus_{g \in \operatorname{supp}(\alpha)} m_g
+$$
 
 ### 3.4 Why Both Generator Types Are Needed
 
@@ -251,6 +236,8 @@ rather than with masks $m_g$ alone. The branch mask controls the algebra over
 $\mathbb F_2$; the mirror clique controls the geometry of active-edge
 preservation.
 
+Note that a single predecessor clique $C$ may label several generators simultaneously: one closure generator $g_C = (m_C, C)$ and one cone generator $g_q = (m_q, C)$ for each $q \in B_P$ with $U_q = C$. These generators produce distinct columns in $M$ — with different masks — but all share the mirror label $C$.
+
 In summary:
 
 - dependency-cone generators describe the effect of changing one branch choice
@@ -259,6 +246,60 @@ In summary:
   mirror clique;
 - both are needed because the rank formula depends on labelled geometric
   obstructions, not only on the span of branch masks.
+
+### 3.5 Running Example
+
+We introduce an instance that illustrates each construction and will be revisited throughout this report.
+
+**Instance.** Let $K = 2$, $n = 8$, with initial simplex $V_0 = \{v_1, v_2, v_3\}$ and predecessor sets:
+$$U_4 = \{v_1, v_3\}, \quad U_5 = \{v_1, v_3\}, \quad U_6 = \{v_1, v_4\}$$
+Vertices $v_7$ and $v_8$ exist in the global graph with some predecessor sets, but play no role in the local subproblem below. The pruning edge set is $P = \{\{v_3, v_6\},\, \{v_4, v_5\}\}$.
+
+**Local subproblem.** Neither pruning edge involves $v_2$, $v_7$, or $v_8$, so these three vertices are outside $L_P$. The fixing sets give:
+$$L_P = \{v_1, v_3, v_4, v_5, v_6\}, \qquad B_P = \{v_4, v_5, v_6\}$$
+
+**Generators.** Two predecessor cliques appear locally:
+- $C_1 = \{v_1, v_3\}$ with $\operatorname{Gen}_P(C_1) = \{v_4, v_5\}$ (two vertices).
+- $C_2 = \{v_1, v_4\}$ with $\operatorname{Gen}_P(C_2) = \{v_6\}$ (one vertex).
+
+Note that $v_6$ depends on $v_4$ in the dependency DAG, so $\operatorname{Cone}_U(v_4) \cap B_P = \{v_4, v_6\}$. This yields five generators:
+
+| Generator | Support $S_g$ | Mirror $C_g$ | Kind |
+|:---|:---:|:---:|:---:|
+| $g_4$ | $\{v_4, v_6\}$ | $C_1 = \{v_1, v_3\}$ | cone |
+| $g_5$ | $\{v_5\}$ | $C_1 = \{v_1, v_3\}$ | cone |
+| $g_6$ | $\{v_6\}$ | $C_2 = \{v_1, v_4\}$ | cone |
+| $g_{C_1}$ | $\{v_4, v_5, v_6\}$ | $C_1 = \{v_1, v_3\}$ | closure |
+| $g_{C_2}$ | $\{v_6\}$ | $C_2 = \{v_1, v_4\}$ | closure |
+
+The clique $C_1$ produces two cone generators and one closure, illustrating Section 3.4. The closure $g_{C_1}$ has support $\{v_4, v_5, v_6\}$, strictly larger than either cone. The clique $C_2$ has only one generated vertex, so $g_{C_2}$ is mask-redundant with $g_6$.
+
+**Generator mask matrix.** With rows indexed by $B_P = (v_4, v_5, v_6)$ and columns by $(g_4, g_5, g_6, g_{C_1}, g_{C_2})$:
+$$M = \begin{bmatrix} 1 & 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 1 & 0 \\ 1 & 0 & 1 & 1 & 1 \end{bmatrix}$$
+The first three columns $(g_4, g_5, g_6)$ form the lower-triangular cone submatrix $M_{\mathrm{cone}}$.
+
+**Active edges.** The active edge set $F = E_0[L_P] \cup P$ consists of:
+
+| Edge | Kind |
+|:---|:---:|
+| $\{v_1, v_4\}$, $\{v_3, v_4\}$ | base (for $v_4$) |
+| $\{v_1, v_5\}$, $\{v_3, v_5\}$ | base (for $v_5$) |
+| $\{v_1, v_6\}$, $\{v_4, v_6\}$ | base (for $v_6$) |
+| $\{v_3, v_6\}$, $\{v_4, v_5\}$ | pruning |
+
+**Labelled violations.** Applying the violation criterion of Section 4.1 to each generator:
+- $g_4$: the base edges $\{v_1,v_4\}$, $\{v_3,v_4\}$, $\{v_1,v_6\}$, $\{v_3,v_6\}$ all cross the support boundary with fixed endpoint in $C_1$, so no violation. The pruning edge $\{v_4,v_5\}$ crosses with fixed endpoint $v_5 \notin C_1$: **violation** $(\{v_4,v_5\},\, C_1)$.
+- $g_5$: the pruning edge $\{v_4,v_5\}$ crosses with fixed endpoint $v_4 \notin C_1$: **violation** $(\{v_4,v_5\},\, C_1)$.
+- $g_6$: the pruning edge $\{v_3,v_6\}$ crosses with fixed endpoint $v_3 \notin C_2$: **violation** $(\{v_3,v_6\},\, C_2)$.
+- $g_{C_1}$: all crossings have fixed endpoint in $C_1$, and both pruning edges are either fully inside or fully outside the support. No violation.
+- $g_{C_2}$: same violations as $g_6$: **violation** $(\{v_3,v_6\},\, C_2)$.
+
+Thus $\mathcal{L}_F = \{(\{v_4,v_5\},\, C_1),\; (\{v_3,v_6\},\, C_2)\}$ and the labelled violation matrix (Section 4.2) is:
+$$V_F = \begin{bmatrix} 1 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 1 \end{bmatrix}$$
+
+**Rank count.** By Theorem 3:
+$$\operatorname{rank}\begin{bmatrix}M\\V_F\end{bmatrix} = 3, \qquad \operatorname{rank}(V_F) = 2, \qquad r_F = 1, \qquad |\Xi_F| = 2^1 = 2$$
+The unique non-trivial element of $\mathcal{K}_F$ is the mask $\{v_4, v_5, v_6\}$, produced by the combination $g_4 \oplus g_5$: the two cone violations at $(\{v_4,v_5\},C_1)$ cancel, and neither cone crosses $\{v_3,v_6\}$ with a forbidden endpoint. The two solutions correspond to the original placement of $(v_4, v_5, v_6)$ and its image under simultaneous reflection of all three through $H_{C_1} = \operatorname{aff}(v_1, v_3)$.
 
 ---
 
@@ -280,7 +321,7 @@ $$
 This crossing constitutes a geometric obstruction: applying the mask $m_g$ will generically change the length of $e$.
 
 ### 4.2 The Labelled Violation Matrix
-To track these obstructions algebraically, we label each violation not just by the edge, but by the **pair of the edge and the mirror clique**. This preserves the geometric type of the violation and prevents accidental cancellations between unrelated reflections.
+To track these obstructions algebraically, we label each violation not just by the edge, but by the **pair of the edge and the mirror clique**. Labelling by the pair $(e, C_g)$ rather than by $e$ alone keeps violations through distinct mirror cliques in separate coordinates, so they cannot cancel each other over $\mathbb{F}_2$.
 
 The **labelled violation set** is:
 $$
@@ -290,15 +331,15 @@ For each generator $g \in \mathcal{G}$, we define its **labelled violation vecto
 $$
 \nu_F(g)_{(e,C)} = 1 \iff C = C_g \text{ and } g \text{ violates } e
 $$
-Let $A = \mathbb{F}_2^{\mathcal{G}}$ be the coefficient space of the graph generators. We define two linear maps by linear extension over $\mathbb{F}_2$:
-- **Mask Map** $M: A \to \mathbb{F}_2^{B_P}$, which maps a generator combination $\alpha \in A$ to its combined branch mask $M\alpha = \bigoplus_{g \in \operatorname{supp}(\alpha)} m_g$.
-- **Violation Map** $V_F: A \to \mathbb{F}_2^{\mathcal{L}_F}$, which maps $\alpha \in A$ to its combined labelled violation vector $V_F\alpha$.
+The **labelled violation matrix** $V_F$ is the $|\mathcal{L}_F| \times |\mathcal{G}|$ binary matrix whose columns are the labelled violation vectors $\nu_F(g)$, one for each generator $g \in \mathcal{G}$. It represents the linear map $V_F: A \to \mathbb{F}_2^{\mathcal{L}_F}$ defined by $V_F\alpha = \bigoplus_{g \in \operatorname{supp}(\alpha)} \nu_F(g)$.
 
-The predicted stabilizer space of the local code is:
+In particular, since a single clique $C$ labels both the closure generator $g_C$ and all cone generators $g_q$ with $U_q = C$, the corresponding columns of $V_F$ all contribute to the same rows $(e, C) \in \mathcal{L}_F$. Violations of an edge $e$ among these generators therefore cancel within the label $(e, C)$ over $\mathbb{F}_2$. Generator combinations for which all such cancellations are complete form the kernel of $V_F$, and their combined masks constitute the stabilizer space defined next.
+
+We define the **stabilizer space**:
 $$
 \mathcal{K}_F = M(\ker V_F)
 $$
-This represents the space of all combined branch masks that can be presented with zero total labelled obstruction.
+Thus $h \in \mathcal{K}_F$ if and only if some generator combination producing $h$ achieves zero net labelled violation — every violation is cancelled by another generator sharing the same mirror label.
 
 ---
 
