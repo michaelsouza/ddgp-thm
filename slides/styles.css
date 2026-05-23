@@ -1,0 +1,268 @@
+:root {
+  --ink: #18212f;
+  --muted: #5d6878;
+  --line: #d9e0e8;
+  --panel: #f7f9fc;
+  --accent: #0f766e;
+  --accent-dark: #115e59;
+  --warm: #b45309;
+  --violet: #6d28d9;
+}
+
+.reveal {
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 34px;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 52px 64px 74px;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: var(--ink);
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1.04;
+  text-transform: none;
+}
+
+.reveal h1 {
+  max-width: 980px;
+  font-size: 2.25em;
+  margin: 0 0 22px;
+}
+
+.reveal h2 {
+  max-width: 940px;
+  font-size: 1.62em;
+  margin: 0 0 24px;
+}
+
+.reveal h3 {
+  font-size: 0.76em;
+  margin: 0 0 10px;
+}
+
+.reveal p,
+.reveal li {
+  color: var(--muted);
+  line-height: 1.38;
+}
+
+.reveal p {
+  max-width: 920px;
+  margin: 0 0 22px;
+}
+
+.reveal ul,
+.reveal ol {
+  margin: 10px 0 24px 34px;
+}
+
+.reveal li {
+  margin: 8px 0;
+}
+
+.reveal .eyebrow {
+  color: var(--accent-dark);
+  font-size: 0.42em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.reveal .subtitle {
+  color: var(--muted);
+  font-size: 0.78em;
+  max-width: 820px;
+}
+
+.reveal .title-slide {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reveal .formula {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  color: var(--ink);
+  margin: 20px 0 24px;
+  max-width: 980px;
+  padding: 20px 26px;
+}
+
+.reveal .formula .katex,
+.reveal .formula .MathJax {
+  font-size: 0.82em !important;
+}
+
+.reveal .takeaway {
+  border-left: 4px solid var(--warm);
+  color: var(--ink);
+  font-size: 0.66em;
+  font-weight: 650;
+  margin-top: 18px;
+  padding-left: 16px;
+}
+
+.concepts {
+  align-items: center;
+  bottom: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  left: 64px;
+  max-width: calc(100% - 128px);
+  position: absolute;
+}
+
+.concepts::before {
+  color: var(--muted);
+  content: "Conceitos";
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-right: 4px;
+  text-transform: uppercase;
+}
+
+.concepts a {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1;
+  padding: 8px 10px;
+  text-decoration: none;
+}
+
+.concepts a:nth-child(3n) {
+  color: var(--violet);
+}
+
+.concepts a:nth-child(4n) {
+  color: var(--warm);
+}
+
+.two-columns {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 1fr;
+  max-width: 960px;
+}
+
+.two-columns > div,
+.metric-grid > div {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.two-columns p {
+  font-size: 0.58em;
+  margin: 0;
+}
+
+.metric-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 900px;
+  margin: 12px 0 24px;
+}
+
+.metric-grid strong {
+  color: var(--accent-dark);
+  display: block;
+  font-size: 1.35em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.metric-grid span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.48em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 28px;
+  max-width: 980px;
+}
+
+.flow span {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-size: 0.5em;
+  font-weight: 800;
+  padding: 14px 16px;
+  position: relative;
+}
+
+.flow span:not(:last-child)::after {
+  color: var(--accent);
+  content: ">";
+  font-weight: 900;
+  margin-left: 12px;
+}
+
+.reveal code {
+  background: #eef3f7;
+  border-radius: 4px;
+  color: var(--ink);
+  font-size: 0.82em;
+  padding: 0.1em 0.25em;
+}
+
+.reveal .progress {
+  color: var(--accent);
+}
+
+.reveal .slide-number {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .reveal {
+    font-size: 25px;
+  }
+
+  .reveal .slides section {
+    padding: 32px 26px 100px;
+  }
+
+  .concepts {
+    bottom: 20px;
+    left: 26px;
+    max-width: calc(100% - 52px);
+  }
+
+  .two-columns,
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+}
