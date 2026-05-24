@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en-US">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,91 +15,68 @@
         <section class="title-slide">
           <p class="eyebrow">Research presentation</p>
           <h1>Rank DDGP</h1>
-          <p class="subtitle">Da geometria de lateração a uma fórmula linear sobre \(\mathbb F_2\)</p>
+          <p class="subtitle">From lateration geometry to a linear formula over \(\mathbb F_2\)</p>
           <div class="concepts">
             <a href="../concepts/discretizable-distance-geometry-problem.md">DDGP</a>
             <a href="../concepts/ddgp-labelled-violation-rank-count.md">Rank count</a>
-            <a href="../concepts/local-solution-code.md">Código local</a>
+            <a href="../concepts/local-solution-code.md">Local code</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Tese central</p>
-          <h2>Contagem direta</h2>
+          <p class="eyebrow">Context</p>
+          <h2>Discrete geometry</h2>
           <p>
-            O problema é contar, genericamente, quantas escolhas locais de
-            Branch-and-Prune satisfazem as arestas ativas.
-          </p>
-          <div class="formula">
-            \[
-              |\Xi_F| =
-              2^{\operatorname{rank}\begin{bmatrix}M\\V_F\end{bmatrix}
-              -\operatorname{rank}(V_F)}
-            \]
-          </div>
-          <p class="takeaway">A contagem vira dimensão de um estabilizador algébrico.</p>
-          <div class="concepts">
-            <a href="../concepts/branch-and-prune.md">Branch-and-Prune</a>
-            <a href="../concepts/active-edge-set.md">Arestas ativas</a>
-            <a href="../concepts/generator-mask-matrix.md">Matriz \(M\)</a>
-            <a href="../concepts/labelled-violation-matrix.md">Matriz \(V_F\)</a>
-          </div>
-        </section>
-
-        <section>
-          <p class="eyebrow">Contexto</p>
-          <h2>Geometria discreta</h2>
-          <p>
-            Fixado um simplex inicial em \(\mathbb R^K\), cada vértice posterior
-            usa \(K\) predecessores para gerar até duas posições possíveis.
+            Once an initial simplex in \(\mathbb R^K\) is fixed, each later
+            vertex uses \(K\) predecessors to generate up to two possible positions.
           </p>
           <ul>
-            <li>O simplex inicial remove movimentos globais.</li>
-            <li>Cada vértice não semente contribui uma escolha binária.</li>
-            <li>A busca BP percorre essas escolhas.</li>
+            <li>The initial simplex removes global motions.</li>
+            <li>Each non-seed vertex contributes one binary choice.</li>
+            <li>BP search traverses these choices.</li>
           </ul>
           <div class="concepts">
-            <a href="../concepts/initial-rigid-simplex.md">Simplex inicial</a>
-            <a href="../concepts/k-lateration.md">K-lateração</a>
+            <a href="../concepts/initial-rigid-simplex.md">Initial simplex</a>
+            <a href="../concepts/k-lateration.md">K-lateration</a>
             <a href="../concepts/bp-sign-cover.md">BP sign cover</a>
-            <a href="../concepts/local-binary-decision-set.md">Decisões locais</a>
+            <a href="../concepts/local-binary-decision-set.md">Local decisions</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Por que DMDGP não basta</p>
-          <h2>Dependência geral</h2>
+          <p class="eyebrow">Why DMDGP is not enough</p>
+          <h2>General dependency</h2>
           <p>
-            No DMDGP, reflexões parciais afetam sufixos. No DDGP geral, a
-            influência segue um DAG de dependência.
+            In DMDGP, partial reflections affect suffixes. In general DDGP,
+            influence follows a dependency DAG.
           </p>
           <div class="two-columns">
             <div>
               <h3>DMDGP</h3>
-              <p>Estrutura consecutiva, intervalos, simetrias por sufixo.</p>
+              <p>Consecutive structure, intervals, suffix symmetries.</p>
             </div>
             <div>
               <h3>DDGP</h3>
-              <p>Predecessores arbitrários, cones, propagação em grafo.</p>
+              <p>Arbitrary predecessors, cones, graph propagation.</p>
             </div>
           </div>
           <div class="concepts">
             <a href="../concepts/discretizable-molecular-distance-geometry-problem.md">DMDGP</a>
-            <a href="../concepts/dmdgp-symmetries.md">Simetrias DMDGP</a>
-            <a href="../concepts/discretization-dependency-set.md">Dependência</a>
+            <a href="../concepts/dmdgp-symmetries.md">DMDGP symmetries</a>
+            <a href="../concepts/discretization-dependency-set.md">Dependency</a>
             <a href="../concepts/dependency-cone.md">Cone</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Localização</p>
-          <h2>Subproblema local</h2>
+          <p class="eyebrow">Localization</p>
+          <h2>Local subproblem</h2>
           <p>
-            Para um conjunto de arestas de poda \(P\), mantemos os ancestrais
-            necessários para fixar a posição de cada endpoint. Aqui
-            \(\operatorname{Fix}_U(u)\) é o fecho de ancestrais de \(u\) no
-            DAG de discretização necessários para lateralizá-lo, e \(V_0\)
-            são os vértices semente do simplex inicial.
+            For a set of pruning edges \(P\), we keep the ancestors needed to
+            fix the position of each endpoint. Here \(\operatorname{Fix}_U(u)\)
+            is the ancestor closure of \(u\) in the discretization DAG needed
+            to laterate it, and \(V_0\) are the seed vertices of the initial
+            simplex.
           </p>
           <div class="formula">
             \[
@@ -110,42 +87,42 @@
             \]
           </div>
           <div class="concepts">
-            <a href="../concepts/local-active-subproblem.md">Subproblema local</a>
-            <a href="../concepts/local-vertex-set.md">Conjunto \(L_P\)</a>
-            <a href="../concepts/local-binary-decision-set.md">Conjunto \(B_P\)</a>
-            <a href="../concepts/pruning-edge.md">Aresta de poda</a>
+            <a href="../concepts/local-active-subproblem.md">Local subproblem</a>
+            <a href="../concepts/local-vertex-set.md">Set \(L_P\)</a>
+            <a href="../concepts/local-binary-decision-set.md">Set \(B_P\)</a>
+            <a href="../concepts/pruning-edge.md">Pruning edge</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Objeto contado</p>
-          <h2>Código local</h2>
+          <p class="eyebrow">Counted object</p>
+          <h2>Local code</h2>
           <p>
-            Dado \(F\subseteq P\), o subconjunto de arestas de poda cujas
-            distâncias devem ser satisfeitas, \(\Xi_F\) é o conjunto de strings
-            binárias locais que realizam todas essas distâncias.
+            Given an active set \(F\subseteq E[L_P]\), typically
+            \(F=E_0[L_P]\cup P\), \(\Xi_F\) is the set of local binary strings
+            that realize every distance required by \(F\).
           </p>
           <div class="formula">
             \[
               \Xi_F =
               \{s\in\mathbb F_2^{B_P}\mid
-              s \text{ realiza todo } e\in F\}
+              s \text{ realizes every } e\in F\}
             \]
           </div>
-          <p class="takeaway">A meta é provar que \(\Xi_F\) é uma translação de um espaço vetorial.</p>
+          <p class="takeaway">The goal is to prove that \(\Xi_F\) is a translate of a vector space.</p>
           <div class="concepts">
-            <a href="../concepts/local-solution-code.md">Código local</a>
-            <a href="../concepts/active-edge-set.md">Conjunto \(F\)</a>
-            <a href="../concepts/projected-kernel.md">Kernel projetado</a>
+            <a href="../concepts/local-solution-code.md">Local code</a>
+            <a href="../concepts/active-edge-set.md">Set \(F\)</a>
+            <a href="../concepts/projected-kernel.md">Projected kernel</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Geradores</p>
-          <h2>Gerador rotulado</h2>
+          <p class="eyebrow">Generators</p>
+          <h2>Labeled generator</h2>
           <p>
-            Um gerador não é só uma máscara. Ele também carrega o hiperplano que
-            explica geometricamente a reflexão.
+            A generator is not just a mask. It also carries the hyperplane that
+            geometrically explains the reflection.
           </p>
           <div class="formula">
             \[
@@ -158,29 +135,29 @@
           </div>
           <div class="two-columns">
             <div>
-              <h3>Máscara \(m_g\)</h3>
-              <p>Operador binário em \(\mathbb F_2^{B_P}\). Inverte de 0 \(\leftrightarrow\) 1 as decisões de ramificação contidas no seu suporte.</p>
+              <h3>Mask \(m_g\)</h3>
+              <p>Binary operator on \(\mathbb F_2^{B_P}\). It flips the branch decisions in its support between 0 and 1.</p>
             </div>
             <div>
-              <h3>Clique espelho \(C_g\)</h3>
-              <p>Conjunto de \(K\) predecessores que formam o simplex de lateração de algum vértice local. Seu espaço afim \(H_{C_g}=\operatorname{aff}(C_g)\) é o plano físico de reflexão.</p>
+              <h3>Mirror clique \(C_g\)</h3>
+              <p>Set of \(K\) predecessors that form the lateration simplex of some local vertex. Its affine space \(H_{C_g}=\operatorname{aff}(C_g)\) is the physical reflection plane.</p>
             </div>
           </div>
           <div class="concepts">
-            <a href="../concepts/ddgp-graph-generator.md">Gerador DDGP</a>
-            <a href="../concepts/branch-mask.md">Máscara</a>
-            <a href="../concepts/mirror-clique.md">Clique espelho</a>
-            <a href="../concepts/mask-map.md">Mapa \(M\)</a>
+            <a href="../concepts/ddgp-graph-generator.md">DDGP generator</a>
+            <a href="../concepts/branch-mask.md">Mask</a>
+            <a href="../concepts/mirror-clique.md">Mirror clique</a>
+            <a href="../concepts/mask-map.md">Map \(M\)</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Tipo 1</p>
+          <p class="eyebrow">Type 1</p>
           <h2>Cones</h2>
           <p>
-            Alterar a escolha em \(q\) afeta \(q\) e todos os vértices locais
-            que dependem dele. O gerador por cone de \(q\) usa como espelho
-            \(U_q\), o clique de \(K\) predecessores que lateralizam \(q\).
+            Changing the choice at \(q\) affects \(q\) and every local vertex
+            that depends on it. The cone generator for \(q\) uses \(U_q\) as
+            its mirror, the clique of \(K\) predecessors that laterate \(q\).
           </p>
           <div class="formula">
             \[
@@ -191,28 +168,28 @@
           </div>
           <div class="two-columns">
             <div>
-              <h3>Cone de Dependência</h3>
-              <p>O conjunto \(\operatorname{Cone}_U(q)\) contém o próprio vértice \(q\) e todos os vértices locais que dependem dele no DAG de discretização.</p>
+              <h3>Dependency cone</h3>
+              <p>The set \(\operatorname{Cone}_U(q)\) contains \(q\) itself and every local vertex that depends on it in the discretization DAG.</p>
             </div>
             <div>
-              <h3>Efeito Geométrico</h3>
-              <p>Inverter a decisão binária em \(q\) tem o efeito de refletir rigidamente todo o seu cone de dependência em relação ao espelho \(U_q\).</p>
+              <h3>Geometric effect</h3>
+              <p>Flipping the binary decision at \(q\) rigidly reflects its whole dependency cone across the mirror \(U_q\).</p>
             </div>
           </div>
-          <p class="takeaway">Essas máscaras já geram todo \(\mathbb F_2^{B_P}\) (matriz triangular).</p>
+          <p class="takeaway">These masks already generate all of \(\mathbb F_2^{B_P}\) (triangular matrix).</p>
           <div class="concepts">
-            <a href="../concepts/dependency-cone-generator.md">Gerador por cone</a>
+            <a href="../concepts/dependency-cone-generator.md">Cone generator</a>
             <a href="../concepts/dependency-cone.md">Cone</a>
-            <a href="../concepts/discretization-dependency-set.md">DAG de dependência</a>
+            <a href="../concepts/discretization-dependency-set.md">Dependency DAG</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Tipo 2</p>
-          <h2>Fechamentos</h2>
+          <p class="eyebrow">Type 2</p>
+          <h2>Closures</h2>
           <p>
-            Vértices gerados pelo mesmo clique podem ser refletidos como bloco
-            de mesmo rótulo.
+            Vertices generated by the same clique can be reflected as a single
+            block with the same label.
           </p>
           <div class="formula">
             \[
@@ -227,29 +204,29 @@
           </div>
           <div class="two-columns">
             <div>
-              <h3>Fechamento \(S_C\)</h3>
-              <p>União dos cones de dependência dos vértices locais gerados pelo clique \(C\), restrita ao conjunto de decisões locais \(B_P\).</p>
+              <h3>Closure \(S_C\)</h3>
+              <p>Union of the dependency cones of the local vertices generated by clique \(C\), restricted to the local decision set \(B_P\).</p>
             </div>
             <div>
-              <h3>Geradores \(\operatorname{Gen}_P(C)\)</h3>
-              <p>Conjunto \(\{v_i \in L_P \mid U_i = C\}\) de todos os vértices locais que compartilham o mesmo clique predecessor \(C\).</p>
+              <h3>Generators \(\operatorname{Gen}_P(C)\)</h3>
+              <p>Set \(\{v_i \in L_P \mid U_i = C\}\) of all local vertices that share the same predecessor clique \(C\).</p>
             </div>
           </div>
-          <p class="takeaway">Redundantes como máscaras, mas não como rótulos.</p>
+          <p class="takeaway">Redundant as masks, but not as labels.</p>
           <div class="concepts">
-            <a href="../concepts/base-clique-closure-mask.md">Fechamento por clique</a>
-            <a href="../concepts/base-clique-transition-graph.md">Transição de cliques</a>
-            <a href="../concepts/labelled-presentation-property.md">Apresentação rotulada</a>
+            <a href="../concepts/base-clique-closure-mask.md">Clique closure</a>
+            <a href="../concepts/base-clique-transition-graph.md">Clique transition</a>
+            <a href="../concepts/labelled-presentation-property.md">Labeled presentation</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Definição</p>
-          <h2>Matriz \(M\)</h2>
+          <p class="eyebrow">Definition</p>
+          <h2>Matrix \(M\)</h2>
           <p>
-            Os geradores por cones e por fechamentos produzem um conjunto finito
-            de máscaras \(\{m_g\}\subset\mathbb F_2^{B_P}\). A matriz \(M\) reúne
-            todas elas como colunas:
+            Cone and closure generators produce a finite set of masks
+            \(\{m_g\}\subset\mathbb F_2^{B_P}\). The matrix \(M\) gathers all
+            of them as columns:
           </p>
           <div class="formula">
             \[
@@ -260,99 +237,130 @@
           </div>
           <div class="two-columns">
             <div>
-              <h3>Imagem \(\operatorname{Im}(M)\)</h3>
-              <p>O espaço de todas as máscaras alcançáveis por combinação linear de geradores. Como os geradores por cone formam base triangular, \(M\) tem posto \(|B_P|\).</p>
+              <h3>Image \(\operatorname{Im}(M)\)</h3>
+              <p>The space of all masks reachable by linear combinations of generators. Since the cone generators form a triangular basis, \(M\) has rank \(|B_P|\).</p>
             </div>
             <div>
-              <h3>Núcleo \(\ker M\)</h3>
-              <p>Combinações de geradores cuja máscara resultante é zero. Os geradores por fechamento são redundantes como máscaras e geram \(\ker M\).</p>
+              <h3>Kernel \(\ker M\)</h3>
+              <p>Combinations of generators whose resulting mask is zero. The closure generators are redundant as masks and generate \(\ker M\).</p>
             </div>
           </div>
           <div class="concepts">
-            <a href="../concepts/generator-mask-matrix.md">Matriz \(M\)</a>
-            <a href="../concepts/dependency-cone-generator.md">Geradores por cone</a>
-            <a href="../concepts/base-clique-closure-mask.md">Geradores por fechamento</a>
+            <a href="../concepts/generator-mask-matrix.md">Matrix \(M\)</a>
+            <a href="../concepts/dependency-cone-generator.md">Cone generators</a>
+            <a href="../concepts/base-clique-closure-mask.md">Closure generators</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Geometria</p>
-          <h2>Violação</h2>
+          <p class="eyebrow">Geometry</p>
+          <h2>Violation</h2>
           <p>
-            Dizemos que o gerador \(g\) <strong>viola</strong> a aresta \(e\in F\)
-            quando aplicá-lo altera a distância de \(e\). Isso ocorre sob duas
-            condições simultâneas:
+            We say that generator \(g\) <strong>violates</strong> edge \(e\in F\)
+            when applying it changes the distance of \(e\). This occurs under
+            two simultaneous conditions:
           </p>
           <div class="formula">
             \[
-              g \text{ viola } e
+              g \text{ violates } e
               \;\Longleftrightarrow\;
               |e\cap S_g|=1
-              \;\text{e}\;
+              \;\text{and}\;
               e\setminus S_g\not\subseteq C_g
             \]
           </div>
           <div class="two-columns">
             <div>
-              <h3>Cruzamento (\(|e\cap S_g|=1\))</h3>
-              <p>A aresta cruza a fronteira do suporte de \(g\). Um endpoint se move com a reflexão e o outro não.</p>
+              <h3>Crossing (\(|e\cap S_g|=1\))</h3>
+              <p>The edge crosses the boundary of \(g\)'s support. One endpoint moves with the reflection and the other does not.</p>
             </div>
             <div>
-              <h3>Fora do espelho (\(e\setminus S_g\not\subseteq C_g\))</h3>
-              <p>O endpoint fixo não está no clique \(C_g\). Sem ancoragem no espelho, a distância não se preserva.</p>
+              <h3>Outside the mirror (\(e\setminus S_g\not\subseteq C_g\))</h3>
+              <p>The fixed endpoint is not in clique \(C_g\). Without anchoring in the mirror, the distance is not preserved.</p>
             </div>
           </div>
-          <p class="takeaway">O próximo slide usa esse predicado para construir o vetor de violação \(\nu_F(g)\).</p>
+          <p class="takeaway">This predicate becomes a labeled obstruction and then the vector \(\nu_F(g)\).</p>
           <div class="concepts">
-            <a href="../concepts/support-boundary-crossing.md">Cruzamento</a>
-            <a href="../concepts/mirror-compatible-graph-mask.md">Compatibilidade</a>
-            <a href="../concepts/labelled-violation-set.md">Violações rotuladas</a>
+            <a href="../concepts/support-boundary-crossing.md">Crossing</a>
+            <a href="../concepts/mirror-compatible-graph-mask.md">Compatibility</a>
+            <a href="../concepts/labelled-violation-set.md">Labeled violations</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Definição</p>
-          <h2>Vetor \(\nu_F(g)\)</h2>
+          <p class="eyebrow">Algebra</p>
+          <h2>Obstruction</h2>
           <p>
-            Seja \(\mathcal L_F=\{(e,C)\mid e\in F,\, C \text{ clique espelho de algum gerador}\}\).
-            Para cada gerador \(g\), definimos o vetor de violação
-            \(\nu_F(g)\in\mathbb F_2^{\mathcal L_F}\). O índice duplo é
-            necessário: dois geradores com espelhos distintos sobre a mesma
-            aresta produzem violações fisicamente independentes que não devem
-            se cancelar em \(\mathbb F_2\).
+            When a violation occurs, it leaves an algebraic witness. This
+            witness is indexed by the pair \((e,C)\): the observed edge and the
+            mirror that explains the reflection.
+          </p>
+          <div class="formula">
+            \[
+              \mu_{e,C} = [C,a][C,b]
+            \]
+          </div>
+          <div class="two-columns">
+            <div>
+              <h3>Geometric witness</h3>
+              <p>The monomial \(\mu_{e,C}\) multiplies the oriented heights of the endpoints of \(e\) relative to mirror \(C\). It vanishes when either endpoint lies in the mirror.</p>
+            </div>
+            <div>
+              <h3>Combinatorial label</h3>
+              <p>The pair \((e,C)\) separates violations of the same edge caused by distinct mirrors. This is the information that the matrix \(V_F\) must preserve.</p>
+            </div>
+          </div>
+          <p class="takeaway">The labeled obstruction is the bridge between geometric reflection and linear algebra.</p>
+          <div class="concepts">
+            <a href="../concepts/primitive-obstruction-monomial.md">Obstruction monomial</a>
+            <a href="../concepts/oriented-bracket.md">Oriented bracket</a>
+            <a href="../concepts/labelled-violation-vector.md">Violation vector</a>
+          </div>
+        </section>
+
+        <section>
+          <p class="eyebrow">Definition</p>
+          <h2>Vector \(\nu_F(g)\)</h2>
+          <p>
+            Let \(\mathcal L_F=\{(e,C)\mid e\in F,\, C \text{ is the mirror clique of some generator}\}\).
+            For each generator \(g\), define the violation vector
+            \(\nu_F(g)\in\mathbb F_2^{\mathcal L_F}\). The double index is
+            necessary: two generators with distinct mirrors over the same edge
+            produce physically independent violations that should not cancel
+            in \(\mathbb F_2\).
           </p>
           <div class="formula">
             \[
               \nu_F(g)_{(e,C)}=1
               \;\Longleftrightarrow\;
-              C=C_g \;\text{e}\; g \text{ viola } e
+              C=C_g \;\text{and}\; g \text{ violates } e
             \]
           </div>
           <div class="two-columns">
             <div>
-              <h3>Indexação por \((e,C)\)</h3>
-              <p>Separa violações por espelho. Dois geradores \(g,g'\) com \(C_g\neq C_{g'}\) que violam a mesma aresta \(e\) ocupam coordenadas distintas — seus efeitos não se anulam.</p>
+              <h3>Indexing by \((e,C)\)</h3>
+              <p>Separates violations by mirror. Two generators \(g,g'\) with \(C_g\neq C_{g'}\) that violate the same edge \(e\) occupy distinct coordinates; their effects do not cancel.</p>
             </div>
             <div>
-              <h3>Matriz \(V_F\)</h3>
-              <p>Empilhando \(\nu_F(g)\) para todos os geradores, obtemos a matriz \(V_F\) cujas linhas são esses vetores. É o objeto que entra na fórmula de rank.</p>
+              <h3>Matrix \(V_F\)</h3>
+              <p>Stacking \(\nu_F(g)\) as columns for all generators gives the matrix \(V_F\). It measures which generator combinations leave violations active.</p>
             </div>
           </div>
           <div class="concepts">
-            <a href="../concepts/labelled-violation-vector.md">Vetor de violação</a>
-            <a href="../concepts/labelled-violation-matrix.md">Matriz \(V_F\)</a>
-            <a href="../concepts/violation-map.md">Mapa \(V_F\)</a>
+            <a href="../concepts/labelled-violation-vector.md">Violation vector</a>
+            <a href="../concepts/labelled-violation-matrix.md">Matrix \(V_F\)</a>
+            <a href="../concepts/violation-map.md">Map \(V_F\)</a>
             <a href="../concepts/labelled-violation-kernel.md">Kernel</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Quociente</p>
-          <h2>Apresentações</h2>
+          <p class="eyebrow">Quotient</p>
+          <h2>Presentations</h2>
           <p>
-            Um mesmo \(h\in\mathbb F_2^{B_P}\) admite múltiplas apresentações
-            \(x\) com \(Mx=h\). Duas apresentações diferem por \(\ker M\), e
-            seus vetores de violação diferem por \(V_F(\ker M)\).
+            A single \(h\in\mathbb F_2^{B_P}\) admits multiple presentations
+            \(x\) with \(Mx=h\). Two presentations differ by \(\ker M\), and
+            their violation vectors differ by \(V_F(\ker M)\).
           </p>
           <div class="formula">
             \[
@@ -365,28 +373,28 @@
           </div>
           <div class="two-columns">
             <div>
-              <h3>Apresentações puras \(R_F\)</h3>
-              <p>Geradores em \(\ker M\) não alteram a máscara mas podem produzir vetores de violação não nulos. \(R_F\) captura essa ambiguidade e é quocientado.</p>
+              <h3>Pure presentations \(R_F\)</h3>
+              <p>Generators in \(\ker M\) do not change the mask but can produce nonzero violation vectors. \(R_F\) captures this ambiguity and is quotiented out.</p>
             </div>
             <div>
-              <h3>Mapa canônico \(\omega_F\)</h3>
-              <p>Em \(Q_F\), a classe \([V_F(x)]\) independe da escolha de apresentação de \(h\). O próximo slide calcula \(\mathcal K_F=\ker\omega_F\).</p>
+              <h3>Canonical map \(\omega_F\)</h3>
+              <p>In \(Q_F\), the class \([V_F(x)]\) is independent of the presentation chosen for \(h\). The next slide computes \(\mathcal K_F=\ker\omega_F\).</p>
             </div>
           </div>
           <div class="concepts">
-            <a href="../concepts/pure-presentation-space.md">Apresentações puras</a>
-            <a href="../concepts/labelled-obstruction-quotient.md">Quociente</a>
-            <a href="../concepts/canonical-obstruction-map.md">Mapa \(\omega_F\)</a>
+            <a href="../concepts/pure-presentation-space.md">Pure presentations</a>
+            <a href="../concepts/labelled-obstruction-quotient.md">Quotient</a>
+            <a href="../concepts/canonical-obstruction-map.md">Map \(\omega_F\)</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Estabilizador</p>
-          <h2>Simetrias locais</h2>
+          <p class="eyebrow">Stabilizer</p>
+          <h2>Local symmetries</h2>
           <p>
-            \(\mathcal K_F\) é o espaço de máscaras que admitem alguma
-            apresentação com vetor de violação nulo — as simetrias que
-            preservam todas as distâncias ativas.
+            \(\mathcal K_F\) is the space of masks that admit some presentation
+            with zero violation vector: the symmetries that preserve all active
+            distances.
           </p>
           <div class="formula">
             \[
@@ -396,27 +404,100 @@
           <div class="two-columns">
             <div>
               <h3>\(M(\ker V_F)=\ker\omega_F\)</h3>
-              <p>Segue da definição de \(\omega_F\): \(h\in\ker\omega_F\) sse existe \(x\) com \(Mx=h\) e \([V_F(x)]=0\) em \(Q_F\), o que equivale a existir tal \(x\) com \(V_F(x)=0\).</p>
+              <p>This follows from the definition of \(\omega_F\): if \([V_F(x)]=0\) in \(Q_F\), we can adjust \(x\) by a pure presentation in \(\ker M\) without changing \(h=Mx\), obtaining a presentation in \(\ker V_F\).</p>
             </div>
             <div>
-              <h3>Solução particular \(s_0\)</h3>
-              <p>Para qualquer \(s_0\in\Xi_F\) (uma string que realiza as arestas de \(F\)), o conjunto completo de soluções é a translação \(\Xi_F=s_0\oplus\mathcal K_F\).</p>
+              <h3>Particular solution \(s_0\)</h3>
+              <p>For any \(s_0\in\Xi_F\) (a string that realizes the edges of \(F\)), the complete solution set is the translate \(\Xi_F=s_0\oplus\mathcal K_F\).</p>
             </div>
           </div>
           <div class="concepts">
-            <a href="../concepts/projected-kernel.md">Kernel projetado</a>
-            <a href="../concepts/labelled-presentation-property.md">Propriedade de apresentação</a>
-            <a href="../concepts/local-solution-code.md">Código local</a>
+            <a href="../concepts/projected-kernel.md">Projected kernel</a>
+            <a href="../concepts/labelled-presentation-property.md">Presentation property</a>
+            <a href="../concepts/local-solution-code.md">Local code</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Fórmula</p>
-          <h2>Rank-nullity</h2>
+          <p class="eyebrow">BP blocks</p>
+          <h2>Admissible blocks</h2>
           <p>
-            Por rank-nullity aplicado à restrição de \(M\) ao \(\ker V_F\):
-            \(\dim\mathcal K_F = \dim\ker V_F - \dim(\ker M\cap\ker V_F)\).
-            Expressando cada termo via ranks:
+            The <strong>sign cover</strong> is the set of all
+            \(2^{|B_P|}\) binary assignments in \(\mathbb F_2^{B_P}\).
+            An element \(h\in\mathcal K_F\) is <strong>zero-labeled</strong>
+            (\(\omega_F(h)=0\)): added to any solution, it produces another
+            solution.
+          </p>
+          <div class="two-columns">
+            <div>
+              <h3>Local base</h3>
+              <p>The base edges \(E_0[L_P]\) lie inside \(F\). Thus each admissible block preserves the lateration structure while moving a region of the sign cover.</p>
+            </div>
+            <div>
+              <h3>Composition</h3>
+              <p>\(\mathcal K_F\) is closed under addition in \(\mathbb F_2\), so blocks compose. The sign cover splits into orbits of size \(|\mathcal K_F|=2^{\dim\mathcal K_F}\).</p>
+            </div>
+          </div>
+          <div class="concepts">
+            <a href="../concepts/base-admissible-block.md">Admissible block</a>
+            <a href="../concepts/bp-sign-cover.md">Sign cover</a>
+            <a href="../concepts/active-edge-set.md">Active edges</a>
+          </div>
+        </section>
+
+        <section>
+          <p class="eyebrow">Theorem</p>
+          <h2>Rank count</h2>
+          <p>
+            Since \(\Xi_F=s_0\oplus\mathcal K_F\), counting solutions means
+            computing \(\dim\mathcal K_F\). By rank-nullity applied to the
+            restriction of \(M\) to \(\ker V_F\):
+          </p>
+          <div class="formula">
+            \[
+              |\Xi_F|=
+              2^{\dim\mathcal K_F}
+              =
+              2^{\operatorname{rank}
+              \begin{bmatrix}
+              M\\
+              V_F
+              \end{bmatrix}
+              -
+              \operatorname{rank}(V_F)}
+            \]
+          </div>
+          <p class="takeaway">
+            \(\operatorname{rank}(V_F)\) counts independent violation
+            directions; \(\operatorname{rank}\bigl[{}^M_{V_F}\bigr]\)
+            separates what is independent as a mask or as a violation. The
+            difference is the space of independent masks with zero violation.
+          </p>
+          <div class="concepts">
+            <a href="../concepts/rank-nullity-projected-kernel.md">Rank-nullity</a>
+            <a href="../concepts/generator-mask-matrix.md">Matrix \(M\)</a>
+            <a href="../concepts/labelled-violation-matrix.md">Matrix \(V_F\)</a>
+            <a href="../concepts/ddgp-labelled-violation-rank-count.md">Theorem</a>
+          </div>
+        </section>
+
+        <section>
+          <p class="eyebrow">Linear identity</p>
+          <h2>Stabilizer dimension</h2>
+          <p>
+            The dimension identity is purely linear. The map
+            \(x\mapsto(Mx,V_Fx)\) stores, simultaneously, the mask produced by
+            a presentation and the violations it leaves.
+          </p>
+          <div class="formula">
+            \[
+              \dim\mathcal K_F =
+              \dim\ker V_F -
+              \dim(\ker M\cap\ker V_F)
+            \]
+          </div>
+          <p>
+            Expressing each term with ranks:
           </p>
           <div class="formula">
             \[
@@ -431,27 +512,25 @@
             \]
           </div>
           <p class="takeaway">
-            \(\operatorname{rank}(V_F)\) conta geradores com violação não nula;
-            \(\operatorname{rank}\bigl[{}^M_{V_F}\bigr]\) isola os independentes
-            em máscara ou violação. A diferença são os de máscara independente
-            e violação nula.
+            This slide separates the linear proof from the geometric
+            interpretation on the previous slide.
           </p>
           <div class="concepts">
             <a href="../concepts/rank-nullity-projected-kernel.md">Rank-nullity</a>
-            <a href="../concepts/generator-mask-matrix.md">Matriz \(M\)</a>
-            <a href="../concepts/labelled-violation-matrix.md">Matriz \(V_F\)</a>
-            <a href="../concepts/ddgp-labelled-violation-rank-count.md">Teorema</a>
+            <a href="../concepts/generator-mask-matrix.md">Matrix \(M\)</a>
+            <a href="../concepts/labelled-violation-matrix.md">Matrix \(V_F\)</a>
+            <a href="../concepts/ddgp-labelled-violation-rank-count.md">Theorem</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Por que funciona</p>
-          <h2>Separação algébrica</h2>
+          <p class="eyebrow">Why it works</p>
+          <h2>Algebraic separation</h2>
           <p>
-            Para \(K\ge2\), cada obstrução \((e,C)\) tem uma assinatura
-            algébrica primitiva que a distingue genericamente das demais.
-            Escrevendo \(\widehat x_v=(x_v^\top,1)\in\mathbb R^{K+1}\)
-            para as coordenadas homogêneas de \(v\):
+            For \(K\ge2\), each obstruction \((e,C)\) has a primitive algebraic
+            signature that generically distinguishes it from the others.
+            Writing \(\widehat x_v=(x_v^\top,1)\in\mathbb R^{K+1}\) for the
+            homogeneous coordinates of \(v\):
           </p>
           <div class="formula">
             \[
@@ -464,161 +543,104 @@
           <div class="two-columns">
             <div>
               <h3>Bracket \([C,z]\)</h3>
-              <p>Altura orientada de \(z\) em relação a \(\operatorname{aff}(C)\). Vale zero sse \(z\in\operatorname{aff}(C)\), i.e., sse \(z\) está no espelho.</p>
+              <p>Oriented height of \(z\) relative to \(\operatorname{aff}(C)\). It is zero iff \(z\in\operatorname{aff}(C)\), i.e., iff \(z\) lies in the mirror.</p>
             </div>
             <div>
-              <h3>Separação genérica</h3>
-              <p>Monomiais de obstruções distintas \((e,C)\neq(e',C')\) são algebricamente independentes fora de um conjunto excepcional algébrico de medida zero.</p>
+              <h3>Generic separation</h3>
+              <p>Monomials of distinct obstructions \((e,C)\neq(e',C')\) are algebraically independent outside an algebraic exceptional set of measure zero.</p>
             </div>
           </div>
           <div class="concepts">
-            <a href="../concepts/oriented-bracket.md">Bracket orientado</a>
-            <a href="../concepts/primitive-obstruction-monomial.md">Monômio primitivo</a>
-            <a href="../concepts/primitive-bracket-separation.md">Separação</a>
-            <a href="../concepts/algebraic-exceptional-set.md">Excepcionais</a>
+            <a href="../concepts/oriented-bracket.md">Oriented bracket</a>
+            <a href="../concepts/primitive-obstruction-monomial.md">Primitive monomial</a>
+            <a href="../concepts/primitive-bracket-separation.md">Separation</a>
+            <a href="../concepts/algebraic-exceptional-set.md">Exceptional sets</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Álgebra</p>
-          <h2>Obstrução</h2>
-          <p>
-            A obstrução é a barreira algébrica que impede uma reflexão de ser uma simetria.
-            Ela mapeia a quebra física de distância para a nossa estrutura linear.
-          </p>
-          <div class="formula">
-            \[
-              \mu_{e,C} = [C,a][C,b]
-            \]
-          </div>
-          <div class="two-columns">
-            <div>
-              <h3>Testemunha Geométrica</h3>
-              <p>O monomial \(\mu_{e,C}\) multiplica as alturas orientadas dos endpoints de \(e\) em relação ao espelho \(C\). Zera apenas se algum endpoint estiver no espelho.</p>
-            </div>
-            <div>
-              <h3>Rótulo Combinatorial</h3>
-              <p>O par \((e, C)\) é a obstrução rotulada. Ele atua como um "bloqueio" algébrico que impede a simetria, a menos que seja cancelado.</p>
-            </div>
-          </div>
-          <p class="takeaway">A obstrução rotulada é a ponte exata entre o modelo combinatorial e a física contínua.</p>
-          <div class="concepts">
-            <a href="../concepts/primitive-obstruction-monomial.md">Monomial de obstrução</a>
-            <a href="../concepts/oriented-bracket.md">Bracket orientado</a>
-            <a href="../concepts/algebraic-exceptional-set.md">Conjunto excepcional</a>
-          </div>
-        </section>
-
-        <section>
-          <p class="eyebrow">Blocos BP</p>
-          <h2>Blocos BP</h2>
-          <p>
-            O <strong>sign cover</strong> é o conjunto de todas as
-            \(2^{|B_P|}\) atribuições binárias em \(\mathbb F_2^{B_P}\).
-            Um elemento \(h\in\mathcal K_F\) é <strong>zero-rotulado</strong>
-            (\(\omega_F(h)=0\)): somado a qualquer solução, produz outra solução.
-          </p>
-          <div class="two-columns">
-            <div>
-              <h3>Arestas base</h3>
-              <p>Arestas de \(P\setminus F\): participam do sign cover mas não são ativas. Um bloco admissível preserva essas arestas, garantindo que nenhuma distância base seja quebrada.</p>
-            </div>
-            <div>
-              <h3>Composição</h3>
-              <p>\(\mathcal K_F\) é fechado sob adição em \(\mathbb F_2\), então blocos se compõem. O sign cover se divide em órbitas de tamanho \(|\mathcal K_F|=2^{\dim\mathcal K_F}\).</p>
-            </div>
-          </div>
-          <div class="concepts">
-            <a href="../concepts/base-admissible-block.md">Bloco admissível</a>
-            <a href="../concepts/bp-sign-cover.md">Sign cover</a>
-            <a href="../concepts/active-edge-set.md">Arestas ativas</a>
-          </div>
-        </section>
-
-        <section>
-          <p class="eyebrow">Algoritmo</p>
-          <h2>Cálculo combinatório</h2>
+          <p class="eyebrow">Algorithm</p>
+          <h2>Combinatorial computation</h2>
           <ol>
-            <li>Construa \(L_P\), \(B_P\) e \(F\).</li>
-            <li>Monte geradores por cones e por cliques base.</li>
-            <li>Identifique violações rotuladas \((e,C)\).</li>
-            <li>Calcule ranks sobre \(\mathbb F_2\).</li>
+            <li>Build \(L_P\), \(B_P\), and \(F=E_0[L_P]\cup P\).</li>
+            <li>Assemble cone and base-clique generators.</li>
+            <li>Identify labeled violations \((e,C)\).</li>
+            <li>Compute ranks over \(\mathbb F_2\).</li>
           </ol>
-          <p class="takeaway">Nenhuma enumeração exponencial de branches é necessária.</p>
+          <p class="takeaway">No exponential enumeration of branches is needed.</p>
           <div class="concepts">
-            <a href="../concepts/ddgp-labelled-violation-rank-count.md">Algoritmo</a>
-            <a href="../concepts/local-active-subproblem.md">Subproblema local</a>
-            <a href="../concepts/ddgp-graph-generator.md">Geradores</a>
+            <a href="../concepts/ddgp-labelled-violation-rank-count.md">Algorithm</a>
+            <a href="../concepts/local-active-subproblem.md">Local subproblem</a>
+            <a href="../concepts/ddgp-graph-generator.md">Generators</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Resultados</p>
-          <h2>Validação</h2>
+          <p class="eyebrow">Results</p>
+          <h2>Validation</h2>
           <div class="metric-grid">
             <div>
               <strong>2225</strong>
-              <span>instâncias genéricas</span>
+              <span>generic instances</span>
             </div>
             <div>
               <strong>100%</strong>
-              <span>contagens base</span>
+              <span>base counts</span>
             </div>
             <div>
               <strong>100%</strong>
-              <span>contagens válidas</span>
+              <span>valid counts</span>
             </div>
           </div>
           <p>
-            A implementação em <code>scripts/ddgp_rank_count.py</code> coincide
-            com a enumeração exata nos datasets armazenados.
+            The implementation in <code>scripts/ddgp_rank_count.py</code>
+            matches exact enumeration on the stored datasets.
           </p>
           <div class="concepts">
             <a href="../concepts/ddgp-labelled-violation-rank-count.md">Rank count</a>
-            <a href="../concepts/branch-and-prune.md">Enumeração BP</a>
-            <a href="../concepts/local-solution-code.md">Contagem local</a>
+            <a href="../concepts/branch-and-prune.md">BP enumeration</a>
+            <a href="../concepts/local-solution-code.md">Local count</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Limitação</p>
-          <h2>Nongenericidade</h2>
+          <p class="eyebrow">Limitation</p>
+          <h2>Nongenericity</h2>
           <p>
-            Coincidências geométricas acidentais podem anular resíduos que são
-            genericamente não nulos.
+            Accidental geometric coincidences can cancel residuals that are
+            generically nonzero.
           </p>
           <ul>
-            <li>Colinearidades ou coplanaridades especiais.</li>
-            <li>Endpoints caindo em hiperplanos espelho por acidente.</li>
-            <li>Conjuntos excepcionais algébricos de medida zero.</li>
+            <li>Special collinearities or coplanarities.</li>
+            <li>Endpoints accidentally landing on mirror hyperplanes.</li>
+            <li>Algebraic exceptional sets of measure zero.</li>
           </ul>
           <div class="concepts">
-            <a href="../concepts/accidental-mirror-coincidence.md">Coincidência acidental</a>
-            <a href="../concepts/algebraic-exceptional-set.md">Conjunto excepcional</a>
-            <a href="../concepts/mirror-clique.md">Clique espelho</a>
+            <a href="../concepts/accidental-mirror-coincidence.md">Accidental coincidence</a>
+            <a href="../concepts/algebraic-exceptional-set.md">Exceptional set</a>
+            <a href="../concepts/mirror-clique.md">Mirror clique</a>
           </div>
         </section>
 
         <section>
-          <p class="eyebrow">Resumo</p>
-          <h2>Ponte conceitual</h2>
+          <p class="eyebrow">Summary</p>
+          <h2>Conceptual bridge</h2>
           <div class="flow">
-            <span>DDGP local</span>
-            <span>geradores</span>
-            <span>violações rotuladas</span>
-            <span>quociente</span>
+            <span>Local DDGP</span>
+            <span>generators</span>
+            <span>labeled violations</span>
+            <span>quotient</span>
             <span>rank</span>
-            <span>contagem</span>
+            <span>count</span>
           </div>
           <p>
-            A teoria substitui simetrias por intervalos por simetrias
-            apresentadas em grafos, controladas por obstruções geométricas
-            rotuladas.
+            The theory replaces interval symmetries with graph-presented
+            symmetries controlled by labeled geometric obstructions.
           </p>
           <div class="concepts">
             <a href="../concepts/discretizable-distance-geometry-problem.md">DDGP</a>
-            <a href="../concepts/ddgp-graph-generator.md">Geradores</a>
-            <a href="../concepts/labelled-obstruction-quotient.md">Quociente</a>
+            <a href="../concepts/ddgp-graph-generator.md">Generators</a>
+            <a href="../concepts/labelled-obstruction-quotient.md">Quotient</a>
             <a href="../concepts/ddgp-labelled-violation-rank-count.md">Rank count</a>
           </div>
         </section>
