@@ -1,13 +1,15 @@
 \section{Related Work}
 \label{sec:related}
 
-We review three strands of prior work used below: DMDGP partial-reflection symmetry, DDGP recognition, and the negative counting result for general DDGP instances.
+We review four strands of prior work used below: DMDGP partial-reflection symmetry, Combinatorial DDGP counts, DDGP recognition, and the negative counting result for general DDGP instances.
 
 In the DMDGP, the predecessor sets $U_j$ are contiguous and immediately precede $j$ in the vertex order, so $U_j = \{j-K, \ldots, j-1\}$~\cite{lavor2012discretizable}. This contiguity ensures that each $U_j$ induces a clique of size $K$ in $G$. The clique property implies that the branch choices at each level are partial reflections across affine hyperplanes spanned by predecessor coordinates~\cite{mucherino2012exploiting}. These reflections form a group of partial-reflection symmetries acting on the BP tree. They explain the generic power-of-two solution counts and the structure of the search space~\cite{liberti2011number,liberti2014number}. 
 
-Because these reflections act on suffix intervals of the vertex order, one can count the number of feasible BP paths by a combinatorial method depending on graph topology rather than numerical edge weights~\cite{lavor2021optimality}. This counting method has been used to prove fixed-parameter tractability of the BP algorithm on DMDGP instances with respect to $K$ and a branching-frequency parameter $v_0$. Partial-reflection symmetries also support build-up, splitting, and search algorithms for DMDGP instances~\cite{mucherino2012exploiting,goncalves2021new}. 
+Because these reflections act on suffix intervals of the vertex order, the DMDGP counting method counts feasible BP paths from graph topology rather than numerical edge weights~\cite{lavor2021optimality}. This method also yields fixed-parameter tractability of the BP algorithm on DMDGP instances with respect to $K$ and a branching-frequency parameter $v_0$. Partial-reflection symmetries also support build-up, splitting, and search algorithms for DMDGP instances~\cite{mucherino2012exploiting,goncalves2021new}. 
 
-Finding a valid DMDGP vertex order from a graph is NP-complete for any fixed dimension $K \ge 2$~\cite{cassioli2015discretization}. In the general DDGP, the predecessor sets $U_j$ need not be consecutive. This relaxation changes the computational tradeoff: finding a valid DDGP order can be done in polynomial time by an FPT algorithm with respect to $K$~\cite{abud2024impossible}. 
+Combinatorial DDGP keeps the clique condition on predecessor sets without requiring consecutive predecessors. Its no-pruning count is the closest positive DDGP counting result that our local formula recovers as a special case~\cite{abud2024impossible}.
+
+Finding a valid DMDGP vertex order from a graph is NP-complete for any fixed dimension $K \ge 2$~\cite{cassioli2015discretization}. In the general DDGP, the predecessor sets $U_j$ need not be consecutive. This relaxation changes the computational tradeoff: finding a valid DDGP order is fixed-parameter tractable with respect to $K$, with running time $f(K)\operatorname{poly}(|V|)$; in particular, it is polynomial for fixed $K$~\cite{abud2024impossible}. 
 
 The same relaxation complicates counting. Since DDGP predecessors are not necessarily consecutive, reflections no longer act on suffix intervals. A branch change at a vertex $q$ propagates through a directed dependency graph of successors. This dynamic propagation is the obstruction we address in the present local construction.
 

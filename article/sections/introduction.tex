@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:intro}
 
-This paper studies a local counting question in the Discretizable Distance Geometry Problem (DDGP): after fixing a set of active pruning constraints, how many Branch-and-Prune branch codes remain feasible? For DMDGP instances, consecutive predecessor sets give partial-reflection symmetries and combinatorial power-of-two counts. For general DDGP instances, predecessors need not be consecutive, so a branch change propagates through dependency cones and may preserve or violate active distances depending on the mirror clique. We show that, under a generic separation assumption, the local count is still computable by linear algebra over $\mathbb{F}_2$.
+This paper studies a local counting question in the Discretizable Distance Geometry Problem (DDGP). After fixing active pruning constraints in a Branch-and-Prune computation, how many binary branch codes remain feasible? For Discretizable Molecular Distance Geometry Problem (DMDGP) instances, consecutive predecessor sets yield partial-reflection symmetries and power-of-two counts. For general DDGP instances, nonconsecutive predecessors make a branch change propagate through dependency cones. Such a change may preserve or violate active distances according to the relevant mirror clique. We prove that, under a generic separation assumption, this local count is computable by linear algebra over $\mathbb{F}_2$.
 
 The Distance Geometry Problem (DGP) asks for a geometric representation of a weighted graph in $\mathbb{R}^K$: given a simple undirected graph $G = (V, E)$ and an edge weight function $d: E \to \mathbb{R}_+$, find an embedding $x: V \to \mathbb{R}^K$ such that $\|x_i - x_j\|_2 = d_{ij}$ for every $\{i,j\}\in E$~\cite{mucherino2012discretizable}. The problem appears in protein structure determination from nuclear magnetic resonance (NMR) distance data~\cite{liberti2008branch}, sensor network localization~\cite{abud2018k}, and the geometry of nanostructures~\cite{mucherino2020analysis}.
 
@@ -15,23 +15,21 @@ We naturally partition the edges in $G$ into two sets:
 
 General DDGP counting cannot be purely graph-combinatorial in the global sense: numerical edge weights can change the number of feasible branches~\cite{abud2024impossible}. We therefore work locally. Around a fixed pruning set, we build the active subproblem, encode branch transformations by graph-derived generators, and record which active edges each generator can violate. The generic mirror-separation assumption excludes the proper algebraic exceptional set where a geometrically violating transformation accidentally preserves a distance. Outside this set, the feasible branch differences are exactly the zero-violation shifts.
 
+Throughout the paper, all branch codes, vector spaces, sums, kernels, and ranks are over the finite field $\mathbb{F}_2$.
+
 Our contribution is threefold:
 \begin{enumerate}
     \item We define local active subproblems around a pruning set and represent their branch transformations using graph-derived cone generators and base generators.
     \item We introduce a labeled violation matrix that separates violations caused by different mirror cliques, keeping track of mirror-specific incompatibilities.
-    \item We prove the \emph{Feasible Branch Shift Theorem}: if $s^\ast$ is a reference solution, then
+    \item We prove the \emph{Feasible Branch Shift Theorem}: relative to any reference solution $s^\ast$, the feasible local branch codes form the affine coset $s^\ast+\mathcal{K}_F$, where $\mathcal{K}_F$ is the space of zero-violation shifts. Consequently,
     \[
-    \Xi_F = s^\ast + \mathcal{K}_F,
-    \qquad
-    \mathcal{K}_F = M(\ker V).
-    \]
-    Rank-nullity then gives the count from
-    \[
-    \dim \mathcal{K}_F = \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}(V),
+    |\Xi_F|
+    =
+    2^{\operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}_{\mathbb{F}_2}(V)},
     \]
     where $M$ is the generator mask matrix and $V$ is the labeled violation matrix.
 \end{enumerate}
 
-All vector spaces, sums, kernels, and ranks discussed below are defined over the finite field $\mathbb{F}_2$. Binary branch-code representations are standard for paths in the Branch-and-Prune tree; related binary representations have been widely used to analyze symmetry and degrees of freedom in distance geometry~\cite{mucherino2012exploiting,mucherino2020analysis}.
+Binary branch-code representations are standard for paths in the Branch-and-Prune tree; related binary representations have been widely used to analyze symmetry and degrees of freedom in distance geometry~\cite{mucherino2012exploiting,mucherino2020analysis}.
 
-We organize the remainder of the paper as follows. Section~\ref{sec:related} reviews DMDGP symmetries, DDGP recognition, and the counting barrier for general DDGP instances. Sections~\ref{sec:subproblems}--\ref{sec:shifts} define the local subproblem, generators, labeled violations, and feasible branch shifts. Section~\ref{sec:results} proves the main theorem and rank-count lemma. Section~\ref{sec:example} gives a fully worked 6-vertex example. Section~\ref{sec:scope} discusses scope, genericity, and the Combinatorial DDGP special case.
+We organize the remainder of the paper as follows. Section~\ref{sec:related} reviews DMDGP symmetries, Combinatorial DDGP counts, DDGP recognition, and the counting barrier for general DDGP instances. Sections~\ref{sec:subproblems}--\ref{sec:shifts} define the local subproblem, generators, labeled violations, and feasible branch shifts. Section~\ref{sec:results} proves the main theorem and rank-count lemma. Section~\ref{sec:example} gives a fully worked 6-vertex example. Section~\ref{sec:scope} discusses scope, genericity, and the Combinatorial DDGP special case.
