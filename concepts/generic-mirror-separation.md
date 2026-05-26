@@ -1,19 +1,22 @@
 ---
-term: Generic Mirror Independence
+term: Generic Mirror Separation
 tags: [geometry, group-theory, combinatorial-optimization]
 sources: []
 ---
 
 ## Intuition
 
-Generic mirror independence is the hypothesis that different mirror-induced edge violations do not cancel accidentally.
+Generic mirror separation is the genericity condition that different
+mirror-induced edge violations do not cancel accidentally.
 
 For one graph mask, the geometric rule is simple: reflecting one endpoint of an edge through a mirror hyperplane preserves the edge length only when the other endpoint lies on that hyperplane. In DDGP language, this forced case is recorded by [mirror-compatible graph masks](mirror-compatible-graph-mask.md).
 
-With several graph masks, cancellations can occur, but experiments indicate that generic cancellations are labelled: a violation of active edge $e$ through mirror clique $C$ can cancel only with another violation carrying the same pair $(e,C)$.
+With several graph masks, cancellations can occur, but generic cancellations
+are labeled: a violation of active edge $e$ through mirror clique $C$ can
+cancel only with another violation carrying the same pair $(e,C)$.
 
 In the current proof formulation, this is the geometric content behind the
-[labelled presentation property](labelled-presentation-property.md).
+[labeled presentation property](labeled-presentation-property.md).
 
 ## Formal definition
 
@@ -31,17 +34,19 @@ $$
 \nu(g)\in\mathbb{F}_2^{\mathcal{L}}
 $$
 
-be the labelled violation vector used in the [labelled violation kernel](labelled-violation-kernel.md), with labels of the form $(e,C_g)$.
+be the labeled violation vector used in the [labeled violation kernel](labeled-violation-kernel.md), with labels of the form $(e,C_g)$.
 
-A DDGP realization is generically mirror-independent on $F$ if the labelled
-graph-generator presentation is exact: relative to any feasible local solution
-$s_0\in\Xi_F$,
+A local active subproblem satisfies generic mirror separation if every branch
+shift with nonzero labeled obstruction changes at least one active-edge length
+outside a proper algebraic exceptional set. Equivalently, the labeled
+graph-generator presentation is exact: relative to any reference solution
+$s^\ast\in\Xi_F$,
 
 $$
-\Xi_F=s_0\oplus M(\ker\nu).
+\Xi_F=s^\ast\oplus M(\ker\nu).
 $$
 
-A necessary geometric part of this property is that active-edge preservation is equivalent to the existence of a labelled-zero presentation of the same branch mask:
+A necessary geometric part of this property is that active-edge preservation is equivalent to the existence of a labeled-zero presentation of the same branch mask:
 
 $$
 \exists \alpha\in\mathbb F_2^{\mathcal G}
@@ -51,16 +56,16 @@ M\alpha=s\oplus t
 \sum_g \alpha_g\nu(g)=0.
 $$
 
-Equivalently, the only generic edge-violation cancellations are the labelled
+Equivalently, the only generic edge-violation cancellations are the labeled
 cancellations captured by the kernel of $\nu$.
 
 This excludes accidental cases where a vertex outside a mirror clique nevertheless lies on the mirror hyperplane, or where reflections through different mirror hyperplanes preserve a pruning distance for special coordinate reasons.
 
 ## Proof role
 
-Generic mirror independence is not an additional algorithmic step. It is the
-genericity statement needed in the proof of the [DDGP labelled-violation rank
-count](ddgp-labelled-violation-rank-count.md).
+Generic mirror separation is not an additional algorithmic step. It is the
+genericity statement needed in the proof of the [DDGP labeled-violation rank
+count](ddgp-labeled-violation-rank-count.md).
 
 The algebraic part is finite: for every branch difference with nonzero
 canonical obstruction, the accidental preservation of all active edges is
@@ -69,7 +74,6 @@ separation: different labels $(e,C)$ must correspond to generically distinct
 edge-sign characters after quotienting out pure presentation relations.
 
 The current proof formulation establishes this for $K\ge2$ using the
-[labelled obstruction quotient](labelled-obstruction-quotient.md) and a
-bracket-separation argument. The experiments support the theorem because the
-rank count matches exact local base and valid counts on tested generic
-instances in dimensions $K=2$ and $K=3$.
+[labeled obstruction quotient](labeled-obstruction-quotient.md) and a
+bracket-separation argument. Small exact-enumeration examples are useful for
+checking implementations and illustrating the rank count.

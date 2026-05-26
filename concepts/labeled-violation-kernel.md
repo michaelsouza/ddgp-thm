@@ -1,21 +1,21 @@
 ---
-term: Labelled Violation Kernel
+term: Labeled Violation Kernel
 tags: [geometry, group-theory, combinatorial-optimization]
 sources: []
 ---
 
 ## Intuition
 
-The labelled violation kernel is a linear-algebraic object used to combine local graph-mask symmetries in the presence of active edge constraints.
+The labeled violation kernel is a linear-algebraic object used to combine local graph-mask symmetries in the presence of active edge constraints.
 
 For one edge, it is often enough to keep graph masks that are individually [mirror-compatible](mirror-compatible-graph-mask.md) with that edge. With multiple active edges, this is too restrictive: two masks may each violate the same edge, but their composition may cancel the violation.
 
-The cancellation is not purely by edge parity. Experiments show that the violation should be labelled by both:
+The cancellation is not purely by edge parity. Experiments show that the violation should be labeled by both:
 
 - the active edge being violated;
 - the mirror clique of the graph mask causing the violation.
 
-Thus, two violations cancel only when they have the same labelled type.
+Thus, two violations cancel only when they have the same labeled type.
 
 ## Formal definition
 
@@ -27,7 +27,7 @@ $$
 
 where $m_g\in\mathbb{F}_2^{B}$ is the binary mask and $C_g$ is its mirror clique.
 
-Let $F$ be a set of active edges. Define the labelled violation set
+Let $F$ be a set of active edges. Define the labeled violation set
 
 $$
 \mathcal{L}
@@ -53,7 +53,7 @@ C=C_g
 g \text{ is not mirror-compatible with } e.
 $$
 
-Extend $\nu$ linearly to combinations of generators. The labelled violation kernel is
+Extend $\nu$ linearly to combinations of generators. The labeled violation kernel is
 
 $$
 \ker \nu
@@ -76,9 +76,10 @@ $$
 
 ## Rank identity
 
-Let $M$ be the matrix whose columns are the support masks $m_g$, and let $V$ be the matrix whose columns are the labelled violation vectors $\nu(g)$.
+Let $M$ be the matrix whose columns are the support masks $m_g$, and let $V$ be the matrix whose columns are the labeled violation vectors $\nu(g)$.
 
-The rank of the projected kernel can be computed without enumerating the kernel:
+The rank of the feasible branch shift space can be computed without enumerating
+the kernel:
 
 $$
 \operatorname{rank}(\mathcal{K}_F)
@@ -94,14 +95,15 @@ $$
 
 This follows by viewing the column span of $\begin{bmatrix}M\\V\end{bmatrix}$ and taking its intersection with the subspace whose violation coordinates are zero.
 
-This rank identity is the algebraic core of the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md). The geometric part requires the [labelled presentation property](labelled-presentation-property.md): violations with different labels should not cancel outside exceptional coordinate sets. This is the same genericity issue described by [generic mirror independence](generic-mirror-independence.md).
+This rank identity is the algebraic core of the [DDGP labeled-violation rank count](ddgp-labeled-violation-rank-count.md). The geometric part requires the [labeled presentation property](labeled-presentation-property.md): violations with different labels should not cancel outside exceptional coordinate sets. This is the same genericity issue described by [generic mirror separation](generic-mirror-separation.md).
 
 When the same branch mask has multiple generator presentations, the invariant
-obstruction lives in the [labelled obstruction quotient](labelled-obstruction-quotient.md), not in the raw labelled violation space.
+obstruction lives in the [labeled obstruction quotient](labeled-obstruction-quotient.md), not in the raw labeled violation space.
 
 ## Counting role
 
-For generic DDGP instances with an active local edge set $F$, the labelled-presentation theorem would give
+For generic DDGP instances with an active local edge set $F$, the labeled
+presentation theorem gives
 
 $$
 |\Xi_F|
@@ -109,4 +111,4 @@ $$
 2^{\operatorname{rank}(\mathcal{K}_F)}.
 $$
 
-For local pruning-count experiments, $F=E_0[L_P]\cup P$. This extends the one-pruning-edge mirror-compatible mask rule to base and pruning edges simultaneously. The corresponding algorithmic form is the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md).
+For local pruning-count experiments, $F=E_0[L_P]\cup P$. This extends the one-pruning-edge mirror-compatible mask rule to base and pruning edges simultaneously. The corresponding algorithmic form is the [DDGP labeled-violation rank count](ddgp-labeled-violation-rank-count.md).

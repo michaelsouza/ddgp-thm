@@ -9,13 +9,13 @@ sources: []
 Primitive bracket separation is the generic non-cancellation principle used in
 the rank-count proof.
 
-It says that different labelled obstructions have distinct leading algebraic
-signatures after a suitable specialization. Therefore a nonzero labelled
+It says that different labeled obstructions have distinct leading algebraic
+signatures after a suitable specialization. Therefore a nonzero labeled
 obstruction class cannot vanish identically through accidental cancellation.
 
 ## Formal definition
 
-For a labelled obstruction $(e=\{a,b\},C)$, define the primitive obstruction
+For a labeled obstruction $(e=\{a,b\},C)$, define the primitive obstruction
 monomial
 
 $$
@@ -33,5 +33,5 @@ with $N$ sufficiently large. Under this specialization, distinct labels
 $(e,C)$ have distinct leading exponents. Hence any nonempty sum of primitive
 obstruction monomials has a unique leading term and is not the zero polynomial.
 
-This separates nonzero classes in the [labelled obstruction
-quotient](labelled-obstruction-quotient.md).
+This separates nonzero classes in the [labeled obstruction
+quotient](labeled-obstruction-quotient.md).

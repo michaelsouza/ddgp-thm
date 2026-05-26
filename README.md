@@ -70,13 +70,13 @@ The current DDGP counting experiments use:
 - `scripts/ddgp_generate_single_pruning.py` to generate one-pruning-edge instances.
 - `scripts/ddgp_generate_multi_pruning.py` to generate multi-pruning-edge instances.
 - `scripts/ddgp_count_solutions.py` to enumerate exact counts for validation.
-- `scripts/ddgp_rank_count.py` to predict local base and valid counts by the active-edge labelled-violation rank formula without enumerating branch strings.
+- `scripts/ddgp_rank_count.py` to predict local base and valid counts by the active-edge labeled-violation rank formula without enumerating branch strings.
 
 The geometric generator and exact enumerator currently support `K=2` and `K=3`.
 
 The current proof formulation for the rank count is in
-`research/labelled-violation-rank-proof.md`. For `K >= 2`, the generic theorem
-is formulated through the labelled presentation property and the labelled
+`research/labeled-violation-rank-proof.md`. For `K >= 2`, the generic theorem
+is formulated through the labeled presentation property and the labeled
 obstruction quotient. A unified, article-style presentation of the complete theory,
 proof architecture, F_2 rank-count algorithm, and experimental verification is available
 in `research/ddgp-rank-count-theory-report.md`.

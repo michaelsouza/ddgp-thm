@@ -52,7 +52,7 @@ $$
 
 For the local base subproblem, $F$ contains the induced base edges. For the pruned local subproblem, $F$ also contains the pruning edge $e$.
 
-## Stabilizer
+## Feasible branch shifts
 
 The XOR stabilizer of a local solution code is
 
@@ -70,10 +70,19 @@ $$
 |\Xi| = |\operatorname{Stab}(\Xi)| = 2^{\dim \operatorname{Stab}(\Xi)}.
 $$
 
-This is a candidate local analogue of the DMDGP symmetry count.
+This is the local analogue of the DMDGP symmetry count.
 
-Current experiments test whether this stabilizer can be generated from graph-derived masks, especially dependency-cone masks and [base-clique closure masks](base-clique-closure-mask.md).
+In the generic rank-count theory, this stabilizer is the feasible branch shift
+space generated from graph-derived generators, especially [cone
+generators](cone-generator.md) and [base generators](base-generator.md), through
+the labeled violation kernel.
 
 A graph-derived mask is an individual symmetry candidate only when it is [mirror-compatible](mirror-compatible-graph-mask.md) with the relevant edge constraints.
 
-For multiple active edge constraints, even individually non-compatible generators can be combined through a [labelled violation kernel](labelled-violation-kernel.md). When this kernel satisfies the [labelled presentation property](labelled-presentation-property.md), the local solution code is exactly one affine coset of the projected kernel. The resulting rank formula is recorded as the [DDGP labelled-violation rank count](ddgp-labelled-violation-rank-count.md).
+For multiple active edge constraints, even individually non-compatible
+generators can be combined through a [labeled violation
+kernel](labeled-violation-kernel.md). When this kernel satisfies the
+[labeled presentation property](labeled-presentation-property.md), the local
+solution code is exactly one affine coset of the feasible branch shift space.
+The resulting rank formula is recorded as the [DDGP labeled-violation rank
+count](ddgp-labeled-violation-rank-count.md).

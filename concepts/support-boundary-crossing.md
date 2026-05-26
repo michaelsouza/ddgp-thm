@@ -28,7 +28,7 @@ $$
 |e\cap S_g|=1.
 $$
 
-The crossing is a labelled violation when the fixed endpoint is not in the
+The crossing is a labeled violation when the fixed endpoint is not in the
 mirror clique:
 
 $$

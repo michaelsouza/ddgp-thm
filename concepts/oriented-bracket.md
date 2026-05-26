@@ -9,8 +9,8 @@ sources: []
 An oriented bracket is a determinant that measures the signed height of a vertex
 relative to a mirror clique.
 
-The rank-count proof uses brackets to separate labelled obstructions
-algebraically. If two labelled violations have different primitive bracket
+The rank-count proof uses brackets to separate labeled obstructions
+algebraically. If two labeled violations have different primitive bracket
 monomials, they cannot cancel generically.
 
 ## Formal definition

@@ -34,4 +34,4 @@ $$
 $$
 
 Intersecting this set with the local decision set $B_P$ gives the support of a
-[dependency-cone generator](dependency-cone-generator.md).
+[cone generator](cone-generator.md).

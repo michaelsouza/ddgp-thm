@@ -9,7 +9,7 @@ sources: []
 A base-admissible block is a set of local branch decisions that can be reflected
 as one block through a mirror clique without breaking the local base graph.
 
-This concept is used in the rank-count proof to turn a zero-labelled generator
+This concept is used in the rank-count proof to turn a zero-labeled generator
 presentation into an actual Branch-and-Prune sign transformation. The base
 edges are important: they ensure that the block is a valid operation on the BP
 sign cover, not just an abstract reflection of an arbitrary vertex subset.

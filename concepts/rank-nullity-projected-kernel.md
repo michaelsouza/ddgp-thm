@@ -1,16 +1,16 @@
 ---
-term: Rank-Nullity Projected Kernel
+term: Rank-Nullity Branch Shift Formula
 tags: [linear-algebra, geometry]
 sources: []
 ---
 
 ## Intuition
 
-The rank-nullity projected kernel is the linear-algebra identity behind the
-DDGP labelled-violation count.
+The rank-nullity branch shift formula is the linear-algebra identity behind the
+DDGP labeled-violation count.
 
-It computes the dimension of zero-obstruction branch masks without explicitly
-constructing the labelled obstruction quotient. This is why the final counting
+It computes the dimension of the feasible branch shift space without explicitly
+constructing the labeled obstruction quotient. This is why the final counting
 algorithm only needs ranks of binary matrices.
 
 ## Formal definition

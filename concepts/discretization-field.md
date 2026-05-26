@@ -95,7 +95,7 @@ $$
 \text{ for every } e\in F\}.
 $$
 
-The [labelled presentation property](labelled-presentation-property.md) can be
+The [labeled presentation property](labeled-presentation-property.md) can be
 read as a statement about the character support of the elements $\lambda_e$:
 the active edge-length functions should factor through the elementary-abelian
-character quotient recorded by the [labelled violation kernel](labelled-violation-kernel.md).
+character quotient recorded by the [labeled violation kernel](labeled-violation-kernel.md).

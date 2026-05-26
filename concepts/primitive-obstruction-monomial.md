@@ -26,5 +26,5 @@ If $a\in C$ or $b\in C$, then $\mu_{e,C}=0$. Otherwise it is generically
 nonzero.
 
 In the rank-count proof, primitive obstruction monomials are used to show that
-distinct labelled violations $(e,C)$ do not cancel outside a proper algebraic
+distinct labeled violations $(e,C)$ do not cancel outside a proper algebraic
 exceptional set.

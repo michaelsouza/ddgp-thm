@@ -33,8 +33,7 @@ is the [branch mask](branch-mask.md), and $C_g$ is the
 
 The rank-count theory uses two generator families:
 
-- [dependency-cone generators](dependency-cone-generator.md);
-- [base-clique closure masks](base-clique-closure-mask.md) interpreted with
-  their common mirror clique.
+- [cone generators](cone-generator.md);
+- [base generators](base-generator.md).
 
 The generator family is denoted by $\mathcal G$.

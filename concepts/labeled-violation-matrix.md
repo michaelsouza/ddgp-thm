@@ -1,13 +1,13 @@
 ---
-term: Labelled Violation Matrix
+term: Labeled Violation Matrix
 tags: [linear-algebra, geometry, group-theory]
 sources: []
 ---
 
 ## Intuition
 
-The labelled violation matrix records which active edges are generically broken
-by each graph generator, with each violation labelled by the mirror clique that
+The labeled violation matrix records which active edges are generically broken
+by each graph generator, with each violation labeled by the mirror clique that
 caused it.
 
 This label is essential. Two generator presentations may create the same edge
@@ -17,14 +17,14 @@ as the same geometric obstruction.
 ## Formal definition
 
 Let $\mathcal G$ be the graph-generator family and let $F$ be the
-[active edge set](active-edge-set.md). The [labelled violation
-set](labelled-violation-set.md) is
+[active edge set](active-edge-set.md). The [labeled violation
+set](labeled-violation-set.md) is
 
 $$
 \mathcal L_F=\{(e,C_g)\mid g\in\mathcal G,\ e\in F,\ g\text{ violates }e\}.
 $$
 
-For each generator $g$, define its labelled violation vector
+For each generator $g$, define its labeled violation vector
 $\nu_F(g)\in\mathbb F_2^{\mathcal L_F}$ by
 
 $$
@@ -33,11 +33,11 @@ $$
 C=C_g \text{ and } g\text{ violates }e.
 $$
 
-The labelled violation matrix $V_F$ has columns $\nu_F(g)$:
+The labeled violation matrix $V_F$ has columns $\nu_F(g)$:
 
 $$
 V_F:\mathbb F_2^{\mathcal G}\to\mathbb F_2^{\mathcal L_F}.
 $$
 
-Its kernel consists of generator combinations with zero total labelled
+Its kernel consists of generator combinations with zero total labeled
 obstruction.

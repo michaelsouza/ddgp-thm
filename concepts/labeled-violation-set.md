@@ -1,12 +1,12 @@
 ---
-term: Labelled Violation Set
+term: Labeled Violation Set
 tags: [geometry, group-theory, combinatorial-optimization]
 sources: []
 ---
 
 ## Intuition
 
-The labelled violation set is the coordinate system used to record active-edge
+The labeled violation set is the coordinate system used to record active-edge
 obstructions.
 
 Instead of labelling a violation only by the edge that is crossed, the
@@ -26,7 +26,7 @@ $$
 e\setminus S_g\not\subseteq C_g.
 $$
 
-The labelled violation set is
+The labeled violation set is
 
 $$
 \mathcal L_F
@@ -34,4 +34,4 @@ $$
 \{(e,C_g)\mid g\in\mathcal G,\ e\in F,\ g\text{ violates }e\}.
 $$
 
-It indexes the rows of the [labelled violation matrix](labelled-violation-matrix.md).
+It indexes the rows of the [labeled violation matrix](labeled-violation-matrix.md).

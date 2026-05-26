@@ -1,0 +1,7 @@
+{
+  "raw_rows": 175,
+  "unique_records": 125,
+  "duplicate_rows": 50,
+  "batch_size": 20,
+  "batch_count": 7
+}

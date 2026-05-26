@@ -10,7 +10,7 @@ The generator mask matrix collects the branch masks of all graph generators.
 
 It records only the binary effect of generator combinations on the BP sign
 cover. The geometric obstruction data is stored separately in the
-[labelled violation matrix](labelled-violation-matrix.md).
+[labeled violation matrix](labeled-violation-matrix.md).
 
 ## Formal definition
 

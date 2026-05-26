@@ -1,22 +1,22 @@
 ---
-term: Labelled Presentation Property
+term: Labeled Presentation Property
 tags: [geometry, group-theory, combinatorial-optimization]
 sources: []
 ---
 
 ## Intuition
 
-The labelled presentation property is the exact geometric statement needed to
-turn the DDGP labelled-violation rank count into a theorem.
+The labeled presentation property is the exact geometric statement needed to
+turn the DDGP labeled-violation rank count into a theorem.
 
 The rank formula builds graph generators, records which active edges they
 violate, and labels each violation by the mirror clique that caused it. A branch
-difference is predicted to preserve all active edges when it can be written as
-a combination of graph generators whose labelled violations cancel.
+difference preserves all active edges when it can be written as a combination
+of graph generators whose labeled violations cancel.
 
-The labelled presentation property says that this prediction is exact:
-graph-visible labelled cancellations are precisely the generic geometric
-cancellations of active-edge distances.
+The labeled presentation property says that graph-visible labeled
+cancellations are precisely the generic geometric cancellations of active-edge
+distances.
 
 ## Formal definition
 
@@ -29,7 +29,7 @@ $$
 
 where $m_g\in\mathbb F_2^B$ is the branch mask and $C_g$ is the mirror clique.
 
-Let $F$ be an active edge set. The labelled violation map is
+Let $F$ be an active edge set. The labeled violation map is
 
 $$
 V_F:\mathbb F_2^{\mathcal G}\to \mathbb F_2^{\mathcal L_F},
@@ -41,7 +41,7 @@ $$
 M:\mathbb F_2^{\mathcal G}\to \mathbb F_2^B.
 $$
 
-The lifted labelled span is
+The lifted labeled span is
 
 $$
 Z_F
@@ -52,7 +52,7 @@ Z_F
 \mathbb F_2^B\oplus\mathbb F_2^{\mathcal L_F}.
 $$
 
-The zero-label projected kernel is
+The feasible branch shift space is
 
 $$
 \mathcal K_F
@@ -62,8 +62,8 @@ $$
 M(\ker V_F).
 $$
 
-Equivalently, let $Q_F$ be the [labelled obstruction
-quotient](labelled-obstruction-quotient.md), and let
+Equivalently, let $Q_F$ be the [labeled obstruction
+quotient](labeled-obstruction-quotient.md), and let
 
 $$
 \omega_F:\mathbb F_2^B\to Q_F
@@ -75,11 +75,11 @@ $$
 \mathcal K_F=\ker\omega_F.
 $$
 
-The graph-generator family has the labelled presentation property for $F$ when,
-for every feasible local solution $s_0\in\Xi_F$,
+The graph-generator family has the labeled presentation property for $F$ when,
+for every reference solution $s^\ast\in\Xi_F$,
 
 $$
-\Xi_F=s_0\oplus\mathcal K_F.
+\Xi_F=s^\ast\oplus\mathcal K_F.
 $$
 
 Equivalently, a branch difference $h$ preserves the active local edge set
@@ -89,7 +89,7 @@ $$
 h=M\alpha
 $$
 
-with zero total labelled violation
+with zero total labeled violation
 
 $$
 V_F\alpha=0.
@@ -97,14 +97,14 @@ $$
 
 ## Role in the DDGP count
 
-If the labelled presentation property holds, then the local solution code is an
+If the labeled presentation property holds, then the local solution code is an
 affine subspace and
 
 $$
 |\Xi_F|=|\mathcal K_F|.
 $$
 
-The projected kernel rank is
+The feasible branch shift rank is
 
 $$
 \dim \mathcal K_F

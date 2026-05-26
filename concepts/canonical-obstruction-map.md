@@ -10,22 +10,22 @@ The canonical obstruction map assigns a presentation-independent obstruction to
 a branch difference.
 
 A branch difference may have several graph-generator presentations. Their raw
-labelled violation vectors can differ, so the obstruction is only meaningful
+labeled violation vectors can differ, so the obstruction is only meaningful
 after quotienting out pure presentation labels. The canonical obstruction map is
-the resulting well-defined map from branch masks to labelled obstruction
+the resulting well-defined map from branch masks to labeled obstruction
 classes.
 
 ## Formal definition
 
 Let $M:\mathbb F_2^{\mathcal G}\to\mathbb F_2^{B_P}$ be the mask map, let
-$V_F:\mathbb F_2^{\mathcal G}\to\mathbb F_2^{\mathcal L_F}$ be the labelled
+$V_F:\mathbb F_2^{\mathcal G}\to\mathbb F_2^{\mathcal L_F}$ be the labeled
 violation map, and let
 
 $$
 R_F=V_F(\ker M).
 $$
 
-The [labelled obstruction quotient](labelled-obstruction-quotient.md) is
+The [labeled obstruction quotient](labeled-obstruction-quotient.md) is
 
 $$
 Q_F=\mathbb F_2^{\mathcal L_F}/R_F.

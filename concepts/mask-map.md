@@ -9,7 +9,7 @@ sources: []
 The mask map sends a generator presentation to the total branch mask it applies
 to the BP sign cover.
 
-It forgets the labelled violation data and keeps only the combined binary
+It forgets the labeled violation data and keeps only the combined binary
 effect on local branch decisions.
 
 ## Formal definition

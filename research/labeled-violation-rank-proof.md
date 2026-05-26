@@ -1,4 +1,4 @@
-# Labelled-Violation Rank Count: Generic Proof Formulation
+# Labeled-Violation Rank Count: Generic Proof Formulation
 
 ## Goal
 
@@ -39,7 +39,7 @@ Here:
 - \(\mathcal G=\{g=(m_g,C_g)\}\) is the graph-generator family, consisting of
   dependency-cone generators and base-clique closure generators;
 - \(M\) is the matrix whose columns are the masks \(m_g\);
-- \(V_F\) is the labelled violation matrix for the active edge set \(F\);
+- \(V_F\) is the labeled violation matrix for the active edge set \(F\);
 - labels have the form \((e,C_g)\), where \(e\in F\) and \(C_g\) is the mirror
   clique of \(g\).
 
@@ -49,7 +49,7 @@ This note gives the proof in three layers:
 2. a finite algebraic-exceptional-set theorem showing how algebraic
    edge-preserving differences from a base code become the generic local
    solution code;
-3. the geometric labelled-presentation lemma that must hold for the DDGP
+3. the geometric labeled-presentation lemma that must hold for the DDGP
    graph generators.
 
 The first two layers are complete. The third layer is now isolated as one
@@ -123,7 +123,7 @@ because a block of vertices generated from the same mirror clique can have a
 single geometric obstruction label even when the same mask is representable as
 a sum of individual cones.
 
-## Labelled Violations
+## Labeled Violations
 
 For a generator \(g=(m_g,C_g)\), let
 
@@ -141,7 +141,7 @@ $$
 e\setminus S_g\not\subseteq C_g.
 $$
 
-The labelled violation set is
+The labeled violation set is
 
 $$
 \mathcal L_F
@@ -149,7 +149,7 @@ $$
 \{(e,C_g)\mid g\in\mathcal G,\ e\in F,\ g\text{ violates }e\}.
 $$
 
-The labelled violation vector is
+The labeled violation vector is
 
 $$
 \nu_F(g)\in\mathbb F_2^{\mathcal L_F},
@@ -196,12 +196,12 @@ $$
 $$
 
 This lifted form is the cleanest formulation: a branch difference is allowed
-when it admits a graph-generator presentation with zero total labelled
+when it admits a graph-generator presentation with zero total labeled
 obstruction.
 
-## Canonical Labelled Obstruction Quotient
+## Canonical Labeled Obstruction Quotient
 
-The labelled vector \(V_F\alpha\) depends on the chosen generator presentation
+The labeled vector \(V_F\alpha\) depends on the chosen generator presentation
 \(\alpha\). The branch difference
 
 $$
@@ -209,7 +209,7 @@ h=M\alpha
 $$
 
 does not. Therefore the invariant obstruction attached to \(h\) is not an
-element of \(\mathbb F_2^{\mathcal L_F}\) itself, but a coset modulo labelled
+element of \(\mathbb F_2^{\mathcal L_F}\) itself, but a coset modulo labeled
 relations that change the presentation without changing the branch mask.
 
 Let
@@ -257,7 +257,7 @@ $$
 
 so \(h\in M(\ker V_F)=\mathcal K_F\). \(\square\)
 
-Thus the labelled presentation property can be restated without reference to a
+Thus the labeled presentation property can be restated without reference to a
 particular generator presentation:
 
 $$
@@ -306,7 +306,7 @@ point of its mirror hyperplane. \(\square\)
 This lemma justifies the mirror-compatible rule for one edge. It does not
 claim that every graph generator is itself a valid DDGP symmetry. Cone and
 closure generators can cross active base edges. Such crossings are precisely
-the labelled obstructions recorded in \(V_F\).
+the labeled obstructions recorded in \(V_F\).
 
 ### Lemma 3: A Single Violation Changes Length Generically
 
@@ -418,7 +418,7 @@ $$
 $$
 
 This is the set of branch differences that preserve every active edge from the
-particular code \(s\) as an algebraic identity. Before the labelled
+particular code \(s\) as an algebraic identity. Before the labeled
 presentation is proved, \(\mathcal U_F(s)\) should not be assumed to be a vector
 space or to be independent of \(s\).
 
@@ -452,11 +452,11 @@ $$
 \quad\text{for every feasible }s_0.
 $$
 
-## Labelled Presentation Lemma
+## Labeled Presentation Lemma
 
 The required geometric statement is the following.
 
-### Lemma 6: Generic Labelled Presentation
+### Lemma 6: Generic Labeled Presentation
 
 For a generic DDGP realization with active edge set \(F\), for every feasible
 base code \(s_0\) and every branch difference \(h\),
@@ -493,7 +493,7 @@ h\in\mathcal U_F(s_0)
 \text{ for every feasible }s_0.
 $$
 
-Equivalently, if \(h\) has at least one zero-labelled presentation, then \(h\)
+Equivalently, if \(h\) has at least one zero-labeled presentation, then \(h\)
 is an active-edge symmetry from every feasible base code.
 
 Completeness:
@@ -505,7 +505,7 @@ h\in\mathcal U_F(s_0)
 $$
 
 That is, every algebraic active-edge symmetry from a feasible base code has a
-zero-labelled graph presentation.
+zero-labeled graph presentation.
 
 The only possible failure of completeness is an accidental cancellation between
 different labels after passing to the quotient \(Q_F\). Lemma 3 rules out a
@@ -540,14 +540,14 @@ Lemma 6 follows.
 
 The single-sign coefficient in item 3 is the quantity \(4h_ah_b\) from
 Lemma 3. Higher-order cancellations are excluded by the standard algebraic
-independence argument: two distinct labelled sign characters define distinct
+independence argument: two distinct labeled sign characters define distinct
 polynomials on the lateration cover, and a nontrivial linear combination can
 vanish identically only if all its character coefficients vanish. The
 exceptional set is the finite union of the coefficient-zero hypersurfaces.
 
 This is now the precise mathematical core of the proof. It replaces the vague
 phrase "no accidental mirror cancellations" by the concrete requirement that
-the labelled edge-sign characters are generically separated.
+the labeled edge-sign characters are generically separated.
 
 ## Bracket Obstruction Algebra
 
@@ -587,7 +587,7 @@ mirror-compatible crossing case. If neither endpoint lies in \(C\), then
 
 Assume \(K\ge2\). In the coordinate ring of generic \(K\)-dimensional point
 configurations, every nonzero obstruction coset in \(Q_F\) has a detecting
-primitive bracket combination. Equivalently, if a labelled obstruction class is
+primitive bracket combination. Equivalently, if a labeled obstruction class is
 nonzero, then some linear functional on labels that annihilates
 \(R_F=V_F(\ker M)\) selects a bracket combination that is not the zero
 polynomial.
@@ -649,7 +649,7 @@ Therefore every nonempty sum of primitive obstruction monomials has a unique
 largest leading exponent and cannot vanish identically. In particular,
 \(B_\varphi\ne0\). \(\square\)
 
-### Lemma 8: Nonzero Labelled Obstruction Gives a Nonzero Edge Residual
+### Lemma 8: Nonzero Labeled Obstruction Gives a Nonzero Edge Residual
 
 Let \(h\in\mathbb F_2^{B_P}\). If \(\omega_F(h)\ne0\), then for generic
 coordinates there exists \(e\in F\) such that
@@ -676,7 +676,7 @@ same obstruction coset, this coefficient cannot vanish identically.
 Thus \(\Delta_{e,s_0,h}\) is a nonzero algebraic function. Its zero set is a
 proper algebraic subset. \(\square\)
 
-### Lemma 9: Zero Labelled Obstruction Preserves Active Edges
+### Lemma 9: Zero Labeled Obstruction Preserves Active Edges
 
 If \(\omega_F(h)=0\), then \(h\in\mathcal U_F(s_0)\) for every feasible
 branch code \(s_0\).
@@ -688,7 +688,7 @@ The condition \(\omega_F(h)=0\) is equivalent to \(h\in M(\ker V_F)\). Choose
 \(\alpha\) by mirror clique \(C\), and let \(m_C^\alpha\) be the XOR of their
 support masks.
 
-For every active edge \(e\) and every mirror clique \(C\), the labelled
+For every active edge \(e\) and every mirror clique \(C\), the labeled
 violation parity is zero. Hence the block mask \((m_C^\alpha,C)\) is
 mirror-compatible with \(e\): either both endpoints are toggled by the block,
 neither endpoint is toggled, or the only fixed endpoint of a crossing lies in
@@ -750,11 +750,11 @@ $$
 $$
 
 A branch difference preserves \(e\) exactly when the two points of the BP cover
-labelled by that difference have the same value of \(\lambda_e\). Therefore the
+labeled by that difference have the same value of \(\lambda_e\). Therefore the
 local active-edge stabilizer is the set of branch differences that fix all
 functions \(\lambda_e\) on the cover.
 
-The labelled presentation lemma is equivalent to the statement
+The labeled presentation lemma is equivalent to the statement
 
 $$
 \operatorname{Stab}_{\mathrm{BP}}(F)=M(\ker V_F),
@@ -765,7 +765,7 @@ edge-length functions on the BP sign cover.
 
 In this language, edge-sign separation says that the active edge-length
 functions factor through the elementary-abelian character quotient recorded by
-the labelled crossing characters \((e,C)\), and that this quotient is generic.
+the labeled crossing characters \((e,C)\), and that this quotient is generic.
 A generator that is mirror-compatible with \(e\) fixes \(\lambda_e\), while a
 non-compatible crossing contributes a nonzero character coefficient generically.
 Lemma 3 gives the local nonzero coefficient \(4h_ah_b\). The field-theoretic
@@ -773,7 +773,7 @@ task is to show that distinct labels give distinct quadratic characters in this
 abelianized quotient of the BP cover.
 
 This reformulation removes any dependence on an ordering of geometric
-reflections. The labelled matrix records the abelian character quotient that is
+reflections. The labeled matrix records the abelian character quotient that is
 visible to active edge lengths, even if the full iterated quadratic monodromy is
 larger or nonabelian.
 
@@ -852,7 +852,7 @@ V_F
 \quad\square
 $$
 
-## Theorem 2: Generic Labelled-Violation Rank Count
+## Theorem 2: Generic Labeled-Violation Rank Count
 
 Assume \(K\ge2\), \(\Xi_F\neq\varnothing\), and the DDGP instance is generic in
 the sense above. Then, outside a proper algebraic exceptional set,
@@ -935,7 +935,7 @@ $$
 
 Dependency cones are suffixes of the order. The graph reflections become the
 usual DMDGP partial reflections. A pruning edge kills exactly the suffix
-reflections whose boundary separates the two endpoints. Therefore the labelled
+reflections whose boundary separates the two endpoints. Therefore the labeled
 matrix reduces to the SBBU symmetry test: a reflection survives exactly when no
 active edge has an uncancelled crossing label.
 
@@ -950,15 +950,15 @@ Proved here:
 - mirror-compatible crossings have no single-edge mirror obstruction;
 - a single non-compatible crossing changes edge length generically;
 - cone masks span the local branch space;
-- the labelled obstruction quotient \(Q_F\) makes the obstruction of a branch
+- the labeled obstruction quotient \(Q_F\) makes the obstruction of a branch
   difference presentation-independent;
 - outside a finite algebraic exceptional set, local solution codes are
   translates of the algebraic edge-preserving differences from a base code;
 - primitive bracket obstructions are separated by a stretched-moment-curve
   specialization for \(K\ge2\);
-- the generic labelled presentation lemma for \(K\ge2\);
+- the generic labeled presentation lemma for \(K\ge2\);
 - the rank identity for \(M(\ker V_F)\);
-- the generic labelled-violation rank count theorem.
+- the generic labeled-violation rank count theorem.
 
 Remaining refinements:
 

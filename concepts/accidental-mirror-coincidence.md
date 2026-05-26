@@ -7,7 +7,7 @@ sources: []
 ## Intuition
 
 An accidental mirror coincidence is a nongeneric geometric alignment that makes
-a labelled violation harmless at one special coordinate realization.
+a labeled violation harmless at one special coordinate realization.
 
 The rank-count formula predicts generic behavior from graph data. If an endpoint
 that should be off a reflection hyperplane happens to lie on it, a distance can

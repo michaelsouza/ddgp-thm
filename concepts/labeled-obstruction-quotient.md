@@ -1,22 +1,22 @@
 ---
-term: Labelled Obstruction Quotient
+term: Labeled Obstruction Quotient
 tags: [linear-algebra, geometry, group-theory, combinatorial-optimization]
 sources: []
 ---
 
 ## Intuition
 
-The labelled obstruction quotient is the presentation-independent version of
-the labelled violation vector.
+The labeled obstruction quotient is the presentation-independent version of
+the labeled violation vector.
 
 A branch difference can usually be written as a combination of graph generators
-in more than one way. Different presentations may have different labelled
+in more than one way. Different presentations may have different labeled
 violation vectors, even though they produce the same binary branch mask. The
-only labelled information that can be geometrically meaningful is therefore the
+only labeled information that can be geometrically meaningful is therefore the
 violation vector modulo the labels created by pure presentation relations.
 
-This quotient is the correct object for the [labelled presentation
-property](labelled-presentation-property.md).
+This quotient is the correct object for the [labeled presentation
+property](labeled-presentation-property.md).
 
 ## Formal definition
 
@@ -32,7 +32,7 @@ $$
 V_F:\mathbb F_2^{\mathcal G}\to\mathbb F_2^{\mathcal L_F}
 $$
 
-be the labelled violation map for an active edge set $F$.
+be the labeled violation map for an active edge set $F$.
 
 The pure presentation-label space is
 
@@ -40,10 +40,10 @@ $$
 R_F=V_F(\ker M).
 $$
 
-It records labelled violations that can be introduced or removed by changing a
+It records labeled violations that can be introduced or removed by changing a
 generator presentation without changing the total branch mask.
 
-The labelled obstruction quotient is
+The labeled obstruction quotient is
 
 $$
 Q_F=\mathbb F_2^{\mathcal L_F}/R_F.
@@ -56,7 +56,7 @@ $$
 M\alpha=h.
 $$
 
-The canonical labelled obstruction of $h$ is
+The canonical labeled obstruction of $h$ is
 
 $$
 \omega_F(h)=V_F\alpha+R_F\in Q_F.
@@ -65,7 +65,7 @@ $$
 This is well-defined because any two presentations of $h$ differ by an element
 of $\ker M$.
 
-The projected labelled kernel is exactly
+The projected labeled kernel is exactly
 
 $$
 \ker\omega_F=M(\ker V_F).

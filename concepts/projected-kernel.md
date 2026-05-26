@@ -1,22 +1,21 @@
 ---
-term: Projected Kernel
+term: Feasible Branch Shift Space
 tags: [linear-algebra, geometry, group-theory]
 sources: []
 ---
 
 ## Intuition
 
-The projected kernel is the space of branch masks that admit a zero-labelled
-generator presentation.
+The feasible branch shift space is the space of branch-code shifts that admit a
+zero-labeled generator presentation.
 
-It is the algebraic stabilizer predicted by the rank-count theory: applying one
-of its masks to a feasible local solution should preserve every active edge
-generically.
+Applying one of its masks to a feasible local solution preserves every active
+edge generically.
 
 ## Formal definition
 
-Let $M$ be the mask map and let $V_F$ be the violation map. The projected kernel
-is
+Let $M$ be the mask map and let $V_F$ be the violation map. The feasible branch
+shift space is
 
 $$
 \mathcal K_F=M(\ker V_F).
@@ -28,11 +27,15 @@ $$
 \mathcal K_F=\ker\omega_F.
 $$
 
-When the [labelled presentation property](labelled-presentation-property.md)
+When the [labeled presentation property](labeled-presentation-property.md)
 holds and $\Xi_F$ is nonempty,
 
 $$
-\Xi_F=s_0\oplus\mathcal K_F
+\Xi_F=s^\ast\oplus\mathcal K_F
 $$
 
-for any feasible local code $s_0\in\Xi_F$.
+for any reference solution $s^\ast\in\Xi_F$.
+
+_Avoid_: projected kernel as the article term. It is useful linear-algebra
+shorthand, but **feasible branch shift space** names the role of
+$\mathcal K_F$ in the solution set.

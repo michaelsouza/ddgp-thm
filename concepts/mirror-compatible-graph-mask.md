@@ -60,4 +60,4 @@ For one pruning edge, this individual mirror-compatibility test is often enough 
 
 This criterion is intended as a generic graph-theoretic test. Nongeneric coordinate coincidences can create additional symmetries, for example when an endpoint not belonging to the mirror clique nevertheless lies geometrically on the mirror hyperplane.
 
-For multiple active edges, and for the current active-edge treatment of base and pruning edges together, individual mirror-compatibility is too restrictive. The corresponding linear object is the [labelled violation kernel](labelled-violation-kernel.md), where violations are labelled by both edge and mirror clique before cancellation.
+For multiple active edges, and for the current active-edge treatment of base and pruning edges together, individual mirror-compatibility is too restrictive. The corresponding linear object is the [labeled violation kernel](labeled-violation-kernel.md), where violations are labeled by both edge and mirror clique before cancellation.

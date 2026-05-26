@@ -1,0 +1,604 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+
+\title{A Rank-Count Theory for Local Solutions in the Discretizable Distance Geometry Problem}
+\author{Distance Geometry Research Group}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We develop a graph-combinatorial rank-count theory for generic local solution
+sets in the Discretizable Distance Geometry Problem. The method replaces
+enumeration of Branch-and-Prune branch codes by a rank computation over
+\(\mathbb F_2\). For a local active edge set \(F\), graph-derived generators
+produce branch masks, and labeled violations record active-edge incompatibilities
+with their mirror cliques. The feasible local branch codes form an affine
+coset \(s^\ast\oplus\mathcal K_F\), where
+\(\mathcal K_F=M(\ker V)\). Consequently, the generic local solution count is
+\[
+|\Xi_F|
+=
+2^{
+\operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}
+-
+\operatorname{rank}(V)
+}.
+\]
+\end{abstract}
+
+\section{Introduction}
+
+The Discretizable Distance Geometry Problem (DDGP) is a structured form of the
+Distance Geometry Problem in \(\mathbb R^K\) in which vertices are placed in a
+prescribed order and each non-seed vertex is determined by distances to a set
+of \(K\) predecessors \cite{mucherino2012discretizable}.  In the molecular
+subclass DMDGP, these predecessors are consecutive, and the resulting
+Branch-and-Prune tree has strong partial-reflection symmetries
+\cite{lavor2012discretizable,liberti2008branch,liberti2014number,
+mucherino2012exploiting,goncalves2021new}.  Those symmetries underlie
+generic power-of-two solution counts \cite{liberti2014number},
+symmetry-driven enumeration \cite{mucherino2012exploiting}, optimal symmetry
+detection \cite{lavor2021optimality}, and symmetry-based build-up algorithms
+\cite{goncalves2021new}.
+
+For general DDGP instances, predecessor sets need not be consecutive.
+Reflections therefore no longer act on intervals or suffixes of the vertex
+order; they propagate through a dependency graph.  This distinction is also
+central to the known theory of discretization orders
+\cite{cassioli2015discretization,abud2024impossible}.  Moreover, in the
+general DDGP, existing negative results show that the number of solutions
+cannot be counted from the graph alone in full generality
+\cite{abud2024impossible}.  The aim of this paper is therefore more local: we
+recover a comparable generic counting theory for fixed local DDGP active
+subproblems.  The central replacement is to use graph-derived branch shifts
+and to test active-edge compatibility by labeled violation cancellation over
+\(\mathbb F_2\).
+
+The contribution is threefold.  First, we define local active subproblems
+around a pruning set and represent their branch transformations by cone
+generators and base generators.  Second, we introduce a labeled violation
+matrix that separates violations caused by different mirror cliques.  Third,
+we prove that, under a generic mirror-separation assumption, the feasible local
+branch codes form one affine coset whose dimension is computed by a
+rank-nullity formula.
+
+All vector spaces, sums, kernels, and ranks below are over \(\mathbb F_2\).
+Binary branch-code representations are standard for paths in the
+Branch-and-Prune tree; related DDGP/DMDGP binary representations have also been
+used to analyze symmetry and degrees of freedom
+\cite{mucherino2012exploiting,mucherino2020analysis}.
+
+\section{Local DDGP Subproblems}
+
+Let
+\[
+V_0=\{v_1,\ldots,v_{K+1}\}
+\]
+be the fixed initial simplex.  For every non-seed vertex \(i>K+1\), the
+predecessor set \(U_i\) has size \(K\).  The predecessor relation defines a
+directed acyclic graph with an arc \(u\to i\) whenever \(u\in U_i\).
+Related order-dependent reference structures have been studied through
+\(K\)-discretization and \(K\)-incident graphs \cite{abud2018k}; here we fix
+one local predecessor system and derive branch shifts from its dependency
+cones.
+
+\begin{definition}[Fixing set]
+The fixing set of a vertex \(i\) is
+\[
+\operatorname{Fix}_U(i)
+=
+\{i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}_U(u).
+\]
+\end{definition}
+
+\begin{definition}[Dependency cone]
+The dependency cone of a vertex \(i\) is
+\[
+\operatorname{Cone}_U(i)
+=
+\{i\}\cup \bigcup_{w:\,i\in U_w}\operatorname{Cone}_U(w).
+\]
+\end{definition}
+
+For a set of pruning edges \(P\), define the local vertex set
+\[
+L_P
+=
+\bigcup_{\{u,v\}\in P}
+\left(\operatorname{Fix}_U(u)\cup \operatorname{Fix}_U(v)\right),
+\]
+and the local binary decision set
+\[
+B_P=L_P\setminus V_0.
+\]
+The set \(B_P\) is the set of branch decisions that can affect the pruning
+constraints in \(P\).  Restricting to \(L_P\) keeps the construction local:
+vertices outside \(L_P\) do not enter the branch code being counted.
+
+The active edge set is denoted by \(F\).  In the main theorem, \(F\) must
+contain the local base edges \(E_0[L_P]\).  In applications one usually takes
+\[
+F=E_0[L_P]\cup P.
+\]
+The local solution code is
+\[
+\Xi_F
+=
+\{s\in \mathbb F_2^{B_P}: s \text{ realizes every edge in }F\}.
+\]
+
+\section{Graph-Derived Generators}
+
+A generator represents a branch transformation together with the mirror clique
+that explains its geometric action.  Each generator is a pair
+\[
+g=(m_g,C_g),
+\]
+where \(m_g\in\mathbb F_2^{B_P}\) is a branch mask and \(C_g\) is a predecessor
+clique.  The mask tells which local branch bits are toggled; the clique tells
+which affine mirror is used.
+
+Let \(\mathcal G\) be the generator family and let
+\[
+A=\mathbb F_2^{\mathcal G}
+\]
+be the generator coefficient space.
+
+\subsection{Cone Generators}
+
+For each decision vertex \(q\in B_P\), the cone generator is
+\[
+g_q=(m_q,U_q),
+\qquad
+\operatorname{supp}(m_q)=B_P\cap \operatorname{Cone}_U(q).
+\]
+Ordered by the DDGP order, the cone masks form a triangular system with ones on
+the diagonal, and therefore span the full local branch space
+\(\mathbb F_2^{B_P}\).
+
+\subsection{Base Generators}
+
+For a predecessor clique \(C\), define
+\[
+\operatorname{Gen}_P(C)=\{w\in B_P: U_w=C\}.
+\]
+The base generator associated with \(C\) is
+\[
+g_C=(m_C,C),
+\]
+where
+\[
+\operatorname{supp}(m_C)
+=
+\bigcup_{w\in \operatorname{Gen}_P(C)}
+\operatorname{supp}(m_w).
+\]
+Base generators are useful because two transformations with the same branch
+mask may have different geometric meaning if they use different mirror cliques.
+Thus a base generator may be redundant as a column of the mask matrix while
+still being necessary as a labeled geometric operation.
+
+\subsection{Mask Matrix}
+
+Let \(\mathcal G=\{g^1,\ldots,g^m\}\).  The generator mask matrix is the linear
+map
+\[
+M:A\to \mathbb F_2^{B_P},
+\]
+whose \(j\)-th column is \(m_{g^j}\).  Thus
+\[
+M\alpha=\bigoplus_{g^j:\,\alpha_j=1}m_{g^j}.
+\]
+
+\section{Labeled Violations}
+
+The mask \(m_g\) says which branch bits change, but it does not by itself say
+which distances are preserved.  Preservation depends on the mirror clique
+attached to the transformation.
+
+Fix the active edge set \(F\).  Let \(g=(m_g,C_g)\), and write
+\[
+S_g=\operatorname{supp}(m_g).
+\]
+An active edge \(e=\{a,b\}\in F\) crosses the support boundary of \(g\) if
+\[
+|e\cap S_g|=1.
+\]
+If this happens, one endpoint is moved by the reflection and the other is
+fixed.  The edge length is preserved only when the fixed endpoint lies on the
+reflection mirror, which is ensured when it belongs to \(C_g\).  Therefore
+\(g\) violates \(e\) if
+\[
+|e\cap S_g|=1
+\quad\text{and}\quad
+e\setminus S_g\not\subseteq C_g.
+\]
+
+Violations are labeled by both the edge and the mirror clique.  Let
+\[
+\mathcal L
+=
+\{(e,C_g): g\in\mathcal G,\ e\in F,\ g\text{ violates }e\}.
+\]
+The labeled violation matrix is the linear map
+\[
+V:A\to \mathbb F_2^{\mathcal L}.
+\]
+Rows are indexed by labeled pairs \(\ell_i=(e_i,C_i)\in\mathcal L\), and
+columns are indexed by generators \(g^j\).  Its entries are
+\[
+V_{ij}=1
+\quad\Longleftrightarrow\quad
+C_i=C_{g^j}\text{ and }g^j\text{ violates }e_i.
+\]
+Thus \(V\alpha\) is the net labeled violation pattern of the generator
+combination \(\alpha\).  The same active edge may be crossed by transformations
+using different mirrors; such violations are kept in different rows and cannot
+cancel unless their mirror labels agree.
+
+\section{Feasible Branch Shifts}
+
+The branch transformations that preserve all active edges are represented by
+generator combinations with zero net labeled violation.  The feasible branch
+shift space is
+\[
+\mathcal K_F=M(\ker V).
+\]
+Thus \(\mathcal K_F\) consists of branch shifts that can be produced by
+zero-violation generator combinations.
+
+The distinction between presentations and branch masks is essential here.
+Elements of \(\ker V\) are
+generator presentations, not branch masks.  Different generator combinations
+may produce the same branch mask.  If \(M\alpha=M\beta\), then
+\(\alpha+\beta\in\ker M\).  The object to count is therefore the image
+\(M(\ker V)\), not the set of presentations \(\ker V\).
+
+\begin{definition}[Generic mirror separation]
+The local active subproblem satisfies generic mirror separation if every branch
+shift outside \(\mathcal K_F\) changes at least one active-edge length outside
+a proper algebraic exceptional set.
+\end{definition}
+
+\section{Main Results}
+
+The first result is purely linear algebra.  It computes the dimension of the
+projected zero-violation space without enumerating either local branch strings
+or generator presentations.
+
+\begin{lemma}[Branch-shift rank]
+For the feasible branch shift space \(\mathcal K_F=M(\ker V)\),
+\[
+\dim\mathcal K_F
+=
+\operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}
+-
+\operatorname{rank}(V).
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(m=|\mathcal G|=\dim A\).  Since
+\(\mathcal K_F=M(\ker V)\), restrict \(M\) to \(\ker V\):
+\[
+M|_{\ker V}:\ker V\to \mathbb F_2^{B_P}.
+\]
+By rank-nullity applied to this restricted map,
+\[
+\dim\mathcal K_F
+=
+\dim\ker V
+-
+\dim(\ker V\cap\ker M).
+\]
+Now \(\dim\ker V=m-\operatorname{rank}(V)\), and
+\[
+\ker V\cap\ker M
+=
+\ker\begin{bmatrix}M\\ V\end{bmatrix}.
+\]
+Therefore
+\[
+\dim(\ker V\cap\ker M)
+=
+m-\operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}.
+\]
+Substitution gives the formula.
+\end{proof}
+
+The next lemma is the geometric direction encoded by the labeled violation
+matrix: zero net labeled violation gives a composition of mirror-compatible
+blocks, hence preserves every active edge.
+
+\begin{lemma}[Zero-violation preservation]
+Let \(\alpha\in\ker V\) and let \(h=M\alpha\).  If
+\(s\in\Xi_F\), then \(s\oplus h\in\Xi_F\).
+\end{lemma}
+
+\begin{proof}
+Group the selected generators in \(\alpha\) by mirror clique.  For a fixed
+clique \(C\), let \(S_C\) be the XOR of the supports of the selected
+generators with mirror \(C\).  The row \((e,C)\) of \(V\alpha\) is the parity
+of selected generators with mirror \(C\) that violate the active edge \(e\).
+Since \(V\alpha=0\), this parity is zero for every active edge and every
+mirror clique.
+
+Therefore the block \((S_C,C)\) is mirror-compatible with each active edge:
+if an active edge crosses \(S_C\), its fixed endpoint lies in \(C\).  Indeed,
+generator supports are disjoint from their own mirror clique, so an endpoint in
+\(C\) is never moved by a generator with mirror \(C\); if a crossing edge had
+fixed endpoint outside \(C\), the selected generators with mirror \(C\) would
+contribute odd violation parity to the row \((e,C)\).  Reflection through
+\(\operatorname{aff}(C)\) preserves edges with both endpoints moved, edges
+with neither endpoint moved, and crossing edges whose fixed endpoint lies on
+the mirror.  Applying these block reflections clique by clique preserves every
+edge in \(F\), and their net branch mask is \(\bigoplus_C S_C=M\alpha=h\).
+Thus \(s\oplus h\) realizes every active edge.
+\end{proof}
+
+The theorem states that, generically, the converse also holds: every feasible
+solution difference must come from such a zero-violation presentation.
+
+\begin{theorem}[Feasible branch shift theorem]
+Assume \(K\ge2\), \(E_0[L_P]\subseteq F\), \(\Xi_F\ne\varnothing\), and generic
+mirror separation.  Then, for any reference solution \(s^\ast\in\Xi_F\),
+\[
+\Xi_F
+=
+s^\ast\oplus \mathcal K_F
+=
+s^\ast\oplus M(\ker V).
+\]
+\end{theorem}
+
+\begin{corollary}[Rank count]
+Under the assumptions of the theorem,
+\[
+|\Xi_F|
+=
+2^{
+\operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}
+-
+\operatorname{rank}(V)
+}.
+\]
+\end{corollary}
+
+\begin{proof}
+By the theorem, \(\Xi_F\) is an affine coset of \(\mathcal K_F\), so
+\(|\Xi_F|=2^{\dim\mathcal K_F}\).  The branch-shift rank lemma gives the
+displayed exponent.
+\end{proof}
+
+\section{Proof of the Feasible Branch Shift Theorem}
+
+Fix a reference solution \(s^\ast\in\Xi_F\).  We prove that the feasible
+branch differences from \(s^\ast\) are exactly \(\mathcal K_F\).
+
+First let \(h\in\mathcal K_F\).  By definition, \(h=M\alpha\) for some
+\(\alpha\in\ker V\).  By zero-violation preservation,
+\[
+s^\ast\oplus h\in\Xi_F.
+\]
+Hence
+\[
+s^\ast\oplus\mathcal K_F\subseteq \Xi_F.
+\]
+
+Conversely, let \(s\in\Xi_F\) and set
+\[
+h=s\oplus s^\ast.
+\]
+The cone generators span the full local branch space
+\(\mathbb F_2^{B_P}\), so \(h\) has at least one generator presentation.  If
+\(h\notin\mathcal K_F\), then by generic mirror separation this branch shift
+changes at least one active-edge length outside a proper algebraic exceptional
+set.  This contradicts the fact that both \(s^\ast\) and \(s\) realize every
+edge in \(F\).  Therefore \(h\in\mathcal K_F\), and so
+\[
+\Xi_F\subseteq s^\ast\oplus\mathcal K_F.
+\]
+
+The two inclusions give
+\[
+\Xi_F=s^\ast\oplus\mathcal K_F=s^\ast\oplus M(\ker V),
+\]
+as claimed.
+
+\section{A Small Worked Example}
+
+We include a fully worked six-vertex example to make the construction
+checkable by hand.  Although the instance is small, it contains both cone
+generators and base generators, a nontrivial labeled violation kernel, and a
+presentation ambiguity that must be removed by the projection \(M(\ker V)\).
+
+Let \(K=2\) and let the fixed initial simplex be
+\[
+V_0=\{v_1,v_2,v_3\}.
+\]
+Consider the local predecessor sets
+\[
+U_4=\{v_1,v_3\},
+\qquad
+U_5=\{v_1,v_3\},
+\qquad
+U_6=\{v_1,v_4\},
+\]
+and pruning edge set
+\[
+P=\{\{v_3,v_6\},\,\{v_4,v_5\}\}.
+\]
+The local vertex and decision sets are
+\[
+L_P=\{v_1,v_3,v_4,v_5,v_6\},
+\qquad
+B_P=\{v_4,v_5,v_6\}.
+\]
+
+There are two predecessor cliques:
+\[
+C_1=\{v_1,v_3\},\qquad C_2=\{v_1,v_4\}.
+\]
+The first generates \(v_4\) and \(v_5\); the second generates \(v_6\).  Since
+\(v_6\) depends on \(v_4\), we have
+\[
+\operatorname{Cone}_U(v_4)\cap B_P=\{v_4,v_6\}.
+\]
+With rows ordered as \((v_4,v_5,v_6)\) and columns ordered as
+\[
+(g_4,g_5,g_6,g_{C_1},g_{C_2}),
+\]
+the generator supports are
+\[
+\begin{array}{c|c|c}
+\text{generator} & \text{support} & \text{mirror clique}\\
+\hline
+g_4 & \{v_4,v_6\} & C_1\\
+g_5 & \{v_5\} & C_1\\
+g_6 & \{v_6\} & C_2\\
+g_{C_1} & \{v_4,v_5,v_6\} & C_1\\
+g_{C_2} & \{v_6\} & C_2
+\end{array}
+\]
+and hence
+\[
+M=
+\begin{bmatrix}
+1&0&0&1&0\\
+0&1&0&1&0\\
+1&0&1&1&1
+\end{bmatrix}.
+\]
+
+The active edge set is \(F=E_0[L_P]\cup P\), where the base edges are
+\[
+\{v_1,v_4\},\{v_3,v_4\},
+\{v_1,v_5\},\{v_3,v_5\},
+\{v_1,v_6\},\{v_4,v_6\},
+\]
+and the pruning edges are \(\{v_3,v_6\}\) and \(\{v_4,v_5\}\).  The nonzero
+labeled violations are
+\[
+(\{v_4,v_5\},C_1)
+\quad\text{and}\quad
+(\{v_3,v_6\},C_2).
+\]
+They are obtained as follows.
+\[
+\begin{array}{c|c|c}
+\text{generator} & \text{violated active edge} & \text{label}\\
+\hline
+g_4 & \{v_4,v_5\} & (\{v_4,v_5\},C_1)\\
+g_5 & \{v_4,v_5\} & (\{v_4,v_5\},C_1)\\
+g_6 & \{v_3,v_6\} & (\{v_3,v_6\},C_2)\\
+g_{C_1} & \text{none} & \text{none}\\
+g_{C_2} & \{v_3,v_6\} & (\{v_3,v_6\},C_2)
+\end{array}
+\]
+Thus, with rows ordered as the two labels above,
+\[
+V=
+\begin{bmatrix}
+1&1&0&0&0\\
+0&0&1&0&1
+\end{bmatrix}.
+\]
+Write a generator coefficient vector as
+\[
+\alpha=(a_4,a_5,a_6,a_{C_1},a_{C_2}).
+\]
+Then \(V\alpha=0\) is equivalent to
+\[
+a_4+a_5=0,
+\qquad
+a_6+a_{C_2}=0.
+\]
+Hence \(a_4=a_5=t\), \(a_6=a_{C_2}=u\), and \(a_{C_1}=w\) is free.  Applying
+the mask matrix gives
+\[
+M\alpha
+=
+t(m_4+m_5)+u(m_6+m_{C_2})+w\,m_{C_1}
+=
+(t+w)
+\begin{bmatrix}
+1\\1\\1
+\end{bmatrix}.
+\]
+The parameter \(u\) changes the generator presentation but not the branch mask,
+because \(m_6=m_{C_2}\).  Therefore
+\[
+\mathcal K_F
+=
+M(\ker V)
+=
+\left\{
+\begin{bmatrix}0\\0\\0\end{bmatrix},
+\begin{bmatrix}1\\1\\1\end{bmatrix}
+\right\}.
+\]
+The ranks are
+\[
+\operatorname{rank}\begin{bmatrix}M\\V\end{bmatrix}=3,
+\qquad
+\operatorname{rank}(V)=2.
+\]
+Therefore
+\[
+|\Xi_F|=2^{3-2}=2.
+\]
+The nontrivial feasible branch shift is the mask \(\{v_4,v_5,v_6\}\), obtained
+from \(g_4\oplus g_5\), or equivalently from the base generator \(g_{C_1}\).
+The two feasible local solutions are a reference solution and its simultaneous
+reflection through the mirror \(\operatorname{aff}(v_1,v_3)\) on the local
+vertices \(v_4,v_5,v_6\).
+
+\section{Scope and Genericity}
+
+The example above is intended as a small reproducible check of the construction:
+the generator masks, labeled violation matrix, ranks, and final count can all be
+inspected directly.
+
+The generic mirror separation assumption excludes accidental geometric
+coincidences.  In non-generic configurations, the actual number of solutions can
+be larger than the generic rank count.  This happens when an apparently
+violating edge is preserved accidentally, for example because a point lies
+unexpectedly on a reflection mirror.  Such cases form a proper algebraic
+exceptional set; analogous almost-always qualifications appear in existing
+DDGP/DMDGP counting results \cite{liberti2014number,abud2024impossible}.
+
+The case \(K=1\) requires separate treatment because the bracket-separation
+argument used for \(K\ge2\) degenerates on the line.
+
+\section{Conclusion}
+
+We have described a rank-count method for generic local DDGP solution sets.  The
+method replaces interval partial reflections by graph-derived generators and
+replaces individual pruning-edge compatibility by labeled violation
+cancellation.  The Feasible Branch Shift Theorem identifies the local solution
+code from any reference solution as the affine coset
+\[
+\Xi_F=s^\ast\oplus M(\ker V),
+\]
+and the Rank-Count Corollary computes its size using only ranks over
+\(\mathbb F_2\).  This gives a combinatorial counting method for fixed local
+active DDGP subproblems with non-consecutive predecessor structure, under the
+stated generic mirror-separation assumption.
+
+\bibliographystyle{plain}
+\bibliography{../references/references}
+
+\end{document}
