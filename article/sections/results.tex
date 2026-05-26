@@ -1,28 +1,28 @@
 \section{Main Results}
 \label{sec:results}
 
-The first result is purely linear algebra. It computes the dimension of the projected zero-violation space without enumerating either local branch strings or generator presentations.
+We now prove the rank-count theorem. First, a linear-algebra lemma computes the dimension of the projected zero-violation space. Then a preservation lemma gives the geometric implication of zero labeled violation. Finally, the main theorem identifies the whole local solution code as an affine shift of that space.
 
 \begin{lemma}[Branch-shift rank]
 \label{lem:rank}
-For the feasible branch shift space $\mathcal K_F = M(\ker V)$,
+For the feasible branch shift space $\mathcal{K}_F = M(\ker V)$,
 \[
-\dim \mathcal K_F
+\dim \mathcal{K}_F
 =
-\operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}
+\operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}
 -
 \operatorname{rank}(V).
 \]
 \end{lemma}
 
 \begin{proof}
-Let $m = |\mathcal G| = \dim A$. Since $\mathcal K_F = M(\ker V)$, restrict $M$ to $\ker V$:
+Let $m = \lvert \mathcal{G} \rvert = \dim A$. Since $\mathcal{K}_F = M(\ker V)$, we restrict $M$ to $\ker V$:
 \[
-M|_{\ker V} : \ker V \to \mathbb{F}_2^{B_P}.
+M\big|_{\ker V} : \ker V \to \mathbb{F}_2^{B_P}.
 \]
 By rank-nullity applied to this restricted map,
 \[
-\dim \mathcal K_F
+\dim \mathcal{K}_F
 =
 \dim \ker V
 -
@@ -32,19 +32,19 @@ Now $\dim \ker V = m - \operatorname{rank}(V)$, and
 \[
 \ker V \cap \ker M
 =
-\ker\begin{bmatrix}M\\ V\end{bmatrix}.
+\ker\begin{bmatrix} M \\ V \end{bmatrix}.
 \]
 Therefore,
 \[
 \dim(\ker V \cap \ker M)
 =
-m - \operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}.
+m - \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}.
 \]
 Substituting these dimensions into the rank-nullity equation gives:
 \[
 \begin{aligned}
-\dim \mathcal K_F &= \left(m - \operatorname{rank}(V)\right) - \left(m - \operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}\right) \\
-&= \operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix} - \operatorname{rank}(V).
+\dim \mathcal{K}_F &= (m - \operatorname{rank}(V)) - \left(m - \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}\right) \\
+&= \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}(V).
 \end{aligned}
 \]
 This completes the proof.
@@ -58,9 +58,9 @@ Let $\alpha \in \ker V$ and let $h = M\alpha$. If $s \in \Xi_F$, then $s \oplus 
 \end{lemma}
 
 \begin{proof}
-Group the selected generators in $\alpha$ by mirror clique. For a fixed clique $C$, let $S_C$ be the XOR of the supports of the selected generators with mirror $C$. The row $(e,C)$ of $V\alpha$ represents the parity of selected generators with mirror $C$ that violate the active edge $e$. Since $V\alpha = 0$, this parity is zero for every active edge $e \in F$ and every mirror clique $C$.
+We group the selected generators in $\alpha$ by mirror clique. For a fixed clique $C$, let $S_C$ be the XOR of the supports of the selected generators with mirror $C$. The row $(e,C)$ of $V\alpha$ represents the parity of selected generators with mirror $C$ that violate the active edge $e$. We have $V\alpha = 0$. Therefore, this parity is zero for every active edge $e \in F$ and every mirror clique $C$.
 
-Therefore, the block $(S_C, C)$ is mirror-compatible with each active edge: if an active edge crosses $S_C$, its fixed endpoint lies in $C$. Because generator supports are disjoint from their own mirror clique, an endpoint in $C$ is never moved by a generator with mirror $C$. If a crossing edge had its fixed endpoint outside $C$, the selected generators with mirror $C$ would contribute an odd violation parity to the row $(e,C)$, which contradicts $V\alpha = 0$.
+Therefore, the block $(S_C, C)$ is mirror-compatible with each active edge: if an active edge crosses $S_C$, its fixed endpoint lies in $C$. Generator supports are disjoint from their own mirror clique. Consequently, an endpoint in $C$ is never moved by a generator with mirror $C$. If a crossing edge had its fixed endpoint outside $C$, the selected generators with mirror $C$ would contribute an odd violation parity to the row $(e,C)$. This contradicts $V\alpha = 0$.
 
 Reflection through the affine span $\operatorname{aff}(C)$ preserves edges with both endpoints moved, edges with neither endpoint moved, and crossing edges whose fixed endpoint lies directly on the mirror. Although spatial reflections generally do not commute, here any active edge crossing the block support $S_C$ has its fixed endpoint lying directly on the mirror $\operatorname{aff}(C)$. Consequently, each block reflection acts symmetrically on active edges, preserving the coordinates and affine hyperplanes representing subsequent mirror cliques. The composition of these reflections is therefore well-defined, and applying these block reflections one mirror clique at a time preserves every edge in $F$. Their net branch mask is $\bigoplus_C S_C = M\alpha = h$. Thus, $s \oplus h$ realizes every active edge in $F$.
 \end{proof}
@@ -73,46 +73,46 @@ Assume $K \ge 2$, $E_D[L_P] \subseteq F$, $\Xi_F \ne \varnothing$, and generic m
 \[
 \Xi_F
 =
-s^\ast + \mathcal K_F
+s^\ast + \mathcal{K}_F
 =
 s^\ast + M(\ker V).
 \]
 \end{theorem}
 
 \begin{proof}
-Fix a reference solution $s^\ast \in \Xi_F$. We prove that the feasible branch differences from $s^\ast$ are exactly $\mathcal K_F$.
+Fix a reference solution $s^\ast \in \Xi_F$. We prove that the feasible branch differences from $s^\ast$ are exactly $\mathcal{K}_F$.
 
-First, let $h \in \mathcal K_F$. By definition, $h = M\alpha$ for some $\alpha \in \ker V$. By Lemma \ref{lem:preservation} (Zero-violation preservation),
+First, let $h \in \mathcal{K}_F$. By definition, $h = M\alpha$ for some $\alpha \in \ker V$. By Lemma~\ref{lem:preservation} (Zero-violation preservation),
 \[
 s^\ast \oplus h \in \Xi_F.
 \]
 Hence,
 \[
-s^\ast + \mathcal K_F \subseteq \Xi_F.
+s^\ast + \mathcal{K}_F \subseteq \Xi_F.
 \]
 
-Conversely, let $s \in \Xi_F$ and set $h = s \oplus s^\ast$. Since the cone generators form a triangular system spanning the full local branch space $\mathbb{F}_2^{B_P}$, the branch shift $h$ has at least one generator presentation. If $h \notin \mathcal K_F$, then by Definition \ref{def:mirror-sep} (Generic mirror separation), this branch shift changes at least one active-edge length outside a proper algebraic exceptional set. 
+Conversely, let $s \in \Xi_F$ and set $h = s \oplus s^\ast$. The cone generators form a triangular system spanning the full local branch space $\mathbb{F}_2^{B_P}$. Therefore, the branch shift $h$ has at least one generator presentation. If $h \notin \mathcal{K}_F$, then by Definition~\ref{def:mirror-sep} (Generic mirror separation), this branch shift changes at least one active-edge length outside a proper algebraic exceptional set. 
 
-Because the coordinate parameters of the realization are generic (i.e., they lie outside the union of these algebraic hypersurfaces, where specific Cayley-Menger determinants or coordinate discriminants vanish), any branch shift outside $\mathcal K_F$ must physically change at least one active edge length. This contradicts the fact that both $s^\ast$ and $s$ realize every edge in $F$ (and thus preserve all active-edge lengths). Therefore, $h$ must belong to $\mathcal K_F$, which implies:
+The coordinate parameters of the realization are generic; that is, they lie outside the union of the algebraic hypersurfaces where specific Cayley-Menger determinants or coordinate discriminants vanish. Consequently, any branch shift outside $\mathcal{K}_F$ must physically change the length of at least one active edge. However, both $s^\ast$ and $s$ realize every edge in $F$, meaning they preserve all active-edge lengths. This contradiction implies that $h$ must belong to $\mathcal{K}_F$, which yields
 \[
-\Xi_F \subseteq s^\ast + \mathcal K_F.
+\Xi_F \subseteq s^\ast + \mathcal{K}_F.
 \]
 
 Combining both inclusions yields:
 \[
-\Xi_F = s^\ast + \mathcal K_F = s^\ast + M(\ker V),
+\Xi_F = s^\ast + \mathcal{K}_F = s^\ast + M(\ker V),
 \]
 which completes the proof.
 \end{proof}
 
 \begin{lemma}[Rank count]
 \label{lem:count}
-Under the assumptions of Theorem \ref{thm:main},
+Under the assumptions of Theorem~\ref{thm:main},
 \[
 |\Xi_F|
 =
 2^{
-\operatorname{rank}\begin{bmatrix}M\\ V\end{bmatrix}
+\operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}
 -
 \operatorname{rank}(V)
 }.
@@ -120,5 +120,5 @@ Under the assumptions of Theorem \ref{thm:main},
 \end{lemma}
 
 \begin{proof}
-By Theorem \ref{thm:main}, $\Xi_F$ is an affine coset of $\mathcal K_F$, so $|\Xi_F| = 2^{\dim \mathcal K_F}$. Applying Lemma \ref{lem:rank} (Branch-shift rank) gives the displayed exponent.
+By Theorem~\ref{thm:main}, $\Xi_F$ is an affine coset of $\mathcal{K}_F$, so $|\Xi_F| = 2^{\dim \mathcal{K}_F}$. Applying Lemma~\ref{lem:rank} (Branch-shift rank) gives the displayed exponent.
 \end{proof}

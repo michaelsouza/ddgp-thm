@@ -1,15 +1,19 @@
 \section{Feasible Branch Shifts}
 \label{sec:shifts}
 
-The branch transformations that preserve all active edges are represented by generator combinations with zero net labeled violation. The feasible branch shift space is
+This section defines the feasible branch shift space. These are the branch transformations produced by generator combinations whose net labeled violation is zero.
+
+Generator combinations with zero net labeled violation represent branch transformations that preserve all active edges. The feasible branch shift space is
 \[
-\mathcal K_F=M(\ker V).
+\mathcal{K}_F = M(\ker V).
 \]
-Thus, $\mathcal K_F$ consists of branch shifts that can be produced by zero-violation generator combinations.
+Thus, $\mathcal{K}_F$ consists of branch shifts that can be produced by zero-violation generator combinations.
 
 The distinction between presentations and branch masks is essential here. Elements of $\ker V$ are generator presentations, not branch masks. Different generator combinations may produce the same branch mask. If $M\alpha = M\beta$, then $\alpha + \beta \in \ker M$. The object to count is therefore the image $M(\ker V)$, not the set of presentations $\ker V$.
 
 \begin{definition}[Generic mirror separation]
 \label{def:mirror-sep}
-View the local predecessor data and the edge lengths in $F$ as parameters on the real algebraic set where all required lateration steps are nondegenerate. The local active subproblem satisfies generic mirror separation if there is a proper algebraic exceptional set $Z$ such that, for every parameter choice outside $Z$, each branch shift $h\notin\mathcal K_F$ changes the length of at least one active edge in $F$.
+View the local predecessor data and the edge lengths in $F$ as parameters on the real algebraic set where all required lateration steps are nondegenerate. The local active subproblem satisfies generic mirror separation if there is a proper algebraic exceptional set $Z$ such that, for every parameter choice outside $Z$, each branch shift $h\notin\mathcal{K}_F$ changes the length of at least one active edge in $F$.
 \end{definition}
+
+The next section uses this definition to prove the algebraic rank count.
