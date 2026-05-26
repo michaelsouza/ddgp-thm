@@ -1,33 +1,33 @@
 \section{Local DDGP Subproblems}
 \label{sec:subproblems}
 
-Let
-\[
-V_0=\{v_1,\ldots,v_{K+1}\}
-\]
-be the fixed initial simplex in $\mathbb{R}^K$. For every non-seed vertex $i > K+1$, the predecessor set $U_i$ has size $K$. The predecessor relation defines a directed acyclic graph with an arc $u \to i$ whenever $u \in U_i$. Related order-dependent reference structures have been studied through $K$-discretization and $K$-incident graphs \cite{abud2018k}; here we fix one local predecessor system and derive branch shifts from its dependency cones.
+We now define the local DDGP subproblem around a set of pruning edges. The construction identifies the vertices that can affect those pruning constraints, the corresponding binary decision space, and the active edge set that the local branch code must realize.
+
+Let the vertices be ordered as $v_1,\ldots,v_n$, and write $U_i$ for the predecessor set of $v_i$. When a vertex $q=v_i$ appears as a subscript, $U_q$ means $U_i$; this preserves the paper's vertex notation while making the order explicit. Let $V_0=\{v_1,\ldots,v_{K+1}\}$ be the fixed initial simplex in $\mathbb{R}^K$. For $i\le K+1$, set $U_i=\varnothing$. For every non-seed vertex $i > K+1$, the predecessor set $U_i \subseteq \{v_1,\ldots,v_{i-1}\}$ has size $K$. The predecessor relation defines a directed acyclic graph with an arc $v_j \to v_i$ whenever $v_j \in U_i$. Related order-dependent reference structures have been studied through $K$-discretization and $K$-incident graphs~\cite{abud2018k}; here we fix one local predecessor system and derive branch shifts from its dependency cones.
 
 \begin{definition}[Fixing set]
 \label{def:fixing}
-The fixing set of a vertex $i$ is
+The fixing set of a vertex $v_i$ is
 \[
-\operatorname{Fix}_U(i)
+\operatorname{Fix}_U(v_i)
 =
-\{i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}_U(u).
+\{v_i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}_U(u).
 \]
+For seed vertices this gives the base case $\operatorname{Fix}_U(v_i)=\{v_i\}$ because $U_i=\varnothing$.
 \end{definition}
 
 \begin{definition}[Dependency cone]
 \label{def:cone}
-The dependency cone of a vertex $i$ is
+The dependency cone of a vertex $v_i$ is
 \[
-\operatorname{Cone}_U(i)
+\operatorname{Cone}_U(v_i)
 =
-\{i\}\cup \bigcup_{w:\,i\in U_w}\operatorname{Cone}_U(w).
+\{v_i\}\cup \bigcup_{w:\,v_i\in U_w}\operatorname{Cone}_U(w),
 \]
+where $w$ ranges over vertices. If no later vertex has $v_i$ as a predecessor, this gives the terminal base case $\operatorname{Cone}_U(v_i)=\{v_i\}$.
 \end{definition}
 
-For a set of pruning edges $P \subset E_P$, define the local vertex set
+Let $E_D$ denote the discretization edges induced by the predecessor relation, and let $E_P$ denote the pruning edges. For a set of pruning edges $P \subset E_P$, define the local vertex set
 \[
 L_P
 =
@@ -40,14 +40,22 @@ B_P=L_P\setminus V_0.
 \]
 The set $B_P$ contains the branch decisions that can affect the positions of the endpoints of the pruning constraints in $P$. Restricting our analysis to $L_P$ keeps the construction local: vertices outside $L_P$ do not enter the branch code being counted.
 
-The active edge set is denoted by $F$. In the main theorem, $F$ must contain the local discretization/base edges $E_D[L_P]$. In applications, one usually takes
+Choose an admissible active local edge set $F$ satisfying
+\[
+E_D[L_P]=\{\{u,v\}\in E_D \mid u,v\in L_P\}
+\subseteq F.
+\]
+The standard local instance uses
 \[
 F = E_D[L_P] \cup P.
 \]
+Let $x(s)=(x_a(s))_{a\in L_P}$ denote the local embedding determined by the branch code $s\in\mathbb{F}_2^{B_P}$.
 The local solution code is
 \[
 \Xi_F
 =
-\{s \in \mathbb{F}_2^{B_P} \mid s \text{ realizes every edge in } F\}.
+\{s \in \mathbb{F}_2^{B_P} \mid
+\|x_a(s)-x_b(s)\|_2=d_{ab}
+\text{ for every } \{a,b\}\in F\},
 \]
-Our goal is to compute the exact cardinality $|\Xi_F|$ under generic geometric assumptions without running tree-based branch search.
+where $\mathbb{F}_2^{B_P}$ is the space of binary branch choices indexed by $B_P$. Our goal is to compute the exact cardinality $|\Xi_F|$ under generic geometric assumptions without running tree-based branch search.
