@@ -1,0 +1,243 @@
+\section{A Small Worked Example}
+\label{sec:example}
+
+We include a fully worked six-vertex example to make the construction checkable by hand. Although the instance is small, it contains both cone and base generators, a nontrivial labeled violation kernel, and a presentation ambiguity that must be removed by the projection $M(\ker V)$.
+
+\subsection{Combinatorial Setup}
+\label{sec:example-combo}
+
+Let $K=2$ in $\mathbb{R}^2$. The fixed initial simplex is
+\[
+V_0=\{v_1,v_2,v_3\}.
+\]
+Consider the local predecessor sets
+\[
+U_4=\{v_1,v_3\},
+\qquad
+U_5=\{v_1,v_3\},
+\qquad
+U_6=\{v_1,v_4\},
+\]
+and the pruning edge set
+\[
+P=\{\{v_3,v_6\},\,\{v_4,v_5\}\}.
+\]
+The local vertex and decision sets are
+\[
+L_P=\{v_1,v_3,v_4,v_5,v_6\},
+\qquad
+B_P=\{v_4,v_5,v_6\}.
+\]
+There are two predecessor cliques:
+\[
+C_1=\{v_1,v_3\},
+\qquad
+C_2=\{v_1,v_4\}.
+\]
+The first generates $v_4$ and $v_5$; the second generates $v_6$. Since $v_6$ depends on $v_4$, we have
+\[
+\operatorname{Cone}_U(v_4)\cap B_P=\{v_4,v_6\}.
+\]
+The graph structure, predecessor dependency arcs, and pruning edges are illustrated in Figure \ref{fig:worked-example}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.5, >=stealth, every node/.style={circle, draw, minimum size=8mm, inner sep=0pt, font=\small}]
+    % Nodes
+    \node[fill=blue!10] (v1) at (0,0) {$v_1$};
+    \node[fill=blue!10] (v2) at (2,-0.5) {$v_2$};
+    \node[fill=blue!10] (v3) at (0,2) {$v_3$};
+    \node[fill=green!10] (v4) at (1.5,1) {$v_4$};
+    \node[fill=green!10] (v5) at (3,2) {$v_5$};
+    \node[fill=green!10] (v6) at (0.5,3) {$v_6$};
+    
+    % Initial simplex edges
+    \draw[thick] (v1) -- (v2) -- (v3) -- (v1);
+    
+    % Predecessor arcs (directed)
+    \draw[->, thick, black!60] (v1) to (v4);
+    \draw[->, thick, black!60] (v3) to (v4);
+    
+    \draw[->, thick, black!60] (v1) to (v5);
+    \draw[->, thick, black!60] (v3) to (v5);
+    
+    \draw[->, thick, black!60] (v1) to (v6);
+    \draw[->, thick, black!60] (v4) to (v6);
+    
+    % Pruning edges (dashed red)
+    \draw[dashed, ultra thick, red] (v3) to[bend left=15] (v6);
+    \draw[dashed, ultra thick, red] (v4) to (v5);
+\end{tikzpicture}
+\caption{Predecessor dependency graph and pruning edges for the 6-vertex worked example. Directed arcs represent predecessor discretization constraints ($E_D$), while dashed red lines represent the pruning edges $P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$.}
+\label{fig:worked-example}
+\end{figure}
+
+With rows ordered as $(v_4,v_5,v_6)$ and columns ordered as $(g_4,g_5,g_6,g_{C_1},g_{C_2})$, the generator supports and associated mirror cliques are detailed in Table \ref{tab:generators}.
+
+\begin{table}[htbp]
+\centering
+\caption{Generator supports, associated mirror cliques, and branch masks for the worked example.}
+\label{tab:generators}
+\begin{tabular}{lcc}
+\toprule
+Generator & Support Mask ($S_g$) & Mirror Clique ($C_g$) \\
+\midrule
+$g_4$ & $\{v_4,v_6\}$ & $C_1 = \{v_1, v_3\}$ \\
+$g_5$ & $\{v_5\}$ & $C_1 = \{v_1, v_3\}$ \\
+$g_6$ & $\{v_6\}$ & $C_2 = \{v_1, v_4\}$ \\
+$g_{C_1}$ & $\{v_4,v_5,v_6\}$ & $C_1 = \{v_1, v_3\}$ \\
+$g_{C_2}$ & $\{v_6\}$ & $C_2 = \{v_1, v_4\}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The generator mask matrix is:
+\[
+M=
+\begin{bmatrix}
+1&0&0&1&0\\
+0&1&0&1&0\\
+1&0&1&1&1
+\end{bmatrix}.
+\]
+
+The active edge set is $F = E_D[L_P] \cup P$, where the local discretization edges are
+\[
+\{v_1,v_4\},\{v_3,v_4\},
+\{v_1,v_5\},\{v_3,v_5\},
+\{v_1,v_6\},\{v_4,v_6\}.
+\]
+The nonzero labeled active-edge violations are summarized in Table \ref{tab:violations}.
+
+\begin{table}[htbp]
+\centering
+\caption{Labeled active-edge violations and their corresponding mirror clique labels.}
+\label{tab:violations}
+\begin{tabular}{lcc}
+\toprule
+Generator & Violated Active Edge ($e$) & Mirror Label ($C_g$) \\
+\midrule
+$g_4$ & $\{v_4,v_5\}$ & $C_1$ \\
+$g_5$ & $\{v_4,v_5\}$ & $C_1$ \\
+$g_6$ & $\{v_3,v_6\}$ & $C_2$ \\
+$g_{C_1}$ & \text{none} & \text{none} \\
+$g_{C_2}$ & $\{v_3,v_6\}$ & $C_2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Thus, with rows ordered as the two active-edge labels $(\{v_4,v_5\},C_1)$ and $(\{v_3,v_6\},C_2)$, the labeled violation matrix is:
+\[
+V=
+\begin{bmatrix}
+1&1&0&0&0\\
+0&0&1&0&1
+\end{bmatrix}.
+\]
+Write a generator coefficient vector as $\alpha = (a_4,a_5,a_6,a_{C_1},a_{C_2}) \in A$. Then the zero-violation condition $V\alpha = 0$ is equivalent to
+\[
+a_4+a_5=0,
+\qquad
+a_6+a_{C_2}=0.
+\]
+Hence, $a_4=a_5=t$, $a_6=a_{C_2}=u$, and $a_{C_1}=w$ is free. Applying the mask matrix gives:
+\[
+M\alpha
+=
+t(m_4+m_5)+u(m_6+m_{C_2})+w\,m_{C_1}
+=
+(t+w)
+\begin{bmatrix}
+1\\1\\1
+\end{bmatrix}.
+\]
+The parameter $u$ changes the generator presentation but not the branch mask, because $m_6=m_{C_2}$. Therefore,
+\[
+\mathcal K_F
+=
+M(\ker V)
+=
+\left\{
+\begin{bmatrix}0\\0\\0\end{bmatrix},
+\begin{bmatrix}1\\1\\1\end{bmatrix}
+\right\}.
+\]
+The ranks are
+\[
+\operatorname{rank}\begin{bmatrix}M\\V\end{bmatrix}=3,
+\qquad
+\operatorname{rank}(V)=2.
+\]
+Therefore, the local solution count is
+\[
+|\Xi_F| = 2^{3-2} = 2.
+\]
+The non-trivial feasible branch shift is the mask $\{v_4,v_5,v_6\}$, obtained from $g_4\oplus g_5$, or equivalently from the base generator $g_{C_1}$. The two feasible local solutions are a reference solution and its simultaneous reflection through the mirror $\operatorname{aff}(v_1,v_3)$ on the local vertices $v_4,v_5,v_6$.
+
+\subsection{Concrete Geometric Realization}
+\label{sec:example-geometry}
+
+To ground this algebraic structure, we provide a concrete geometric realization in $\mathbb{R}^2$ with exact coordinates and distances. The coordinates are chosen so that all active distances are positive and easy to check.
+
+\paragraph{Reference Coordinate Embedding.}
+Place the initial simplex $V_0 = \{v_1, v_2, v_3\}$ at:
+\[
+v_1 = (0,0), \quad v_2 = (2,0), \quad v_3 = (0,2).
+\]
+This forms a right isosceles triangle. Now, place the remaining vertices at their reference coordinates:
+\[
+v_4 = (1, 1), \quad v_5 = (2, 2), \quad v_6 = (2, 0).
+\]
+
+The edge lengths for the active set $F = E_D[L_P] \cup P$ are determined by this embedding:
+\begin{itemize}
+    \item Discretization distances:
+    \[
+    \begin{aligned}
+    d_{14} &= \|(0,0) - (1,1)\|_2 = \sqrt{2}, \quad & d_{34} &= \|(0,2) - (1,1)\|_2 = \sqrt{2} \\
+    d_{15} &= \|(0,0) - (2,2)\|_2 = 2\sqrt{2}, \quad & d_{35} &= \|(0,2) - (2,2)\|_2 = 2 \\
+    d_{16} &= \|(0,0) - (2,0)\|_2 = 2, \quad & d_{46} &= \|(1,1) - (2,0)\|_2 = \sqrt{2}
+    \end{aligned}
+    \]
+    \item Pruning distances:
+    \[
+    d_{36} = \|(0,2) - (2,0)\|_2 = 2\sqrt{2}, \quad d_{45} = \|(1,1) - (2,2)\|_2 = \sqrt{2}.
+    \]
+\end{itemize}
+
+\paragraph{Reflection Checks.}
+Let us analyze what happens under selected generator moves:
+\begin{enumerate}
+    \item \textbf{Alternate branch at $v_5$ ($s_5 = 1$):}
+    The mirror for $v_5$ is $\operatorname{aff}(v_1, v_3)$ (the y-axis, $x=0$). Mirroring $v_5 = (2,2)$ across the y-axis yields $v_5' = (-2, 2)$. 
+    If we change only $s_5$, the pruning edge $\{v_4, v_5\}$ has its distance changed to $\|(1,1) - (-2,2)\|_2 = \sqrt{10} \ne \sqrt{2}$. This represents a single violation of the edge $\{v_4, v_5\}$ by the generator $g_5$.
+    
+    \item \textbf{Cone move rooted at $v_4$ ($g_4$):}
+    The cone generator $g_4$ reflects $v_4$ and its local descendant $v_6$ across the y-axis:
+    \[
+    v_4' = (-1, 1), \quad v_6' = (-2, 0).
+    \]
+    The discretization distance $\{v_4,v_6\}$ is preserved, and the pruning distance $\{v_3,v_6\}$ is also preserved because $v_3$ lies on the mirror. However, the pruning distance to $v_5 = (2,2)$ becomes $\|(-1, 1) - (2, 2)\|_2 = \sqrt{10} \ne \sqrt{2}$. This is the violation of the active edge $\{v_4, v_5\}$ by the generator $g_4$.
+
+    \item \textbf{Alternate branch at $v_6$ ($g_6$):}
+    The mirror for $v_6$ is $\operatorname{aff}(v_1,v_4)$, the line $y=x$. Reflecting $v_6=(2,0)$ across this line gives
+    \[
+    v_6' = (0,2).
+    \]
+    The predecessor distances to $v_1$ and $v_4$ are preserved, but the pruning distance to $v_3$ changes from $2\sqrt{2}$ to $0$. This is the violation of the active edge $\{v_3,v_6\}$ by the generator $g_6$.
+    
+    \item \textbf{Simultaneous reflection ($s \oplus \{v_4, v_5, v_6\}$):}
+    If we apply the non-trivial feasible branch shift $h = \{v_4, v_5, v_6\}$, we reflect all three vertices across the y-axis ($x=0$):
+    \[
+    v_4' = (-1, 1), \quad v_5' = (-2, 2), \quad v_6' = (-2, 0).
+    \]
+    The dynamic mirror for $v_6'$ becomes $\operatorname{aff}(v_1, v_4')$, which is $y = -x$. The predecessor distances are preserved by reflection, and the pruning distance to $v_3 = (0,2)$ remains
+    \[
+    \|(0,2) - (-2,0)\|_2 = 2\sqrt{2} = d_{36}.
+    \]
+    The pruning distance between $v_4'$ and $v_5'$ is:
+    \[
+    \|v_4' - v_5'\|_2 = \|(-1, 1) - (-2, 2)\|_2 = \sqrt{2} = d_{45}.
+    \]
+    All active discretization and pruning distances are preserved, showing that $s^\ast \oplus h$ is the second geometrically valid realization of the local active subproblem.
+\end{enumerate}

@@ -1,0 +1,36 @@
+\section{Scope and Genericity}
+\label{sec:scope}
+
+This section records what the theorem does and does not claim.
+
+The 6-vertex example analyzed in Section \ref{sec:example} is a small, reproducible check of the construction: the generator masks, the labeled violation matrix, the ranks, and the final count can all be inspected directly.
+
+The generic mirror separation assumption (Definition \ref{def:mirror-sep}) is essential for the exactness of the rank count. It excludes accidental geometric coincidences. In non-generic configurations, the actual number of solutions can be larger than the generic rank count. This happens when an apparently violating edge is preserved accidentally, for example because a point lies unexpectedly on a reflection mirror. Such cases form a proper algebraic exceptional set of measure zero in the coordinate parameter space. Analogous almost-always qualifications appear in existing DDGP and DMDGP counting results \cite{liberti2014number,abud2024impossible}.
+
+The case $K=1$ requires separate treatment because the algebraic bracket-separation arguments used to establish the generic presentation lemma for $K \ge 2$ degenerate on the line.
+
+\subsection{Unification of the Combinatorial DDGP}
+\label{sec:combinatorial-ddgp}
+
+We now check that the rank-count formula agrees with a known positive counting result. 
+
+Abud et al. (2024) introduced the subclass of \emph{Combinatorial DDGP}, defined as those DDGP instances where every predecessor set $U_j$ induces a clique of size $K$ in $G$ \cite{abud2024impossible}. They proved that, for this subclass and in the absence of pruning edges, solution counting is combinatorial and yields exactly $2^{n-K}$ incongruent solutions. This is Corollary 3.6 of Abud et al. and also generalizes the DMDGP no-pruning case.
+
+The rank-count formula includes this result as a direct special case:
+\begin{enumerate}
+    \item When every predecessor set $U_j$ induces a clique, any active discretization edge $\{a, b\} \in E_D[L_P]$ between predecessors of a vertex has both of its endpoints within the clique.
+    \item Consequently, if a generator support crosses the boundary, the fixed endpoint is guaranteed to lie on the mirror clique. Thus, no active edges can be violated under any branch transformations.
+    \item The labeled violation matrix $V$ is therefore identically the zero matrix ($V = 0$).
+    \item Substituting $V = 0$ into our rank formula:
+    \[
+    \dim \mathcal{K}_F
+    =
+    \operatorname{rank}\begin{bmatrix}M\\ 0\end{bmatrix} - \operatorname{rank}(0)
+    =
+    \operatorname{rank}(M) - 0
+    =
+    n - K,
+    \]
+    where $M$ has full rank $n-K$ because the cone generators form a triangular system of masks.
+\end{enumerate}
+This yields exactly $|\Xi_F| = 2^{n-K}$, recovering the positive result of Abud et al. (2024). Thus the rank-count formula agrees with clique-based DMDGP and Combinatorial DDGP counts while also applying to local non-clique DDGP subproblems satisfying the theorem's hypotheses.

@@ -1,0 +1,59 @@
+\section{Graph-Derived Generators}
+\label{sec:generators}
+
+A generator represents a branch transformation together with the mirror clique that explains its geometric action. Each generator is a pair
+\[
+g=(m_g,C_g),
+\]
+where $m_g \in \mathbb{F}_2^{B_P}$ is a branch mask and $C_g$ is a predecessor clique. The mask tells which local branch bits are toggled; the clique tells which affine mirror is used for the reflection.
+
+Let $\mathcal G$ be the generator family and let
+\[
+A = \mathbb{F}_2^{\mathcal G}
+\]
+be the generator coefficient space.
+
+\subsection{Cone Generators}
+\label{sec:cone-gen}
+
+For each decision vertex $q \in B_P$, the cone generator is
+\[
+g_q = (m_q, U_q),
+\qquad
+\operatorname{supp}(m_q) = B_P \cap \operatorname{Cone}_U(q).
+\]
+Ordered by the DDGP vertex order, the cone masks $m_q$ form a triangular system with ones on the diagonal, and therefore span the full local branch space $\mathbb{F}_2^{B_P}$.
+
+\subsection{Base Generators}
+\label{sec:base-gen}
+
+For a predecessor clique $C$, define the generator roots:
+\[
+\operatorname{Gen}_P(C)=\{w \in B_P \mid U_w=C\}.
+\]
+The base generator associated with $C$ is
+\[
+g_C=(m_C,C),
+\]
+where
+\[
+\operatorname{supp}(m_C)
+=
+B_P \cap \bigcup_{w:\,U_w=C} \operatorname{Cone}_U(w)
+=
+\bigcup_{w\in \operatorname{Gen}_P(C)} \operatorname{supp}(m_w).
+\]
+Base generators are useful because two transformations with the same branch mask may have different geometric meaning if they use different mirror cliques. Thus, a base generator may be redundant as a column of the mask matrix while still being necessary as a labeled geometric operation.
+
+\subsection{Mask Matrix}
+\label{sec:mask-matrix}
+
+Let $\mathcal G=\{g^1,\ldots,g^m\}$. The generator mask matrix is the linear map
+\[
+M: A \to \mathbb{F}_2^{B_P},
+\]
+whose $j$-th column is $m_{g^j}$. Thus,
+\[
+M\alpha = \bigoplus_{g^j:\,\alpha_j=1} m_{g^j}.
+\]
+The vector $M\alpha$ represents the net branch mask produced by the generator combination $\alpha$.

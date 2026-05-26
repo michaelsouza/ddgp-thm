@@ -1,0 +1,38 @@
+\section{Labeled Violations}
+\label{sec:violations}
+
+The mask $m_g$ tells which branch bits change, but it does not by itself say which distances are preserved. Geometrical distance preservation depends on the mirror clique attached to the transformation.
+
+Fix the active edge set $F$. Let $g=(m_g,C_g)$ be a generator, and write
+\[
+S_g = \operatorname{supp}(m_g).
+\]
+An active edge $e = \{a,b\} \in F$ crosses the support boundary of $g$ if exactly one endpoint is toggled:
+\[
+|e \cap S_g| = 1.
+\]
+If this happens, one endpoint is moved by the reflection while the other is fixed. The edge length is preserved only when the fixed endpoint lies on the reflection mirror, which is ensured when it belongs to $C_g$. Therefore, we say that $g$ violates $e$ if
+\[
+|e \cap S_g| = 1
+\quad\text{and}\quad
+e\setminus S_g \not\subseteq C_g.
+\]
+Because $e$ crosses the support boundary, the set difference $e \setminus S_g$ is a singleton containing the unique endpoint of $e$ that remains fixed. The condition $e \setminus S_g \not\subseteq C_g$ is therefore equivalent to saying that this fixed endpoint does not belong to the mirror clique $C_g$, which geometrically means that the fixed endpoint does not lie on the reflection mirror hyperplane $\operatorname{aff}(C_g)$.
+
+Violations are labeled by both the edge and the mirror clique. Let
+\[
+\mathcal L
+=
+\{(e,C_g) \mid g \in \mathcal G,\ e \in F,\ g\text{ violates }e\}.
+\]
+The labeled violation matrix is the linear map
+\[
+V: A \to \mathbb{F}_2^{\mathcal L}.
+\]
+Rows are indexed by labeled pairs $\ell_i=(e_i,C_i)\in\mathcal L$, and columns are indexed by generators $g^j$. Its entries are
+\[
+V_{ij} = 1
+\quad\Longleftrightarrow\quad
+C_i = C_{g^j} \text{ and } g^j \text{ violates } e_i.
+\]
+Thus, $V\alpha$ represents the net labeled violation pattern of the generator combination $\alpha$. The same active edge may be crossed by transformations using different predecessor mirrors; such violations are kept in distinct rows and cannot cancel unless their mirror labels agree.

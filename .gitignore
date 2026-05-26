@@ -2,3 +2,10 @@
 .antigravitycli/
 __pycache__/
 *.pyc
+article/main.aux
+article/main.bbl
+article/main.blg
+article/main.log
+article/main.out
+article/main.fdb_latexmk
+article/main.fls
