@@ -68,7 +68,7 @@ The graph structure, predecessor dependency arcs, and pruning edges are illustra
     \draw[dashed, ultra thick, red] (v3) to[bend left=15] (v6);
     \draw[dashed, ultra thick, red] (v4) to (v5);
 \end{tikzpicture}
-\caption{Predecessor dependency graph and pruning edges for the 6-vertex worked example. Directed arcs represent predecessor discretization constraints ($E_D$), while dashed red lines represent the pruning edges $P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$. Blue nodes form the fixed initial simplex $V_0$, and green nodes are local decision vertices in $B_P$.}
+\caption{Combinatorial predecessor dependency graph and pruning edges for the 6-vertex worked example; node positions are schematic. Directed arcs represent predecessor discretization constraints ($E_D$), dashed red lines represent $P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$, blue nodes form $V_0$, and green nodes are local decision vertices in $B_P$.}
 \label{fig:worked-example}
 \end{figure}
 
@@ -76,7 +76,7 @@ With rows ordered as $(v_4,v_5,v_6)$ and columns ordered as $(g_4,g_5,g_6,g_{C_1
 
 \begin{table}[htbp]
 \centering
-\caption{Generator supports, associated mirror cliques, and branch masks for the worked example.}
+\caption{Generator supports and mirror cliques for the worked example. Each support mask $S_g$ is a subset of $B_P = \{v_4, v_5, v_6\}$; the rows define the columns $(g_4,g_5,g_6,g_{C_1},g_{C_2})$ of the mask matrix $M$.}
 \label{tab:generators}
 \begin{tabular}{lcc}
 \toprule
@@ -111,7 +111,7 @@ The nonzero labeled active-edge violations are summarized in Table~\ref{tab:viol
 
 \begin{table}[htbp]
 \centering
-\caption{Labeled active-edge violations and their corresponding mirror clique labels.}
+\caption{Labeled active-edge violations for each generator. The entry \textnormal{none} means that the generator contributes no row to the labeled violation matrix $V$; the nonzero rows are indexed by $(\{v_4,v_5\},C_1)$ and $(\{v_3,v_6\},C_2)$.}
 \label{tab:violations}
 \begin{tabular}{lcc}
 \toprule
@@ -182,9 +182,9 @@ To ground this algebraic structure, we provide a concrete geometric realization 
 \paragraph{Reference Coordinate Embedding.}
 Place the initial simplex $V_0 = \{v_1, v_2, v_3\}$ at:
 \[
-v_1 = (0,0), \quad v_2 = (2,0), \quad v_3 = (0,2).
+v_1 = (0,0), \quad v_2 = (-2,0), \quad v_3 = (0,2).
 \]
-This forms a right isosceles triangle. Now, place the remaining vertices at their reference coordinates:
+This forms a right isosceles triangle, and $v_2$ lies outside the active local set $L_P$ used below. Now, place the remaining vertices at their reference coordinates:
 \[
 v_4 = (1, 1), \quad v_5 = (2, 2), \quad v_6 = (2, 0).
 \]
