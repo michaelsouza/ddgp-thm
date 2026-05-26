@@ -69,7 +69,7 @@ The main theorem states that, generically, the converse also holds: every feasib
 
 \begin{theorem}[Feasible branch shift theorem]
 \label{thm:main}
-Assume $K \ge 2$, $E_D[L_P] \subseteq F$, $\Xi_F \ne \varnothing$, and generic mirror separation. Then, for any reference solution $s^\ast \in \Xi_F$,
+Assume $K \ge 2$, $E_D[L_P] \subseteq F$, and $\Xi_F \ne \varnothing$. Assume also that the local active subproblem satisfies generic mirror separation and that the present predecessor and edge-length parameters lie outside the exceptional set $Z$ in Definition~\ref{def:mirror-sep}. Then, for any reference solution $s^\ast \in \Xi_F$,
 \[
 \Xi_F
 =
@@ -91,9 +91,7 @@ Hence,
 s^\ast + \mathcal{K}_F \subseteq \Xi_F.
 \]
 
-Conversely, let $s \in \Xi_F$ and set $h = s \oplus s^\ast$. The cone generators form a triangular system spanning the full local branch space $\mathbb{F}_2^{B_P}$. Therefore, the branch shift $h$ has at least one generator presentation. If $h \notin \mathcal{K}_F$, then by Definition~\ref{def:mirror-sep} (Generic mirror separation), this branch shift changes at least one active-edge length outside a proper algebraic exceptional set. 
-
-The coordinate parameters of the realization are generic; that is, they lie outside the union of the algebraic hypersurfaces where specific Cayley-Menger determinants or coordinate discriminants vanish. Consequently, any branch shift outside $\mathcal{K}_F$ must physically change the length of at least one active edge. However, both $s^\ast$ and $s$ realize every edge in $F$, meaning they preserve all active-edge lengths. This contradiction implies that $h$ must belong to $\mathcal{K}_F$, which yields
+Conversely, let $s \in \Xi_F$ and set $h = s \oplus s^\ast$. Suppose, for contradiction, that $h \notin \mathcal{K}_F$. Since the present parameters lie outside the exceptional set $Z$ in Definition~\ref{def:mirror-sep}, the embeddings determined by $s^\ast$ and $s=s^\ast\oplus h$ assign different lengths to at least one active edge in $F$. However, both $s^\ast$ and $s$ realize every edge in $F$. This contradiction implies that $h$ must belong to $\mathcal{K}_F$, which yields
 \[
 \Xi_F \subseteq s^\ast + \mathcal{K}_F.
 \]
