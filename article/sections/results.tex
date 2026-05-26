@@ -9,9 +9,9 @@ For the feasible branch shift space $\mathcal{K}_F = M(\ker V)$,
 \[
 \dim \mathcal{K}_F
 =
-\operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}
+\operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix}
 -
-\operatorname{rank}(V).
+\operatorname{rank}_{\mathbb{F}_2}(V).
 \]
 \end{lemma}
 
@@ -28,7 +28,7 @@ By rank-nullity applied to this restricted map,
 -
 \dim(\ker V \cap \ker M).
 \]
-Now $\dim \ker V = m - \operatorname{rank}(V)$, and
+Now $\dim \ker V = m - \operatorname{rank}_{\mathbb{F}_2}(V)$, and
 \[
 \ker V \cap \ker M
 =
@@ -38,13 +38,13 @@ Therefore,
 \[
 \dim(\ker V \cap \ker M)
 =
-m - \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}.
+m - \operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix}.
 \]
 Substituting these dimensions into the rank-nullity equation gives:
 \[
 \begin{aligned}
-\dim \mathcal{K}_F &= (m - \operatorname{rank}(V)) - \left(m - \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}\right) \\
-&= \operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}(V).
+\dim \mathcal{K}_F &= (m - \operatorname{rank}_{\mathbb{F}_2}(V)) - \left(m - \operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix}\right) \\
+&= \operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}_{\mathbb{F}_2}(V).
 \end{aligned}
 \]
 This completes the proof.
@@ -60,9 +60,9 @@ Let $\alpha \in \ker V$ and let $h = M\alpha$. If $s \in \Xi_F$, then $s \oplus 
 \begin{proof}
 We group the selected generators in $\alpha$ by mirror clique. For a fixed clique $C$, let $S_C$ be the XOR of the supports of the selected generators with mirror $C$. The row $(e,C)$ of $V\alpha$ represents the parity of selected generators with mirror $C$ that violate the active edge $e$. We have $V\alpha = 0$. Therefore, this parity is zero for every active edge $e \in F$ and every mirror clique $C$.
 
-Therefore, the block $(S_C, C)$ is mirror-compatible with each active edge: if an active edge crosses $S_C$, its fixed endpoint lies in $C$. Generator supports are disjoint from their own mirror clique. Consequently, an endpoint in $C$ is never moved by a generator with mirror $C$. If a crossing edge had its fixed endpoint outside $C$, the selected generators with mirror $C$ would contribute an odd violation parity to the row $(e,C)$. This contradicts $V\alpha = 0$.
+The block $(S_C, C)$ is mirror-compatible with each active edge. Indeed, suppose that an active edge crosses $S_C$. Generator supports are disjoint from their own mirror clique, so the endpoint in $S_C$ is not in $C$. If the fixed endpoint were also outside $C$, then the selected generators with mirror $C$ would contribute an odd violation parity to the row $(e,C)$. This contradicts $V\alpha=0$. Hence the fixed endpoint lies in $C$.
 
-Reflection through the affine span $\operatorname{aff}(C)$ preserves edges with both endpoints moved, edges with neither endpoint moved, and crossing edges whose fixed endpoint lies directly on the mirror. Although spatial reflections generally do not commute, here any active edge crossing the block support $S_C$ has its fixed endpoint lying directly on the mirror $\operatorname{aff}(C)$. Consequently, each block reflection acts symmetrically on active edges, preserving the coordinates and affine hyperplanes representing subsequent mirror cliques. The composition of these reflections is therefore well-defined, and applying these block reflections one mirror clique at a time preserves every edge in $F$. Their net branch mask is $\bigoplus_C S_C = M\alpha = h$. Thus, $s \oplus h$ realizes every active edge in $F$.
+Apply the nonzero blocks $(S_C,C)$ one at a time. We argue by induction on the number of applied blocks. At the step for $C$, vertices of $C$ are not toggled by $S_C$, so they lie on the current mirror $\operatorname{aff}(C)$. For any edge $e\in F$, either both endpoints are reflected, neither endpoint is reflected, or exactly one endpoint is reflected. In the first two cases, the current length of $e$ is preserved. In the crossing case, the preceding paragraph shows that the fixed endpoint lies in $C$, hence on $\operatorname{aff}(C)$, so the length of $e$ is again preserved. Thus each block preserves all active-edge lengths at the moment it is applied. After all blocks are applied, the accumulated branch mask is $\bigoplus_C S_C=M\alpha=h$, and therefore $s\oplus h\in\Xi_F$.
 \end{proof}
 
 The main theorem states that, generically, the converse also holds: every feasible solution difference must come from such a zero-violation presentation.
@@ -110,9 +110,9 @@ Under the assumptions of Theorem~\ref{thm:main},
 |\Xi_F|
 =
 2^{
-\operatorname{rank}\begin{bmatrix} M \\ V \end{bmatrix}
+\operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix}
 -
-\operatorname{rank}(V)
+\operatorname{rank}_{\mathbb{F}_2}(V)
 }.
 \]
 \end{lemma}
