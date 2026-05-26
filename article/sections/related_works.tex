@@ -9,7 +9,7 @@ Because these reflections act on suffix intervals of the vertex order, the DMDGP
 
 Combinatorial DDGP keeps the clique condition on predecessor sets without requiring consecutive predecessors. Its no-pruning count is the closest positive DDGP counting result that our local formula recovers as a special case~\cite{abud2024impossible}.
 
-Finding a valid DMDGP vertex order from a graph is NP-complete for any fixed dimension $K \ge 2$~\cite{cassioli2015discretization}. In the general DDGP, the predecessor sets $U_j$ need not be consecutive. This relaxation changes the computational tradeoff: finding a valid DDGP order is fixed-parameter tractable with respect to $K$, with running time $f(K)\operatorname{poly}(|V|)$; in particular, it is polynomial for fixed $K$~\cite{abud2024impossible}. 
+Finding a valid DMDGP vertex order from a graph is NP-complete for any fixed dimension $K \ge 2$~\cite{cassioli2015discretization}. In the general DDGP, the predecessor sets $U_j$ need not be consecutive. This relaxation changes the computational tradeoff: finding a valid DDGP order is fixed-parameter tractable with respect to $K$, with running time $f(K)\operatorname{poly}(\lvert V\rvert)$; in particular, it is polynomial for fixed $K$~\cite{abud2024impossible}. 
 
 The same relaxation complicates counting. Since DDGP predecessors are not necessarily consecutive, reflections no longer act on suffix intervals. A branch change at a vertex $q$ propagates through a directed dependency graph of successors. This dynamic propagation is the obstruction we address in the present local construction.
 

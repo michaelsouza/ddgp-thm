@@ -5,7 +5,7 @@ This paper studies a local counting question in the Discretizable Distance Geome
 
 The Distance Geometry Problem (DGP) asks for a geometric representation of a weighted graph in $\mathbb{R}^K$: given a simple undirected graph $G = (V, E)$ and an edge weight function $d: E \to \mathbb{R}_+$, find an embedding $x: V \to \mathbb{R}^K$ such that $\|x_i - x_j\|_2 = d_{ij}$ for every $\{i,j\}\in E$~\cite{mucherino2012discretizable}. The problem appears in protein structure determination from nuclear magnetic resonance (NMR) distance data~\cite{liberti2008branch}, sensor network localization~\cite{abud2018k}, and the geometry of nanostructures~\cite{mucherino2020analysis}.
 
-When a vertex order on $V = \{1, \ldots, n\}$ is part of the input, we can discretize the search space. In DDGP and DMDGP instances~\cite{mucherino2012discretizable,lavor2012discretizable}, each non-seed vertex $j > K+1$ has a predecessor set $U_j \subset \{1, \ldots, j-1\}$ of size $K$. Once we place the predecessors, we obtain the position of $j$ by $K$-lateration, the intersection of $K$ spheres centered at the predecessor coordinates~\cite{liberti2014number}. Generically, this intersection contains at most two points, so we can organize realizations as paths in the Branch-and-Prune (BP) tree~\cite{liberti2008branch}.
+When a vertex order on $V = \{1, \ldots, n\}$ is part of the input, the search space can be discretized. In DDGP and DMDGP instances~\cite{mucherino2012discretizable,lavor2012discretizable}, each non-seed vertex $j > K+1$ has a predecessor set $U_j \subset \{1, \ldots, j-1\}$ of size $K$. Once the predecessors are placed, $K$-lateration determines the position of $j$ as the intersection of $K$ spheres centered at the predecessor coordinates~\cite{liberti2014number}. Generically, this intersection contains at most two points, organizing realizations as paths in the Branch-and-Prune (BP) tree~\cite{liberti2008branch}.
 
 We naturally partition the edges in $G$ into two sets:
 \begin{enumerate}
@@ -23,7 +23,7 @@ Our contribution is threefold:
     \item We introduce a labeled violation matrix that separates violations caused by different mirror cliques, keeping track of mirror-specific incompatibilities.
     \item We prove the \emph{Feasible Branch Shift Theorem}: relative to any reference solution $s^\ast$, the feasible local branch codes form the affine coset $s^\ast+\mathcal{K}_F$, where $\mathcal{K}_F$ is the space of zero-violation shifts. Consequently,
     \[
-    |\Xi_F|
+    \lvert \Xi_F \rvert
     =
     2^{\operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}_{\mathbb{F}_2}(V)},
     \]
