@@ -3,7 +3,11 @@
 
 We now define the local DDGP subproblem around a set of pruning edges. The construction identifies the vertices that can affect those pruning constraints, the corresponding binary decision space, and the active edge set that the local branch code must realize.
 
-Let the vertices be ordered as $v_1,\ldots,v_n$, and write $U_i$ for the predecessor set of $v_i$. When a vertex $q=v_i$ appears as a subscript, $U_q$ means $U_i$; this preserves the paper's vertex notation while making the order explicit. Let $V_0=\{v_1,\ldots,v_{K+1}\}$ be the fixed initial simplex in $\mathbb{R}^K$. For $i\le K+1$, set $U_i=\varnothing$. For every non-seed vertex $i > K+1$, the predecessor set $U_i \subseteq \{v_1,\ldots,v_{i-1}\}$ has size $K$. The predecessor relation defines a directed acyclic graph with an arc $v_j \to v_i$ whenever $v_j \in U_i$. Related order-dependent reference structures have been studied through $K$-discretization and $K$-incident graphs~\cite{abud2018k}; here we fix one local predecessor system and derive branch shifts from its dependency cones.
+Let the vertices be ordered as $v_1,\ldots,v_n$, and write $U_i$ for the predecessor set of $v_i$. When a vertex $q=v_i$ appears as a subscript, $U_q$ means $U_i$; this preserves the paper's vertex notation while making the order explicit.
+
+Let $V_0=\{v_1,\ldots,v_{K+1}\}$ be the fixed initial simplex in $\mathbb{R}^K$. For $i\le K+1$, set $U_i=\varnothing$. For every non-seed vertex $i > K+1$, the predecessor set $U_i \subseteq \{v_1,\ldots,v_{i-1}\}$ has size $K$. The predecessor relation defines a directed acyclic graph with an arc $v_j \to v_i$ whenever $v_j \in U_i$.
+
+Related order-dependent reference structures have been studied through $K$-discretization and $K$-incident graphs~\cite{abud2018k}; here we fix one local predecessor system and derive branch shifts from its dependency cones.
 
 \begin{definition}[Fixing set]
 \label{def:fixing}
