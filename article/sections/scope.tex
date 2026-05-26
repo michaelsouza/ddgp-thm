@@ -16,9 +16,17 @@ We now check that the rank-count formula agrees with a known positive counting r
 
 Abud et~al.~\cite{abud2024impossible} introduced the subclass of \emph{Combinatorial DDGP}, defined as those DDGP instances where every predecessor set $U_j$ induces a clique of size $K$ in $G$. They proved that, for this subclass and in the absence of pruning edges, solution counting is combinatorial and yields exactly $2^{n-K}$ incongruent solutions. This is Corollary~3.6 of Abud et~al.~\cite{abud2024impossible} and also generalizes the DMDGP no-pruning case.
 
-The rank-count formula includes this result as a direct special case:
+For this comparison, we do not set $P=\varnothing$ in the pruning-local definition of $L_P$. Instead, we apply the same generator and rank construction to the global no-pruning active set
+\[
+L_{\mathrm{glob}}=V(G),
+\qquad
+B_{\mathrm{glob}}=V(G)\setminus V_0,
+\qquad
+F=E_D.
+\]
+Here $V(G)$ denotes the graph vertex set, and $B_{\mathrm{glob}}$ contains the $n-K$ non-seed branch decisions. With this global active set, the rank-count formula includes the Combinatorial DDGP result as a direct special case:
 \begin{enumerate}
-    \item When every predecessor set $U_j$ induces a clique, any active discretization edge $\{a, b\} \in E_D[L_P]$ between predecessors of a vertex has both of its endpoints within the clique.
+    \item When every predecessor set $U_j$ induces a clique, the crossing tests for active discretization edges in $F=E_D$ are mirror-compatible: any fixed endpoint of a crossing discretization edge lies in the corresponding predecessor clique.
     \item Consequently, if a generator support crosses the boundary, the fixed endpoint is guaranteed to lie on the mirror clique. Thus, no active edges can be violated under any branch transformations.
     \item The labeled violation matrix $V$ is therefore identically the zero matrix ($V = 0$).
     \item Substituting $V = 0$ into the rank formula:
@@ -31,6 +39,6 @@ The rank-count formula includes this result as a direct special case:
     =
     n - K,
     \]
-    where $M$ has full rank $n-K$ because the cone generators form a triangular system of masks.
+    where $M$ has full rank $n-K$ because the global cone generators form a triangular system of masks on $B_{\mathrm{glob}}$.
 \end{enumerate}
 This yields exactly $\lvert \Xi_F \rvert = 2^{n-K}$, recovering the positive result of Abud et~al.~\cite{abud2024impossible}. Thus the rank-count formula agrees with clique-based DMDGP and Combinatorial DDGP counts while also applying to local non-clique DDGP subproblems satisfying the theorem's hypotheses.
