@@ -1,44 +1,21 @@
 \section{Introduction}
 \label{sec:intro}
 
-This paper studies solution counting for ordered Combinatorial Discretizable Distance Geometry Problem (Combinatorial DDGP) instances with pruning edges. Fix a predecessor system and let \(B=V\setminus V_0\) be the binary Branch-and-Prune decision set, where \(V_0=\{v_1,\ldots,v_K\}\) is the initial clique. Pruning edges determine a constrained branch set \(B_{\mathrm{c}}\subseteq B\); the remaining \(f=\lvert B\setminus B_{\mathrm{c}}\rvert\) branch decisions are free. We prove that, under a generic mirror-separation hypothesis and relative to any reference solution, the feasible codes on \(B_{\mathrm{c}}\) form an affine space over \(\mathbb{F}_2\). Consequently, the number of feasible full branch codes is
-\[
-2^{
-f+
-\operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix}
--
-\operatorname{rank}_{\mathbb{F}_2}(V)
-},
-\]
-where \(M\) is the graph-derived branch-generator matrix and \(V\) is the labeled violation matrix for pruning constraints.
+The Distance Geometry Problem (DGP) asks for a geometric representation of a weighted graph in $\mathbb{R}^K$: given a simple undirected graph $G = (V, E)$ and an edge weight function $d: E \to \mathbb{R}_+$, find an embedding (or realization) $x: V \to \mathbb{R}^K$ such that $\|x_i - x_j\|_2 = d_{ij}$ for every $\{i,j\}\in E$~\cite{mucherino2012discretizable}. The problem appears in key applications such as protein structure determination from nuclear magnetic resonance (NMR) distance data~\cite{liberti2008branch}, sensor network localization~\cite{abud2018k}, and the geometry of nanostructures~\cite{mucherino2020analysis}.
 
-The Distance Geometry Problem (DGP) asks for a geometric representation of a weighted graph in $\mathbb{R}^K$: given a simple undirected graph $G = (V, E)$ and an edge weight function $d: E \to \mathbb{R}_+$, find an embedding $x: V \to \mathbb{R}^K$ such that $\|x_i - x_j\|_2 = d_{ij}$ for every $\{i,j\}\in E$~\cite{mucherino2012discretizable}. The problem appears in protein structure determination from nuclear magnetic resonance (NMR) distance data~\cite{liberti2008branch}, sensor network localization~\cite{abud2018k}, and the geometry of nanostructures~\cite{mucherino2020analysis}.
+The main mechanism that allows us to formulate the originally continuous Distance Geometry Problem (DGP) as a discrete one, called the Discretizable Distance Geometry Problem (DDGP), is the introduction of a vertex order on $V = \{1, \ldots, n\}$ that supports $K$-lateration. If each non-seed vertex $j > K$ has a predecessor set $U_j \subset \{1, \ldots, j-1\}$ of size $K$ with known pairwise distances, the position of $j$ is determined by the intersection of $K$ spheres centered at the coordinates of its predecessors~\cite{mucherino2012discretizable,liberti2014number}. Generically, this intersection contains at most two points. By sequentially applying this lateration step, the continuous search space is discretized into a binary search tree where valid embeddings correspond to paths. 
 
-When a vertex order on $V = \{1, \ldots, n\}$ is part of the input, the search space can be discretized. In DDGP and DMDGP instances~\cite{mucherino2012discretizable,lavor2012discretizable}, each non-seed vertex $j > K$ has a predecessor set $U_j \subset \{1, \ldots, j-1\}$ of size $K$. Once the predecessors are placed, $K$-lateration determines the position of $j$ as the intersection of $K$ spheres centered at the predecessor coordinates~\cite{liberti2014number}. Generically, this intersection contains at most two points, organizing realizations as paths in the Branch-and-Prune (BP) tree~\cite{liberti2008branch}.
+Depending on the properties of this vertex order, different discrete problem variants are defined. When every $U_j$ induces a clique in $G$, we obtain the Combinatorial DDGP \cite{abud2024impossible}; when the predecessors are further restricted to be contiguous, such that $U_j=\{j-K, \ldots, j-1\}$, we obtain the Discretizable Molecular Distance Geometry Problem (DMDGP).
 
-We naturally partition the edges in $G$ into two sets:
-\begin{enumerate}
-    \item \textbf{Discretization edges} ($E_D = \{\{i, j\} \in E \mid i \in U_j\}$), which we use to perform the $K$-lateration steps and branch into the binary tree.
-    \item \textbf{Pruning edges} ($E_P = E \setminus E_D$), which represent additional distance constraints that the BP algorithm uses to check the feasibility of branched positions and prune inconsistent paths in the tree.
-\end{enumerate}
+These variants reveal a striking conflict between the tractability of order construction and the tractability of solution counting. On one extreme, while counting solutions is well-understood for the DMDGP~\cite{liberti2013counting}, finding a valid contiguous order is NP-complete~\cite{cassioli2015discretization}. On the other extreme, while general DDGP orders are easy to construct, the lack of predecessor cliques makes lateration weight-dependent, preventing topological solution counting~\cite{abud2024impossible}. The Combinatorial DDGP elegantly resolves this conflict: finding a valid order is fixed-parameter tractable for a fixed dimension $K$~\cite{abud2024impossible}, while the clique condition preserves reflection symmetries to keep the search space discrete and weight-independent. However, despite representing this ideal compromise, no method was previously known to determine the number of solutions for Combinatorial DDGP instances.
 
-General DDGP counting cannot be purely graph-combinatorial in the unrestricted sense: numerical edge weights can change the number of feasible branches~\cite{abud2024impossible}. In the Combinatorial DDGP, the predecessor cliques restore enough reflection structure to make a rank count possible after pruning constraints are labeled by their relevant mirrors. The generic mirror-separation assumption excludes the proper algebraic exceptional set where a geometrically violating transformation accidentally preserves a distance. Outside this set, the feasible branch differences are exactly the zero-violation shifts.
-
-Throughout the paper, all branch codes, vector spaces, sums, kernels, and ranks are over the finite field $\mathbb{F}_2$.
+To address this challenge, this paper develops a complete algebraic rank-count theory for the feasible binary branch codes of ordered Combinatorial DDGP instances. We prove that, under a generic mirror-separation hypothesis, the feasible codes form an affine space over the finite field \(\mathbb{F}_2\). This algebraic structure allows us to determine the exact number of realizations using a rank formula, without having to explore the binary search tree.
 
 Our contribution is threefold:
 \begin{enumerate}
-    \item We decompose the branch decisions into pruning-constrained and pruning-free bits, and represent constrained branch transformations using graph-derived cone generators and base generators.
+    \item We decompose the branch decisions into constrained and free bits, and represent constrained branch transformations using graph-derived cone generators and base generators.
     \item We introduce a labeled violation matrix that separates violations caused by different mirror cliques, keeping track of mirror-specific incompatibilities.
-    \item We prove the \emph{Rank-Count Theorem}: relative to any reference solution $s^\ast$, the feasible constrained branch codes form an affine coset with direction $\mathcal{K}_F$, the space of zero-violation shifts. Consequently,
-    \[
-    \lvert \Xi \rvert
-    =
-    2^{f+\operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix} - \operatorname{rank}_{\mathbb{F}_2}(V)},
-    \]
-    where $M$ is the generator mask matrix and $V$ is the labeled violation matrix.
+    \item We prove the \emph{Rank-Count Theorem}: relative to any reference solution $s^\ast$, the feasible constrained branch codes form an affine coset. Consequently, the number of realizations is given by a precise, weight-independent rank formula.
 \end{enumerate}
-
-Binary branch-code representations are standard for paths in the Branch-and-Prune tree; related binary representations have been widely used to analyze symmetry and degrees of freedom in distance geometry~\cite{mucherino2012exploiting,mucherino2020analysis}.
 
 We organize the remainder of the paper as follows. Section~\ref{sec:related} reviews DMDGP symmetries, Combinatorial DDGP counts, DDGP recognition, and the counting barrier for general DDGP instances. Sections~\ref{sec:subproblems}--\ref{sec:shifts} define branch codes, generators, labeled violations, and feasible branch shifts. Section~\ref{sec:results} proves the main theorem. Section~\ref{sec:example} gives a fully worked 6-vertex example. Section~\ref{sec:scope} discusses scope, genericity, and the no-pruning Combinatorial DDGP special case.

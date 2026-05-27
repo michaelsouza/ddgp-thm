@@ -35,21 +35,7 @@ Unicamp\\
 \maketitle
 
 \begin{abstract}
-The Combinatorial Discretizable Distance Geometry Problem (Combinatorial DDGP)
-uses a vertex order where every reference predecessor set induces a clique to
-discretize graph realizations via Branch-and-Prune. In this subclass, the
-number of realizations is almost always \(2^{n-K}\) when no pruning edges are
-present. In the presence of pruning edges, a topological count has remained
-elusive; prior work only conjectured a count using contractions on the
-\(K\)-incident graph, leaving the formal proof to future research. We develop
-an algebraic rank-count theory for the feasible binary Branch-and-Prune codes.
-Branch transformations are encoded by graph-derived generators, and their
-conflicts with pruning constraints are recorded in a labeled violation matrix.
-Under generic mirror separation, the feasible codes form an affine space over
-\(\mathbb{F}_2\). The number of realizations is therefore given by a rank
-formula, with one factor of two for each branch decision not constrained by
-pruning. The formula recovers the classical \(2^{n-K}\) count when no pruning
-edges are present.
+The Distance Geometry Problem (DGP) asks for a geometric realization of a weighted graph with \(n\) vertices in \(\mathbb{R}^K\) such that Euclidean distances between vertices match the given edge weights. When a vertex order where every non-seed vertex has \(K\) predecessors inducing a clique is part of the input, the search space can be discretized via \(K\)-lateration, branching into a binary tree. In this subclass, known as the Combinatorial Discretizable Distance Geometry Problem (Combinatorial DDGP), the goal is to determine the number of realizations satisfying all distance constraints.  While the number of realizations is almost always \(2^{n-K}\) when no additional distance constraints are present, a topological solution count in the presence of additional constraints has remained elusive. We develop an algebraic rank-count theory for the feasible binary branch codes, showing that, under generic mirror separation, they form an affine space over \(\mathbb{F}_2\).
 \end{abstract}
 
 \input{sections/introduction}
