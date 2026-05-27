@@ -1,34 +1,30 @@
 \section{Branch Codes and Pruning Constraints}
 \label{sec:subproblems}
 
-We now define the branch-code space for the whole ordered instance and isolate the branch decisions that can affect pruning constraints.
+This section sets up the combinatorial objects used in the counting argument. We first fix the ordered predecessor system that produces the branch decisions, then use its dependency structure to identify which decisions can influence pruning constraints. This separates the branch-code space into constrained and free coordinates, and yields a smaller constrained code whose cardinality determines the total number of realizations.
 
-Let the vertices be ordered as $v_1,\ldots,v_n$, and write $U_i$ for the predecessor set of $v_i$. When a vertex $q=v_i$ appears as a subscript, $U_q$ means $U_i$; this preserves the paper's vertex notation while making the order explicit.
-
-Let $V_0=\{v_1,\ldots,v_K\}$ be the fixed initial clique in $\mathbb{R}^K$. For $i\le K$, set $U_i=\varnothing$. For every non-seed vertex $i > K$, the predecessor set $U_i \subseteq \{v_1,\ldots,v_{i-1}\}$ has size $K$. The predecessor relation defines a directed acyclic graph with an arc $v_j \to v_i$ whenever $v_j \in U_i$.
-
-Related order-dependent reference structures have been studied through $K$-discretization and $K$-incident graphs~\cite{abud2018k}; here we fix one predecessor system and derive branch shifts from its dependency cones.
+Let the chosen order be built into the vertex labels, so that $V=\{1,\ldots,n\}$. For each vertex $i$, write $U_i$ for the predecessor set of $i$. Additionally, let $V_0=\{1,\ldots,K\}$ be the fixed initial clique in $\mathbb{R}^K$. For $i\le K$, set $U_i=\varnothing$. For every non-seed vertex $i > K$, the predecessor set $U_i \subseteq \{1,\ldots,i-1\}$ has size $K$. Note that the predecessor relation defines a directed acyclic graph with an arc $j \to i$ whenever $j \in U_i$.
 
 \begin{definition}[Fixing set]
 \label{def:fixing}
-The fixing set of a vertex $v_i$ is
+The fixing set of a vertex $i$ is
 \[
-\operatorname{Fix}_U(v_i)
+\operatorname{Fix}_U(i)
 =
-\{v_i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}_U(u).
+\{i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}_U(u).
 \]
-For seed vertices this gives the base case $\operatorname{Fix}_U(v_i)=\{v_i\}$ because $U_i=\varnothing$.
+For seed vertices this gives the base case $\operatorname{Fix}_U(i)=\{i\}$ because $U_i=\varnothing$.
 \end{definition}
 
 \begin{definition}[Dependency cone]
 \label{def:cone}
-The dependency cone of a vertex $v_i$ is
+The dependency cone of a vertex $i$ is
 \[
-\operatorname{Cone}_U(v_i)
+\operatorname{Cone}_U(i)
 =
-\{v_i\}\cup \bigcup_{w:\,v_i\in U_w}\operatorname{Cone}_U(w),
+\{i\}\cup \bigcup_{w:\,i\in U_w}\operatorname{Cone}_U(w),
 \]
-where $w$ ranges over vertices. If no later vertex has $v_i$ as a predecessor, this gives the terminal base case $\operatorname{Cone}_U(v_i)=\{v_i\}$.
+where $w$ ranges over vertices. If no later vertex has $i$ as a predecessor, this gives the terminal base case $\operatorname{Cone}_U(i)=\{i\}$.
 \end{definition}
 
 Let $E_D$ denote the discretization edges induced by the predecessor relation, and let $E_P = E\setminus E_D$ denote the pruning edges. The full branch-decision set is
