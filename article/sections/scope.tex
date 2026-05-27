@@ -16,29 +16,22 @@ We now check that the rank-count formula agrees with a known positive counting r
 
 Abud et~al.~\cite{abud2024impossible} introduced the subclass of \emph{Combinatorial DDGP}, defined as those DDGP instances where every predecessor set $U_j$ induces a clique of size $K$ in $G$. They proved that, for this subclass and in the absence of pruning edges, solution counting is combinatorial and yields exactly $2^{n-K}$ incongruent solutions. This is Corollary~3.6 of Abud et~al.~\cite{abud2024impossible} and also generalizes the DMDGP no-pruning case.
 
-For this comparison, we do not set $P=\varnothing$ in the pruning-local definition of $L_P$. Instead, we apply the same generator and rank construction to the global no-pruning active set
+When there are no pruning edges, $E_P=\varnothing$. Hence the pruning-constrained set is empty:
 \[
-L_{\mathrm{glob}}=V(G),
+B_{\mathrm{c}}=\varnothing,
 \qquad
-B_{\mathrm{glob}}=V(G)\setminus V_0,
+B_{\mathrm{f}}=V(G)\setminus V_0,
 \qquad
-F=E_D.
+f=n-K.
 \]
-Here $V(G)$ denotes the graph vertex set, and $B_{\mathrm{glob}}$ contains the $n-K$ non-seed branch decisions. With this global active set, the rank-count formula includes the Combinatorial DDGP result as a direct special case:
+The labeled violation matrix has no rows and the constrained generator matrix has no nonzero branch rows. Therefore,
 \begin{enumerate}
-    \item When every predecessor set $U_j$ induces a clique, the crossing tests for active discretization edges in $F=E_D$ are mirror-compatible: any fixed endpoint of a crossing discretization edge lies in the corresponding predecessor clique.
-    \item Consequently, if a generator support crosses the boundary, the fixed endpoint is guaranteed to lie on the mirror clique. Thus, no active edges can be violated under any branch transformations.
-    \item The labeled violation matrix $V$ is therefore identically the zero matrix ($V = 0$).
-    \item Substituting $V = 0$ into the rank formula:
+    \item $V=0$ and $M=0$ on the constrained branch space.
+    \item The rank contribution is zero:
     \[
-    \dim \mathcal{K}_F
-    =
     \operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ 0 \end{bmatrix} - \operatorname{rank}_{\mathbb{F}_2}(0)
-    =
-    \operatorname{rank}_{\mathbb{F}_2}(M) - 0
-    =
-    n - K,
+    =0.
     \]
-    where $M$ has full rank $n-K$ because the global cone generators form a triangular system of masks on $B_{\mathrm{glob}}$.
+    \item The free branch contribution is $2^f=2^{n-K}$.
 \end{enumerate}
-This yields exactly $\lvert \Xi_F \rvert = 2^{n-K}$, recovering the positive no-pruning result of Abud et~al.~\cite{abud2024impossible}. Thus the rank-count formula agrees with clique-based no-pruning counts while also applying to local non-clique DDGP subproblems satisfying the theorem's hypotheses.
+This yields exactly $\lvert \Xi \rvert = 2^{n-K}$, recovering the positive no-pruning result of Abud et~al.~\cite{abud2024impossible}. Thus the rank-count formula agrees with clique-based no-pruning counts and extends the same branch-code viewpoint to Combinatorial DDGP instances with pruning edges that satisfy the theorem's hypotheses.

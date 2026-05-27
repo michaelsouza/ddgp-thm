@@ -1,7 +1,7 @@
 \section{Main Results}
 \label{sec:results}
 
-We now prove the rank-count theorem. First, a linear-algebra lemma computes the dimension of the projected zero-violation space. Then a preservation lemma gives the geometric implication of zero labeled violation. Finally, the main theorem identifies the whole local solution code as an affine shift of that space.
+We now prove the rank-count theorem. First, a linear-algebra lemma computes the dimension of the projected zero-violation space. Then a preservation lemma gives the geometric implication of zero labeled violation. Finally, the main theorem counts the full solution code by combining the constrained rank count with the free branch decisions.
 
 \begin{lemma}[Branch-shift rank]
 \label{lem:rank}
@@ -18,7 +18,7 @@ For the feasible branch shift space $\mathcal{K}_F = M(\ker V)$,
 \begin{proof}
 Let $m = \lvert \mathcal{G} \rvert = \dim A$. Since $\mathcal{K}_F = M(\ker V)$, we restrict $M$ to $\ker V$:
 \[
-M\big|_{\ker V} : \ker V \to \mathbb{F}_2^{B_P}.
+M\big|_{\ker V} : \ker V \to \mathbb{F}_2^{B_{\mathrm{c}}}.
 \]
 By rank-nullity applied to this restricted map,
 \[
@@ -65,58 +65,59 @@ The block $(S_C, C)$ is mirror-compatible with each active edge. Indeed, suppose
 Apply the nonzero blocks $(S_C,C)$ one at a time. We argue by induction on the number of applied blocks. At the step for $C$, vertices of $C$ are not toggled by $S_C$, so they lie on the current mirror $\operatorname{aff}(C)$. For any edge $e\in F$, either both endpoints are reflected, neither endpoint is reflected, or exactly one endpoint is reflected. In the first two cases, the current length of $e$ is preserved. In the crossing case, the preceding paragraph shows that the fixed endpoint lies in $C$, hence on $\operatorname{aff}(C)$, so the length of $e$ is again preserved. Thus each block preserves all active-edge lengths at the moment it is applied. After all blocks are applied, the accumulated branch mask is $\bigoplus_C S_C=M\alpha=h$, and therefore $s\oplus h\in\Xi_F$.
 \end{proof}
 
-The main theorem states that, generically, the converse also holds: every feasible solution difference must come from such a zero-violation presentation.
+The main theorem states that, generically, the converse also holds on the pruning-constrained branch set. The full count then follows by multiplying by the free branch decisions in $B_{\mathrm{f}}$.
 
-\begin{theorem}[Feasible branch shift theorem]
+\begin{theorem}[Rank-count theorem]
 \label{thm:main}
-Assume $K \ge 2$, $E_D[L_P] \subseteq F$, and $\Xi_F \ne \varnothing$. Assume also that the local active subproblem satisfies generic mirror separation and that the present predecessor and edge-length parameters lie outside the exceptional set $Z$ in Definition~\ref{def:mirror-sep}. Then, for any reference solution $s^\ast \in \Xi_F$,
+Assume $K \ge 2$ and $\Xi \ne \varnothing$. Assume also that the instance satisfies generic mirror separation and that the present predecessor and edge-length parameters lie outside the exceptional set $Z$ in Definition~\ref{def:mirror-sep}. Then, for any reference solution $s^\ast \in \Xi$, with constrained restriction $s^\ast_{\mathrm{c}}=s^\ast|_{B_{\mathrm{c}}}$,
 \[
 \Xi_F
 =
-s^\ast + \mathcal{K}_F
+s^\ast_{\mathrm{c}} + \mathcal{K}_F
 =
-s^\ast + M(\ker V).
+s^\ast_{\mathrm{c}} + M(\ker V).
 \]
-\end{theorem}
-
-\begin{proof}
-Fix a reference solution $s^\ast \in \Xi_F$. We prove that the feasible branch differences from $s^\ast$ are exactly $\mathcal{K}_F$.
-
-First, let $h \in \mathcal{K}_F$. By definition, $h = M\alpha$ for some $\alpha \in \ker V$. By Lemma~\ref{lem:preservation} (Zero-violation preservation),
+Consequently,
 \[
-s^\ast \oplus h \in \Xi_F.
-\]
-Hence,
-\[
-s^\ast + \mathcal{K}_F \subseteq \Xi_F.
-\]
-
-Conversely, let $s \in \Xi_F$ and set $h = s \oplus s^\ast$. Suppose, for contradiction, that $h \notin \mathcal{K}_F$. Since the present parameters lie outside the exceptional set $Z$ in Definition~\ref{def:mirror-sep}, the embeddings determined by $s^\ast$ and $s=s^\ast\oplus h$ assign different lengths to at least one active edge in $F$. However, both $s^\ast$ and $s$ realize every edge in $F$. This contradiction implies that $h$ must belong to $\mathcal{K}_F$, which yields
-\[
-\Xi_F \subseteq s^\ast + \mathcal{K}_F.
-\]
-
-Combining both inclusions yields:
-\[
-\Xi_F = s^\ast + \mathcal{K}_F = s^\ast + M(\ker V),
-\]
-which completes the proof.
-\end{proof}
-
-\begin{lemma}[Rank count]
-\label{lem:count}
-Under the assumptions of Theorem~\ref{thm:main},
-\[
-\lvert \Xi_F \rvert
+\lvert \Xi\rvert
 =
 2^{
+f+
 \operatorname{rank}_{\mathbb{F}_2}\begin{bmatrix} M \\ V \end{bmatrix}
 -
 \operatorname{rank}_{\mathbb{F}_2}(V)
 }.
 \]
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:main}, $\Xi_F$ is an affine coset of $\mathcal{K}_F$, so $\lvert \Xi_F \rvert = 2^{\dim \mathcal{K}_F}$. Applying Lemma~\ref{lem:rank} (Branch-shift rank) gives the displayed exponent.
+Fix a reference solution $s^\ast \in \Xi$, and let $s^\ast_{\mathrm{c}}=s^\ast|_{B_{\mathrm{c}}}$. We prove that the feasible constrained branch differences from $s^\ast_{\mathrm{c}}$ are exactly $\mathcal{K}_F$.
+
+First, let $h \in \mathcal{K}_F$. By definition, $h = M\alpha$ for some $\alpha \in \ker V$. By Lemma~\ref{lem:preservation} (Zero-violation preservation),
+\[
+s^\ast_{\mathrm{c}} \oplus h \in \Xi_F.
+\]
+Hence,
+\[
+s^\ast_{\mathrm{c}} + \mathcal{K}_F \subseteq \Xi_F.
+\]
+
+Conversely, let $s_{\mathrm{c}} \in \Xi_F$ and set $h = s_{\mathrm{c}} \oplus s^\ast_{\mathrm{c}}$. Suppose, for contradiction, that $h \notin \mathcal{K}_F$. Since the present parameters lie outside the exceptional set $Z$ in Definition~\ref{def:mirror-sep}, the embeddings determined by $s^\ast_{\mathrm{c}}$ and $s_{\mathrm{c}}=s^\ast_{\mathrm{c}}\oplus h$ assign different lengths to at least one active edge in $F$. However, both $s^\ast_{\mathrm{c}}$ and $s_{\mathrm{c}}$ realize every edge in $F$. This contradiction implies that $h$ must belong to $\mathcal{K}_F$, which yields
+\[
+\Xi_F \subseteq s^\ast_{\mathrm{c}} + \mathcal{K}_F.
+\]
+
+Combining both inclusions yields:
+\[
+\Xi_F = s^\ast_{\mathrm{c}} + \mathcal{K}_F = s^\ast_{\mathrm{c}} + M(\ker V).
+\]
+By the decomposition in Section~\ref{sec:subproblems}, every feasible constrained code combines with the $2^f$ free branch codes on $B_{\mathrm{f}}$, and no free branch code can affect a pruning edge. Thus
+\[
+\lvert \Xi\rvert
+=
+2^f\lvert \Xi_F\rvert
+=
+2^{f+\dim \mathcal{K}_F}.
+\]
+Applying Lemma~\ref{lem:rank} gives the displayed rank formula.
 \end{proof}

@@ -1,36 +1,36 @@
 \section{Graph-Derived Generators}
 \label{sec:generators}
 
-This section defines the graph-derived generators that encode local branch transformations and their mirror cliques. We use cone generators for dependency propagation, base generators for common predecessor cliques, and the mask matrix to project generator combinations to branch masks.
+This section defines the graph-derived generators that encode branch transformations and their mirror cliques. We use cone generators for dependency propagation, base generators for common predecessor cliques, and the mask matrix to project generator combinations to branch masks.
 
 A generator represents a branch transformation together with the mirror clique that explains its geometric action. Each generator is a pair
 \[
 g=(m_g, C_g),
 \]
-where $m_g \in \mathbb{F}_2^{B_P}$ is a branch mask and $C_g$ is a predecessor clique. The mask tells which local branch bits are toggled; the clique tells which affine mirror is used for the reflection.
+where $m_g \in \mathbb{F}_2^{B_{\mathrm{c}}}$ is a branch mask and $C_g$ is a predecessor clique. The mask tells which pruning-constrained branch bits are toggled; the clique tells which affine mirror is used for the reflection.
 
 \begin{definition}[Cone generator]
 \label{def:cone-generator}
-For each decision vertex $q \in B_P$, the cone generator is
+For each decision vertex $q \in B_{\mathrm{c}}$, the cone generator is
 \[
 g_q = (m_q, U_q),
 \qquad
-\operatorname{supp}(m_q) = B_P \cap \operatorname{Cone}_U(q).
+\operatorname{supp}(m_q) = B_{\mathrm{c}} \cap \operatorname{Cone}_U(q).
 \]
 \end{definition}
 
-When the rows and cone-generator columns are ordered by the DDGP vertex order, the cone-mask matrix is triangular with diagonal entries equal to one. Hence the cone masks $\{m_q \mid q\in B_P\}$ form a basis of the full local branch space $\mathbb{F}_2^{B_P}$.
+When the rows and cone-generator columns are ordered by the DDGP vertex order, the cone-mask matrix is triangular with diagonal entries equal to one. Hence the cone masks $\{m_q \mid q\in B_{\mathrm{c}}\}$ form a basis of the constrained branch space $\mathbb{F}_2^{B_{\mathrm{c}}}$.
 
 The predecessor-clique set used for base generators is
 \[
-\mathcal{C}_P=\{U_w\mid w\in B_P\}.
+\mathcal{C}_{\mathrm{c}}=\{U_w\mid w\in B_{\mathrm{c}}\}.
 \]
 
 \begin{definition}[Base generator]
 \label{def:base-generator}
-For a predecessor clique $C\in\mathcal{C}_P$, define the generator roots:
+For a predecessor clique $C\in\mathcal{C}_{\mathrm{c}}$, define the generator roots:
 \[
-\operatorname{Gen}_P(C)=\{w \in B_P \mid U_w = C\}.
+\operatorname{Gen}_{\mathrm{c}}(C)=\{w \in B_{\mathrm{c}} \mid U_w = C\}.
 \]
 The base generator associated with $C$ is
 \[
@@ -40,9 +40,9 @@ where
 \[
 \operatorname{supp}(m_C)
 =
-B_P \cap \bigcup_{w:\,U_w=C} \operatorname{Cone}_U(w)
+B_{\mathrm{c}} \cap \bigcup_{w:\,U_w=C} \operatorname{Cone}_U(w)
 =
-\bigcup_{w\in \operatorname{Gen}_P(C)} \operatorname{supp}(m_w).
+\bigcup_{w\in \operatorname{Gen}_{\mathrm{c}}(C)} \operatorname{supp}(m_w).
 \]
 \end{definition}
 
@@ -52,7 +52,7 @@ After defining both kinds of generators, set $\mathcal{G}$ to be the labeled gen
 \[
 \mathcal{G}
 =
-\{g_q\mid q\in B_P\}\sqcup\{g_C\mid C\in\mathcal{C}_P\},
+\{g_q\mid q\in B_{\mathrm{c}}\}\sqcup\{g_C\mid C\in\mathcal{C}_{\mathrm{c}}\},
 \qquad
 m=\lvert\mathcal{G}\rvert.
 \]
@@ -66,7 +66,7 @@ Choose an enumeration $\mathcal{G}=\{g^1,\ldots,g^m\}$ for the matrix representa
 \label{def:mask-matrix}
 The generator mask matrix is the linear map
 \[
-M: A \to \mathbb{F}_2^{B_P},
+M: A \to \mathbb{F}_2^{B_{\mathrm{c}}},
 \]
 whose $j$-th column is $m_{g^j}$. For any generator coefficient vector $\alpha=(\alpha_1,\ldots,\alpha_m)\in A$, the action of $M$ is
 \[

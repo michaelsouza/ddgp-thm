@@ -14,7 +14,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 
-\title{A Rank-Count Theory for Local Solutions in the Discretizable Distance Geometry Problem}
+\title{A Rank-Count Theory for the Combinatorial Discretizable Distance Geometry Problem}
 \author{
 Michael Souza\\
 Universidade Federal do Cear\'a\\
@@ -35,7 +35,21 @@ Unicamp\\
 \maketitle
 
 \begin{abstract}
-The Discretizable Distance Geometry Problem (DDGP) uses a vertex order to discretize graph realizations via Branch-and-Prune. In the Combinatorial DDGP subclass, every reference predecessor set induces a clique, guaranteeing a purely topological solution count of \(2^{n-K}\) when no pruning edges are present. In the presence of pruning edges, a topological count has remained elusive; prior work only conjectured a \(2^{\lvert V_{\mathcal{I}}^c \rvert - 1}\) count using contractions on the \(K\)-incident graph, leaving the formal proof to future research. In this paper, we resolve this open problem by developing a unified algebraic rank-count theory. We show that, under generic mirror separation, the feasible binary Branch-and-Prune codes for any active pruning set form an affine space over \(\mathbb{F}_2\). The local solution count is obtained exactly via a rank formula on matrices representing branch transformations and pruning violations. This formula provides the first formal proof for counting solutions with pruning.
+The Combinatorial Discretizable Distance Geometry Problem (Combinatorial DDGP)
+uses a vertex order where every reference predecessor set induces a clique to
+discretize graph realizations via Branch-and-Prune. In this subclass, the
+number of realizations is almost always \(2^{n-K}\) when no pruning edges are
+present. In the presence of pruning edges, a topological count has remained
+elusive; prior work only conjectured a count using contractions on the
+\(K\)-incident graph, leaving the formal proof to future research. We develop
+an algebraic rank-count theory for the feasible binary Branch-and-Prune codes.
+Branch transformations are encoded by graph-derived generators, and their
+conflicts with pruning constraints are recorded in a labeled violation matrix.
+Under generic mirror separation, the feasible codes form an affine space over
+\(\mathbb{F}_2\). The number of realizations is therefore given by a rank
+formula, with one factor of two for each branch decision not constrained by
+pruning. The formula recovers the classical \(2^{n-K}\) count when no pruning
+edges are present.
 \end{abstract}
 
 \input{sections/introduction}
