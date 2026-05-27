@@ -9,7 +9,7 @@ A systematic, publication-grade review workflow for LaTeX manuscripts with subst
 
 ## Required Source
 
-Before reviewing any manuscript, read the bundled reference [references/tsitsiklis2009few.md](references/tsitsiklis2009few.md), resolved relative to this skill folder. This file is the source of truth for the review standard. If the bundled file is missing, search the project for `tsitsiklis2009few.md`; if it cannot be found, tell the user and continue only with the summarized checklist below.
+Before reviewing any manuscript, read the bundled reference [tsitsiklis2009few.md](tsitsiklis2009few.md), resolved relative to this skill folder. This file is the source of truth for the review standard. If the bundled file is missing, search the project for `tsitsiklis2009few.md`; if it cannot be found, tell the user and continue only with the summarized checklist below.
 
 When using subagents, every subagent prompt must explicitly instruct the subagent to read the bundled `references/tsitsiklis2009few.md` before reading its assigned manuscript files.
 

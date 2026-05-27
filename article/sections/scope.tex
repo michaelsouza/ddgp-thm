@@ -1,7 +1,7 @@
 \section{Scope and Genericity}
 \label{sec:scope}
 
-This section records what the theorem does and does not claim. We clarify the genericity assumption, note the one-dimensional exception, and check that the rank-count formula agrees with the known Combinatorial DDGP count.
+This section records what the theorem does and does not claim. We clarify the genericity assumption, note the one-dimensional exception, and check that the rank-count formula agrees with the known no-pruning Combinatorial DDGP count.
 
 The 6-vertex example analyzed in Section~\ref{sec:example} is a small, reproducible check of the construction: the generator masks, the labeled violation matrix, the ranks, and the final count can all be inspected directly.
 
@@ -41,4 +41,4 @@ Here $V(G)$ denotes the graph vertex set, and $B_{\mathrm{glob}}$ contains the $
     \]
     where $M$ has full rank $n-K$ because the global cone generators form a triangular system of masks on $B_{\mathrm{glob}}$.
 \end{enumerate}
-This yields exactly $\lvert \Xi_F \rvert = 2^{n-K}$, recovering the positive result of Abud et~al.~\cite{abud2024impossible}. Thus the rank-count formula agrees with clique-based DMDGP and Combinatorial DDGP counts while also applying to local non-clique DDGP subproblems satisfying the theorem's hypotheses.
+This yields exactly $\lvert \Xi_F \rvert = 2^{n-K}$, recovering the positive no-pruning result of Abud et~al.~\cite{abud2024impossible}. Thus the rank-count formula agrees with clique-based no-pruning counts while also applying to local non-clique DDGP subproblems satisfying the theorem's hypotheses.

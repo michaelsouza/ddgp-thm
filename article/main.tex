@@ -35,17 +35,7 @@ Unicamp\\
 \maketitle
 
 \begin{abstract}
-In the Discretizable Distance Geometry Problem (DDGP), nonconsecutive
-predecessor sets prevent a global solution count that depends only on graph
-topology. We consider the local counting problem obtained by fixing an active
-set of pruning constraints in a generic DDGP subproblem. We show that,
-relative to any reference solution, the feasible binary Branch-and-Prune codes
-form an affine space over \(\mathbb{F}_2\). Its direction is determined by the
-branch shifts that produce no labeled pruning-edge violation. Consequently, the
-local solution count follows from a rank computation, without enumerating
-Branch-and-Prune branches. The formula recovers the known clique-based counts
-for the Discretizable Molecular Distance Geometry Problem and for
-Combinatorial DDGP instances.
+The Discretizable Distance Geometry Problem (DDGP) uses a vertex order to discretize graph realizations via Branch-and-Prune. In the Combinatorial DDGP subclass, every reference predecessor set induces a clique, guaranteeing a purely topological solution count of \(2^{n-K}\) when no pruning edges are present. In the presence of pruning edges, a topological count has remained elusive; prior work only conjectured a \(2^{\lvert V_{\mathcal{I}}^c \rvert - 1}\) count using contractions on the \(K\)-incident graph, leaving the formal proof to future research. In this paper, we resolve this open problem by developing a unified algebraic rank-count theory. We show that, under generic mirror separation, the feasible binary Branch-and-Prune codes for any active pruning set form an affine space over \(\mathbb{F}_2\). The local solution count is obtained exactly via a rank formula on matrices representing branch transformations and pruning violations. This formula provides the first formal proof for counting solutions with pruning.
 \end{abstract}
 
 \input{sections/introduction}

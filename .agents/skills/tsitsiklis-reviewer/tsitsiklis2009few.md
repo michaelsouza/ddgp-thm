@@ -1,5 +1,3 @@
-1
-
 # A FEW TIPS ON WRITING PAPERS WITH MATHEMATICAL CONTENT
 
 John N. Tsitsiklis
@@ -10,7 +8,7 @@ October 2009; this version: December 13, 2020.
 
 Abstract. We provide a number of suggestions on writing scientific papers with substantial mathematical content. We consider issues related to the general document structure (e.g., section organization) and style (e.g., notation), as well as issues related to seemingly minor details.
 
-# Contents
+## Contents
 
 1 INTRODUCTION 2
 2 BEFORE YOU START 2
@@ -29,9 +27,7 @@ Abstract. We provide a number of suggestions on writing scientific papers with s
 6.3 Typesetting 8
 7 USEFUL REFERENCES 9
 
----
-
-1 INTRODUCTION
+## 1 INTRODUCTION
 
 The main goal of authoring a paper is, presumably, to convey information to the readers. Accordingly, it is in the author’s interest to facilitate this information transfer. As a side benefit, as long as the technical contribution is solid, a well-written paper has a high chance of being accepted for publication subject to only minor revisions.
 
@@ -52,11 +48,7 @@ This document is intentionally kept short, with the hope that it will be read. W
 
 In real life, papers do change while being (re)written, and your choices are likely to evolve. Still, by being systematic, you will minimize errors, and you will save time in the long run.
 
-###
-
----
-
-3 DOCUMENT STRUCTURE
+## 3 DOCUMENT STRUCTURE
 
 ### 3.1 Typical structure
 
@@ -90,8 +82,6 @@ A generally undesirable but somewhat common practice is to start with background
 
 Perhaps continue with some motivation. Next, you can give the background and history of the subject, together with a review of the relevant literature. Do not just list related papers.
 
----
-
 Put your work in context, by comparing with the closest papers in the literature. For example, “Our results generalize” (or “differ from”) “the work of …”.
 
 Usually, this is also the right place for a succint preview of the main results and a list of the main contributions. The preview and the contributions are sometimes written down as two different paragraphs, but if this becomes too repetitive, they can be interlaced within a single paragraph.
@@ -122,8 +112,6 @@ This is a short compilation of hopefully useful suggestions.
 (b) However, property $Q_{n}$ holds if $n$ is odd.
 
 should be replaced by:
-
----
 
 (a) For all even integers $n$, property $P_{n}$ holds.
 (b) For all odd integers $n$, property $Q_{n}$ holds.
@@ -159,9 +147,6 @@ Telltale signs of nonlinear arguments are occurrences of “then if” and “si
 4. Make sure you have defined every symbol you use. Some general definitions may appear early in the paper, e.g., defining symbols such as $\Re$ (the real numbers). However, most definitions should appear right before or right after the first use of a symbol. An example of the latter case (right after) is: “$x\geq a$, where $a=\sqrt{\pi}$.”
 5. Theorem or lemma statements should be as short and crisp as possible. To accomplish this, define relevant terms, concepts, symbols, properties, etc., before the formal statement.
 6. A theorem statement should not include a discussion of consequences. These should be developed outside the formal statement.
-
----
-
 7. Introduce mnemonic terms or labels. A reader is much happier to read a reference to “the degeneracy condition (3.1)” rather than a reference to “Condition (3.1).”
 8. Linear proofs. A proof can be visualized as a directed graph whose nodes are lemmas, facts, propositions, etc. (This graph would better be acyclic!) When writing down a proof, these nodes need to be laid out, in some order of your choice.
 
@@ -188,8 +173,6 @@ or to
 
 “$\exists\,c\ \forall\,n$”, i.e., “there exists some $c$ such that for every $n$, we have $n<c$”
 
----
-
 16. Quantifier ambiguity is often hidden inside order of magnitude notation. The statement $f(n) = O(n^{2})$ is unambiguous and means "there exists a constant $c$ such that for all large enough $n$, we have $f(n) \leq n^{2}$." However, a statement such as "$T = O(n^{d})$" is often used with different meanings, such as:
 
 a) there exists some $c$ such that for all large enough $n$ and $d$, we have $T \leq cn^{d}$;
@@ -199,11 +182,11 @@ In the second version, the constant $c$ is allowed to depend on $d$; in the firs
 
 The default interpretation is the one in (a). However, the intended meaning is sometimes the one in (b); in such cases, the intended meaning must be spelled out.
 
-# 6 LOW-LEVEL ELEMENTS OF STYLE
+## 6 LOW-LEVEL ELEMENTS OF STYLE
 
 The comments in this section may appear unimportant. However, when followed, they can serve to reduce distractions and improve the reading experience.
 
-# 6.1 Low-level aspects of prose writing
+### 6.1 Low-level aspects of prose writing
 
 1. Read every sentence to identify and remove unnecessary words or clauses.⁴
 2. The previous rule does not apply whenever an additional word such as "then" or "that" makes parsing easier. For example:
@@ -223,8 +206,6 @@ On the other hand, you may decide to omit the word "that" if it reappears shortl
 (c) "Chuck et al. proved Theorem 2."
 
 ⁴As a counterexample, compare this dictum, with the following longer alternative, which essentially contradicts itself: "Most sentences in a first and preliminary draft of a paper that you write will contain words or clauses that are redundant or unnecessary — or even worse, distracting — and you should go over the paper carefully, reading and checking one sentence at a time, and work towards the elimination of such undesired features."
-
----
 
 7. There is an arbitrary convention of putting commas and periods inside quotes. (That is, write “this is a success,” as opposed to “this is a success”.) It is not quite logical, but is believed to be more pleasing to the eye.
 8. Study the rules regarding the use of “that” and “which.” Sometimes, only one of the two is appropriate.
@@ -253,8 +234,6 @@ Here are some commonly occurring instances.
 
 1. Latex’s default environment for theorems, lemmas, definitions, etc., uses italic font. Alternatives, such as putting theorems inside a box, are more effective in focusing the reader’s attention without compromising readability.
 2. Newly introduced terms can be highlighted by setting them in bold or italic typeface. The common convention is to use italics, but boldface is visually easier to spot.
-
----
 
 3. Avoid inline fractions such as $\frac{x+2}{x+3}$, which result in small fonts and interfere with proper line spacing, unless there is a compelling reason. Instead, write $(x+2)/(x+3)$.
 4. Learn and apply the rules for breaking and aligning multiline equations. (Yes, there are such rules!)
@@ -292,5 +271,3 @@ The essay “How to write Mathematics,” by Paul Halmos, available at http://ww
 “Writing a Math Phase Two Paper,” by Steven Kleiman, available at https://www.math.harvard.edu/media/kleiman.pdf offers plenty of useful guidance.
 
 Finally, the present document owes a lot to Dimitri Bertsekas’ “Ten Simple Rules for Mathematical Writing,” available at http://www.mit.edu/~dimitrib/Ten_Rules.pdf.
-
-##
