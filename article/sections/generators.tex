@@ -15,7 +15,7 @@ For each decision vertex $q \in B_{\mathrm{c}}$, the cone generator is
 \[
 g_q = (m_q, U_q),
 \qquad
-\operatorname{supp}(m_q) = B_{\mathrm{c}} \cap \operatorname{Cone}_U(q).
+\operatorname{supp}(m_q) = B_{\mathrm{c}} \cap \operatorname{Cone}(q).
 \]
 \end{definition}
 
@@ -23,14 +23,14 @@ When the rows and cone-generator columns are ordered by the DDGP vertex order, t
 
 The predecessor-clique set used for base generators is
 \[
-\mathcal{C}_{\mathrm{c}}=\{U_w\mid w\in B_{\mathrm{c}}\}.
+\mathcal{C}=\{U_w\mid w\in B_{\mathrm{c}}\}.
 \]
 
 \begin{definition}[Base generator]
 \label{def:base-generator}
-For a predecessor clique $C\in\mathcal{C}_{\mathrm{c}}$, define the generator roots:
+For a predecessor clique $C\in\mathcal{C}$, define the generator roots:
 \[
-\operatorname{Gen}_{\mathrm{c}}(C)=\{w \in B_{\mathrm{c}} \mid U_w = C\}.
+\operatorname{Gen}(C)=\{w \in B_{\mathrm{c}} \mid U_w = C\}.
 \]
 The base generator associated with $C$ is
 \[
@@ -40,19 +40,24 @@ where
 \[
 \operatorname{supp}(m_C)
 =
-B_{\mathrm{c}} \cap \bigcup_{w:\,U_w=C} \operatorname{Cone}_U(w)
+B_{\mathrm{c}} \cap \bigcup_{w:\,U_w=C} \operatorname{Cone}(w)
 =
-\bigcup_{w\in \operatorname{Gen}_{\mathrm{c}}(C)} \operatorname{supp}(m_w).
+\bigcup_{w\in \operatorname{Gen}(C)} \operatorname{supp}(m_w).
 \]
 \end{definition}
 
-Base generators are useful because two transformations with the same branch mask may have different geometric meaning if they use different mirror cliques. Thus, a base generator may be redundant as a column of the mask matrix while still being necessary as a labeled geometric operation.
+Base generators are useful because two transformations with the same branch mask may have different geometric meanings if they use different mirror cliques. 
+Specifically, two distinct generators $g_1 = (m, C_1)$ and $g_2 = (m, C_2)$ can share the same algebraic branch mask $m \in \mathbb{F}_2^{B_{\mathrm{c}}}$, representing the same coordinate flips. 
+However, if $C_1 \neq C_2$, their mirror cliques span distinct affine hyperplanes in $\mathbb{R}^K$. 
+Because a branch flip is realized as a spatial reflection across the hyperplane spanned by its predecessor clique, these generators correspond to different isometric transformations. 
+This yields distinct spatial coordinates for the vertices in their propagation cones, altering the Euclidean distances for pruning edges. 
+Therefore, algebraic redundancy in the branch masks does not imply geometric equivalence, and both generators must be treated as distinct labeled operations.
 
 After defining both kinds of generators, set $\mathcal{G}$ to be the labeled generator family
 \[
 \mathcal{G}
 =
-\{g_q\mid q\in B_{\mathrm{c}}\}\sqcup\{g_C\mid C\in\mathcal{C}_{\mathrm{c}}\},
+\{g_q\mid q\in B_{\mathrm{c}}\}\sqcup\{g_C\mid C\in\mathcal{C}\},
 \qquad
 m=\lvert\mathcal{G}\rvert.
 \]

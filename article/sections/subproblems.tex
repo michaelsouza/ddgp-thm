@@ -5,26 +5,32 @@ This section sets up the combinatorial objects used in the counting argument. We
 
 Let the chosen order be built into the vertex labels, so that $V=\{1,\ldots,n\}$. For each vertex $i$, write $U_i$ for the predecessor set of $i$. Additionally, let $V_0=\{1,\ldots,K\}$ be the fixed initial clique in $\mathbb{R}^K$. For $i\le K$, set $U_i=\varnothing$. For every non-seed vertex $i > K$, the predecessor set $U_i \subseteq \{1,\ldots,i-1\}$ has size $K$. Note that the predecessor relation defines a directed acyclic graph with an arc $j \to i$ whenever $j \in U_i$.
 
+For the rest of the paper, the ordered predecessor family $U=(U_i)_{i\in V}$ is fixed. All predecessor closures are taken with respect to this family, so we suppress the subscript $U$ and write $\operatorname{Fix}$ and $\operatorname{Cone}$.
+
+Two closures of this predecessor relation will be used throughout the construction. The first one looks backward: to determine the position of a vertex, we must also determine the predecessors needed to place it, their predecessors, and so on.
+
 \begin{definition}[Fixing set]
 \label{def:fixing}
 The fixing set of a vertex $i$ is
 \[
-\operatorname{Fix}_U(i)
+\operatorname{Fix}(i)
 =
-\{i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}_U(u).
+\{i\}\cup \bigcup_{u\in U_i}\operatorname{Fix}(u).
 \]
-For seed vertices this gives the base case $\operatorname{Fix}_U(i)=\{i\}$ because $U_i=\varnothing$.
+For seed vertices this gives the base case $\operatorname{Fix}(i)=\{i\}$ because $U_i=\varnothing$.
 \end{definition}
+
+The forward closure captures propagation: changing a branch decision at a vertex can affect every later vertex that depends on it, directly or indirectly.
 
 \begin{definition}[Dependency cone]
 \label{def:cone}
 The dependency cone of a vertex $i$ is
 \[
-\operatorname{Cone}_U(i)
+\operatorname{Cone}(i)
 =
-\{i\}\cup \bigcup_{w:\,i\in U_w}\operatorname{Cone}_U(w),
+\{i\}\cup \bigcup_{w:\,i\in U_w}\operatorname{Cone}(w),
 \]
-where $w$ ranges over vertices. If no later vertex has $i$ as a predecessor, this gives the terminal base case $\operatorname{Cone}_U(i)=\{i\}$.
+where $w$ ranges over vertices. If no later vertex has $i$ as a predecessor, this gives the terminal base case $\operatorname{Cone}(i)=\{i\}$.
 \end{definition}
 
 Let $E_D$ denote the discretization edges induced by the predecessor relation, and let $E_P = E\setminus E_D$ denote the pruning edges. The full branch-decision set is
@@ -36,7 +42,7 @@ Define the pruning-relevant vertex set
 L
 =
 \bigcup_{\{u,v\}\in E_P}
-\left(\operatorname{Fix}_U(u)\cup \operatorname{Fix}_U(v)\right),
+\left(\operatorname{Fix}(u)\cup \operatorname{Fix}(v)\right),
 \]
 and the pruning-constrained branch set
 \[
@@ -50,7 +56,7 @@ f=\lvert B_{\mathrm{f}}\rvert,
 \]
 are free with respect to pruning constraints: changing them preserves all discretization edges by construction and cannot change the endpoints of any pruning edge.
 
-The constrained edge set is
+The active edge set is
 \[
 F = E_D[L] \cup E_P,
 \qquad
