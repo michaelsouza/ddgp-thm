@@ -25,6 +25,36 @@ line numbers from each `article/sections/*.tex` file, so numbering restarts for
 each file included through `\input{sections/...}`. The generated numbered PDF and
 intermediate files are ignored by git.
 
+### Automatic rebuild service
+
+The repository includes a Linux user-service watcher that rebuilds
+`article/main_numbered.pdf` whenever `article/main.tex` or
+`article/sections/*.tex` changes:
+
+```bash
+scripts/watch_numbered_article.py
+```
+
+A versionable systemd unit is provided at
+`systemd/user/ddgp-numbered-article-watch.service`. To install or refresh it for
+the current user:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp systemd/user/ddgp-numbered-article-watch.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now ddgp-numbered-article-watch.service
+```
+
+Useful service commands:
+
+```bash
+systemctl --user status ddgp-numbered-article-watch.service
+systemctl --user stop ddgp-numbered-article-watch.service
+systemctl --user start ddgp-numbered-article-watch.service
+systemctl --user disable --now ddgp-numbered-article-watch.service
+```
+
 ## Glossary conventions
 
 ### Creating a concept

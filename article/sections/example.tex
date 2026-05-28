@@ -1,16 +1,12 @@
 \section{A Small Worked Example}
 \label{sec:example}
 
-We include a fully worked six-vertex example to make the construction checkable by hand. Although the instance is small, it contains both cone and base generators, a nontrivial labeled violation kernel, and a presentation ambiguity that must be removed by the projection $M(\ker V)$.
+This section details a fully worked seven-vertex example to concretely illustrate our theoretical framework. While small in scale, this example exhibits all the core features of the general theory: both cone and base generators are present, the labeled violation kernel $\ker V$ is nontrivial, a presentation redundancy in the generator combinations is factored out by mapping the kernel through the mask projection to obtain the feasible branch shift space $\mathcal{K}_F = M(\ker V)$, and one free branch decision contributes a nontrivial factor $2^f$ to the final count.
 
 \subsection{Combinatorial Setup}
 \label{sec:example-combo}
 
-Let $K=2$ in $\mathbb{R}^2$. For readability in this example, write $v_i$ for the vertex with global label $i$. The fixed initial clique is
-\[
-V_0=\{v_1, v_2\}.
-\]
-Consider the predecessor sets
+Let $K=2$ in $\mathbb{R}^2$. For readability in this example, write $v_i$ for the vertex with global label $i$. The fixed initial clique is $V_0=\{v_1, v_2\}$. Consider the predecessor sets
 \[
 U_3=\{v_1, v_2\},
 \qquad
@@ -19,16 +15,24 @@ U_4=\{v_1, v_3\},
 U_5=\{v_1, v_3\},
 \qquad
 U_6=\{v_1, v_4\},
+\qquad
+U_7=\{v_1, v_2\},
 \]
 and the pruning edge set
 \[
 E_P=\{\{v_3, v_6\},\,\{v_4, v_5\}\}.
 \]
-The pruning-relevant vertex set is the whole graph, so the constrained branch set is
+The pruning-relevant vertex set is
+\[
+L=\{v_1,v_2,v_3,v_4,v_5,v_6\}.
+\]
+The added vertex $v_7$ is not in the fixing set of any pruning endpoint, so the constrained and free branch sets are
 \[
 B_{\mathrm{c}}=\{v_3, v_4, v_5, v_6\},
 \qquad
-B_{\mathrm{f}}=\varnothing.
+B_{\mathrm{f}}=\{v_7\},
+\qquad
+f=1.
 \]
 There are three predecessor cliques,
 \[
@@ -38,12 +42,13 @@ C_1=\{v_1, v_3\},
 \qquad
 C_2=\{v_1, v_4\}.
 \]
-The first generates $v_3$, the second generates $v_4$ and $v_5$, and the third generates $v_6$. Since $v_4$ and $v_5$ depend on $v_3$, and $v_6$ depends on $v_4$, we have
+The first generates $v_3$ and the free vertex $v_7$, the second generates $v_4$ and $v_5$, and the third generates $v_6$. Since $v_4$ and $v_5$ depend on $v_3$, and $v_6$ depends on $v_4$, we have
 \[
 \operatorname{Cone}(v_3)\cap B_{\mathrm{c}}=\{v_3,v_4,v_5,v_6\},
 \qquad
 \operatorname{Cone}(v_4)\cap B_{\mathrm{c}}=\{v_4, v_6\}.
 \]
+The free vertex has $\operatorname{Cone}(v_7)\cap B_{\mathrm{c}}=\varnothing$, so its branch decision does not appear in the constrained matrices below.
 The graph structure, predecessor dependency arcs, and pruning edges are illustrated in Figure~\ref{fig:worked-example}.
 
 \begin{figure}[htbp]
@@ -56,6 +61,7 @@ The graph structure, predecessor dependency arcs, and pruning edges are illustra
     \node[fill=green!10] (v4) at (1.5,1) {$v_4$};
     \node[fill=green!10] (v5) at (3,2) {$v_5$};
     \node[fill=green!10] (v6) at (0.5,3) {$v_6$};
+    \node[fill=yellow!20] (v7) at (3,-1.2) {$v_7$};
     
     % Initial clique edge
     \draw[thick] (v1) -- (v2);
@@ -72,16 +78,19 @@ The graph structure, predecessor dependency arcs, and pruning edges are illustra
     
     \draw[->, thick, black!60] (v1) to (v6);
     \draw[->, thick, black!60] (v4) to (v6);
+
+    \draw[->, thick, black!60] (v1) to[bend right=18] (v7);
+    \draw[->, thick, black!60] (v2) to[bend left=12] (v7);
     
     % Pruning edges (dashed red)
     \draw[dashed, ultra thick, red] (v3) to[bend left=15] (v6);
     \draw[dashed, ultra thick, red] (v4) to (v5);
 \end{tikzpicture}
-\caption{Combinatorial predecessor dependency graph and pruning edges for the 6-vertex worked example; node positions are schematic. Directed arcs represent predecessor discretization constraints ($E_D$), dashed red lines represent $E_P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$, blue nodes form $V_0$, and green nodes are branch-decision vertices in $B_{\mathrm{c}}$.}
+\caption{Combinatorial predecessor dependency graph and pruning edges for the 7-vertex worked example; node positions are schematic. Directed arcs represent predecessor discretization constraints ($E_D$), dashed red lines represent $E_P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$, blue nodes form $V_0$, green nodes are branch-decision vertices in $B_{\mathrm{c}}$, and the yellow node is the free branch vertex $v_7\in B_{\mathrm{f}}$.}
 \label{fig:worked-example}
 \end{figure}
 
-With rows ordered as $(v_3,v_4,v_5,v_6)$ and columns ordered as $(g_3,g_4,g_5,g_6,g_{C_0},g_{C_1},g_{C_2})$, the generator supports and associated mirror cliques are listed in Table~\ref{tab:generators}.
+The generator supports and associated mirror cliques are listed in Table~\ref{tab:generators}. The constrained rows are ordered as $(v_3,v_4,v_5,v_6)$, and the columns are ordered as $(g_3,g_4,g_5,g_6,g_{C_0},g_{C_1},g_{C_2})$. The free branch bit $v_7$ is intentionally omitted from these constrained masks.
 
 \begin{table}[htbp]
 \centering
@@ -113,7 +122,7 @@ M=
 \end{bmatrix}.
 \]
 
-The constrained edge set is $F = E_D \cup E_P$, where the discretization edges are
+The active edge set for the constrained subproblem is $F = E_D[L] \cup E_P$, where the discretization edges induced on $L$ are
 \[
 \{v_1, v_3\},\{v_2, v_3\},
 \{v_1, v_4\},\{v_3, v_4\},
@@ -180,11 +189,11 @@ The ranks are
 \qquad
 \operatorname{rank}_{\mathbb{F}_2}(V)=2.
 \]
-Since $f=0$, the solution count is
+Since $f=1$, the solution count is
 \[
-\lvert \Xi \rvert = 2^{4-2} = 4.
+\lvert \Xi \rvert = 2^{1+4-2} = 8.
 \]
-The two independent feasible branch shifts are the mask $\{v_3,v_4,v_5,v_6\}$, obtained from $g_3$ or $g_{C_0}$, and the mask $\{v_4, v_5, v_6\}$, obtained from $g_4\oplus g_5$, or equivalently from the base generator $g_{C_1}$. The four feasible solutions are generated from a reference solution by these two shifts.
+The two independent feasible constrained branch shifts are the mask $\{v_3,v_4,v_5,v_6\}$, obtained from $g_3$ or $g_{C_0}$, and the mask $\{v_4, v_5, v_6\}$, obtained from $g_4\oplus g_5$, or equivalently from the base generator $g_{C_1}$. These generate four feasible constrained codes from a reference solution. The independent free bit at $v_7$ doubles this count, giving eight full feasible branch codes.
 
 \subsection{Concrete Geometric Realization}
 \label{sec:example-geometry}
@@ -198,10 +207,10 @@ v_1 = (0,0), \quad v_2 = (-2,0), \quad v_3 = (0,2).
 \]
 Now place the remaining vertices at their reference coordinates
 \[
-v_4 = (1, 1), \quad v_5 = (2, 2), \quad v_6 = (2, 0).
+v_4 = (1, 1), \quad v_5 = (2, 2), \quad v_6 = (2, 0), \quad v_7 = (-1,1).
 \]
 
-The edge lengths for $F = E_D \cup E_P$ are determined by this embedding.
+The edge lengths are determined by this embedding. The free vertex contributes only the discretization distances $d_{17}$ and $d_{27}$; these are not part of the constrained active set $F$ because $v_7\notin L$.
 \begin{itemize}
     \item Discretization distances:
     \[
@@ -209,7 +218,8 @@ The edge lengths for $F = E_D \cup E_P$ are determined by this embedding.
     d_{13} &= \|(0,0) - (0,2)\|_2 = 2, \quad & d_{23} &= \|(-2,0) - (0,2)\|_2 = 2\sqrt{2}; \\
     d_{14} &= \|(0,0) - (1,1)\|_2 = \sqrt{2}, \quad & d_{34} &= \|(0,2) - (1,1)\|_2 = \sqrt{2}; \\
     d_{15} &= \|(0,0) - (2,2)\|_2 = 2\sqrt{2}, \quad & d_{35} &= \|(0,2) - (2,2)\|_2 = 2; \\
-    d_{16} &= \|(0,0) - (2,0)\|_2 = 2, \quad & d_{46} &= \|(1,1) - (2,0)\|_2 = \sqrt{2}.
+    d_{16} &= \|(0,0) - (2,0)\|_2 = 2, \quad & d_{46} &= \|(1,1) - (2,0)\|_2 = \sqrt{2}; \\
+    d_{17} &= \|(0,0) - (-1,1)\|_2 = \sqrt{2}, \quad & d_{27} &= \|(-2,0) - (-1,1)\|_2 = \sqrt{2}.
     \end{aligned}
     \]
     \item Pruning distances:
@@ -223,6 +233,9 @@ We check selected generator moves:
 \begin{enumerate}
     \item \textbf{Initial branch change at $v_3$:}
     The mirror for $v_3$ is $\operatorname{aff}(v_1, v_2)$ (the $x$-axis). The cone generator $g_3$ reflects $v_3,v_4,v_5,v_6$ across this line. Since all affected vertices are reflected together and the fixed endpoints $v_1,v_2$ lie on the mirror, all discretization and pruning distances are preserved.
+
+    \item \textbf{Free branch change at $v_7$:}
+    The mirror for $v_7$ is also $\operatorname{aff}(v_1, v_2)$, the $x$-axis. Reflecting $v_7=(-1,1)$ gives $v_7'=(-1,-1)$. The two predecessor distances $d_{17}$ and $d_{27}$ are preserved, and no pruning edge uses $v_7$. Thus this branch decision is independent of the constrained count and contributes the factor $2^f=2$.
 
     \item \textbf{Single branch change at $v_5$:}
     The mirror for $v_5$ is $\operatorname{aff}(v_1, v_3)$ (the $y$-axis, $x=0$). Mirroring $v_5 = (2,2)$ across the $y$-axis yields $v_5' = (-2, 2)$. 
@@ -258,4 +271,4 @@ We check selected generator moves:
     All discretization and pruning distances are preserved.
 \end{enumerate}
 
-This coordinate realization verifies the rank count in a case where the generator presentation has a nontrivial kernel and the feasible shift space has dimension two.
+This coordinate realization verifies the rank count in a case where the generator presentation has a nontrivial kernel, the feasible constrained shift space has dimension two, and the free branch set contributes a nontrivial factor $2^f=2$.

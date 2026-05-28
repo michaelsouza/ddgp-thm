@@ -1,0 +1,13 @@
+[Unit]
+Description=Watch DDGP LaTeX sources and rebuild numbered review PDF
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/michael/gitrepos/ddgp-thm
+ExecStart=/usr/bin/env python3 /home/michael/gitrepos/ddgp-thm/scripts/watch_numbered_article.py --root /home/michael/gitrepos/ddgp-thm
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

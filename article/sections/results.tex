@@ -87,21 +87,24 @@ Thus, each block preserves all active-edge lengths at the moment it is applied. 
 
 Lemma~\ref{lem:preservation} proves the constructive inclusion: shifts in $\mathcal{K}_F$ generate feasible constrained codes from any feasible reference code. The converse could fail only if a shift outside $\mathcal{K}_F$ preserved all active distances by an accidental geometric coincidence. The following hypothesis excludes exactly those extra solutions.
 
+\begin{definition}[Nondegenerate DDGP parameters]
+\label{def:nondegenerate-params}
+Fix an ordered DDGP template, which determines $M$, $V$, and $\mathcal{K}_F = M(\ker V)$. A parameter choice $\theta$ for this template is nondegenerate if every lateration step is well defined and, whenever the predecessors of a non-seed vertex have been placed, the corresponding intersection of $K$ spheres consists of two distinct reflected choices. We denote by $\Theta$ the set of such nondegenerate parameter choices. For $\theta \in \Theta$, write $x^\theta(s)$ for the lateration embedding associated with branch code $s$.
+\end{definition}
+
 \begin{definition}[Mirror-separated parameters]
 \label{def:mirror-sep}
-Fix the ordered DDGP template, including the predecessor sets and the active edge set $F$. Thus $M$, $V$, and $\mathcal{K}_F = M(\ker V)$ are fixed. Let $\Theta$ be the domain of nondegenerate lateration parameters, so that the lateration embedding $x^\theta(s)$ is well-defined for all $\theta \in \Theta$ and all branch codes $s$.
-
-We say that $\theta \in \Theta$ is mirror-separated if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$, there exists an active edge $\{a,b\} \in F$ such that
+A nondegenerate parameter choice $\theta \in \Theta$ is mirror-separated if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$, there exists an active edge $\{a,b\} \in F$ such that
 \[
 \|x^\theta_a(s \oplus h) - x^\theta_b(s \oplus h)\|_2^2 \neq \|x^\theta_a(s) - x^\theta_b(s)\|_2^2.
 \]
 \end{definition}
 
 \begin{remark}[Genericity and probability one]
-Mirror separation rules out accidental geometric coincidences in which a shift $h\notin\mathcal{K}_F$ nevertheless preserves all active edge distances. For a fixed ordered template, failure of mirror separation is described by algebraic equalities in the parameters. When these equalities define a proper exceptional set in the relevant nondegenerate parameter component, that set has relative measure zero. Consequently, any probability distribution on $\Theta$ that is absolutely continuous with respect to the corresponding relative Lebesgue measure assigns probability zero to this failure set. In this conditional sense, mirror separation holds with probability one for continuous nondegenerate parameter choices.
+Mirror separation rules out accidental geometric coincidences in which a shift $h\notin\mathcal{K}_F$ nevertheless preserves all active edge distances. For a fixed ordered template, failure of mirror separation is described by algebraic equalities inside the nondegenerate domain $\Theta$. When these equalities define a proper exceptional set in the relevant nondegenerate parameter component, that set has relative measure zero. Consequently, any probability distribution on $\Theta$ that is absolutely continuous with respect to the corresponding relative Lebesgue measure assigns probability zero to this failure set. In this conditional sense, mirror separation holds with probability one for continuous nondegenerate parameter choices.
 \end{remark}
 
-The main theorem states that, under mirror separation, the converse also holds on the pruning-constrained branch set. The full count then follows by multiplying by the free branch decisions in $B_{\mathrm{f}}$.
+Finally, the main theorem states that, under mirror separation, the converse also holds on the pruning-constrained branch set. The full count then follows by multiplying by the free branch decisions in $B_{\mathrm{f}}$.
 
 \begin{theorem}[Rank-count theorem]
 \label{thm:main}
@@ -127,33 +130,18 @@ f+
 \end{theorem}
 
 \begin{proof}
-Fix a reference solution $s^\ast \in \Xi$, and let $s^\ast_{\mathrm{c}}=s^\ast|_{B_{\mathrm{c}}}$. We prove that the feasible constrained branch differences from $s^\ast_{\mathrm{c}}$ are exactly $\mathcal{K}_F$.
+Fix $s^\ast \in \Xi$ and let $s^\ast_{\mathrm{c}} = s^\ast|_{B_{\mathrm{c}}}$.
 
-First, let $h \in \mathcal{K}_F$. By definition, $h = M\alpha$ for some $\alpha \in \ker V$. By Lemma~\ref{lem:preservation} (Zero-violation preservation),
-\[
-s^\ast_{\mathrm{c}} \oplus h \in \Xi_F.
-\]
-Hence,
-\[
-s^\ast_{\mathrm{c}} + \mathcal{K}_F \subseteq \Xi_F.
-\]
+$(\supseteq)$ For any $h \in \mathcal{K}_F$, Lemma~\ref{lem:preservation} gives
+$s^\ast_{\mathrm{c}} \oplus h \in \Xi_F$, so $s^\ast_{\mathrm{c}} + \mathcal{K}_F \subseteq \Xi_F$.
 
-Conversely, let $s_{\mathrm{c}} \in \Xi_F$ and set $h = s_{\mathrm{c}} \oplus s^\ast_{\mathrm{c}}$. Suppose, for contradiction, that $h \notin \mathcal{K}_F$. Since the present parameters are mirror-separated, the embeddings determined by $s^\ast_{\mathrm{c}}$ and $s_{\mathrm{c}}=s^\ast_{\mathrm{c}}\oplus h$ assign different lengths to at least one active edge in $F$. However, both $s^\ast_{\mathrm{c}}$ and $s_{\mathrm{c}}$ realize every edge in $F$. This contradiction implies that $h$ must belong to $\mathcal{K}_F$, which yields
-\[
-\Xi_F \subseteq s^\ast_{\mathrm{c}} + \mathcal{K}_F.
-\]
+$(\subseteq)$ Let $s_{\mathrm{c}} \in \Xi_F$ and set $h = s_{\mathrm{c}} \oplus s^\ast_{\mathrm{c}}$.
+If $h \notin \mathcal{K}_F$, mirror separation yields an active edge whose length
+differs between the embeddings of $s^\ast_{\mathrm{c}}$ and $s_{\mathrm{c}}$,
+contradicting both being feasible. Hence $h \in \mathcal{K}_F$ and
+$\Xi_F \subseteq s^\ast_{\mathrm{c}} + \mathcal{K}_F$.
 
-Combining both inclusions yields:
-\[
-\Xi_F = s^\ast_{\mathrm{c}} + \mathcal{K}_F = s^\ast_{\mathrm{c}} + M(\ker V).
-\]
-By the decomposition in Section~\ref{sec:subproblems}, every feasible constrained code combines with the $2^f$ free branch codes on $B_{\mathrm{f}}$, and no free branch code can affect a pruning edge. Thus
-\[
-\lvert \Xi\rvert
-=
-2^f\lvert \Xi_F\rvert
-=
-2^{f+\dim \mathcal{K}_F}.
-\]
-Applying Lemma~\ref{lem:rank} gives the displayed rank formula.
+Together, $\Xi_F = s^\ast_{\mathrm{c}} + M(\ker V)$. Since free branches on
+$B_{\mathrm{f}}$ combine independently, $\lvert\Xi\rvert = 2^f \lvert\Xi_F\rvert
+= 2^{f + \dim\mathcal{K}_F}$, and Lemma~\ref{lem:rank} gives the rank formula.
 \end{proof}
