@@ -89,9 +89,9 @@ Lemma~\ref{lem:preservation} proves the constructive inclusion: shifts in $\math
 
 \begin{definition}[Mirror-separated parameters]
 \label{def:mirror-sep}
-Fix the ordered DDGP template, including the predecessor sets and the active edge set $F$. Thus $M$, $V$, and $\mathcal{K}_F=M(\ker V)$ are fixed. Let $\Theta$ be the nondegenerate parameter domain over which the lateration embeddings $x^\theta(s)$ are well-defined for all branch codes $s$.
+Fix the ordered DDGP template, including the predecessor sets and the active edge set $F$. Thus $M$, $V$, and $\mathcal{K}_F = M(\ker V)$ are fixed. Let $\Theta$ be the nondegenerate domain of lateration parameters. For each parameter vector $\theta \in \Theta$ and branch code $s$, let $x^\theta(s)$ denote the corresponding lateration embedding. 
 
-For $\theta\in\Theta$, write $x^\theta(s)$ for the embedding associated with a branch code $s$. We say that $\theta$ is mirror-separated if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$ for which both embeddings $x^\theta(s)$ and $x^\theta(s\oplus h)$ are defined, there exists an active edge $\{a,b\} \in F$ such that
+We say that $\theta$ is mirror-separated if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$ for which both $x^\theta(s)$ and $x^\theta(s \oplus h)$ are well-defined, there exists an active edge $\{a,b\} \in F$ such that
 \[
 \|x^\theta_a(s \oplus h) - x^\theta_b(s \oplus h)\|_2^2 \neq \|x^\theta_a(s) - x^\theta_b(s)\|_2^2.
 \]
