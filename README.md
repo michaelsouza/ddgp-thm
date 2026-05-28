@@ -11,6 +11,20 @@ research/       — evolving hypothesis journals, proofs, and the unified rank-c
 scripts/        — tooling
 ```
 
+## Article review PDF
+
+To build a review copy of the LaTeX article with physical source-line numbers
+overlaid on the rendered mathematical PDF, run:
+
+```bash
+scripts/compile_numbered_article.sh
+```
+
+This generates `article/main_numbered.pdf`. The red margin labels are physical
+line numbers from each `article/sections/*.tex` file, so numbering restarts for
+each file included through `\input{sections/...}`. The generated numbered PDF and
+intermediate files are ignored by git.
+
 ## Glossary conventions
 
 ### Creating a concept

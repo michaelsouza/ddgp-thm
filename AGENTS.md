@@ -69,3 +69,20 @@ graph TD
 - When an algorithm or counting formula needs to be tested, **Turing** builds/updates the code and verifies the counts.
 - When a claim needs backing or literature needs to be integrated, **Merton** retrieves, indexes, and cites the sources correctly.
 - **Hilbert** acts as the central orchestrator, ensuring all three dimensions align seamlessly.
+
+---
+
+## Article Review Tooling
+
+For manuscript review, agents can generate a rendered mathematical PDF with
+physical source-line numbers in the margin:
+
+```bash
+scripts/compile_numbered_article.sh
+```
+
+This writes `article/main_numbered.pdf`. The line labels come from the physical
+line numbers of each `article/sections/*.tex` file and restart for each section
+file included via `\input{sections/...}`. Use this PDF when discussing precise
+manuscript edits by source line number. Generated numbered-PDF artifacts are
+ignored by git.
