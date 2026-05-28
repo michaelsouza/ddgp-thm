@@ -8,19 +8,20 @@ Because multiple generator combinations can yield the same branch mask, the spac
 \[
 \mathcal{K}_F = M(\ker V).
 \]
-To ensure that only shifts within $\mathcal{K}_F$ preserve these distances under generic geometric configurations, we introduce the \emph{generic mirror separation} hypothesis.
+To ensure that only shifts within $\mathcal{K}_F$ preserve these distances under generic geometric configurations, we introduce the \emph{mirror separation} hypothesis.
 
-\begin{definition}[Generic mirror separation]
+\begin{definition}[Mirror-separated parameters]
 \label{def:mirror-sep}
-Fix the ordered DDGP template, including the predecessor sets and the active edge set $F$. Thus $M$, $V$, and $\mathcal{K}_F=M(\ker V)$ are fixed. Let $\Theta$ be the nondegenerate parameter domain, viewed as a Zariski-open semialgebraic subset of the corresponding real parameter variety.
+Fix the ordered DDGP template, including the predecessor sets and the active edge set $F$. Thus $M$, $V$, and $\mathcal{K}_F=M(\ker V)$ are fixed. Let $\Theta$ be the nondegenerate parameter domain over which the lateration embeddings $x^\theta(s)$ are well-defined for all branch codes $s$.
 
-For $\theta\in\Theta$, write $x^\theta(s)$ for the embedding associated with a branch code $s$. We say that $\theta$ is mirror-separated relative to $F$ if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$ for which both embeddings $x^\theta(s)$ and $x^\theta(s\oplus h)$ are defined, there exists an active edge $\{a,b\} \in F$ such that
+For $\theta\in\Theta$, write $x^\theta(s)$ for the embedding associated with a branch code $s$. We say that $\theta$ is mirror-separated if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$ for which both embeddings $x^\theta(s)$ and $x^\theta(s\oplus h)$ are defined, there exists an active edge $\{a,b\} \in F$ such that
 \[
 \|x^\theta_a(s \oplus h) - x^\theta_b(s \oplus h)\|_2^2 \neq \|x^\theta_a(s) - x^\theta_b(s)\|_2^2.
 \]
-The template satisfies generic mirror separation if the parameters that are not mirror-separated are contained in a relative algebraic subset $Z \subset \Theta$ that is proper on each irreducible component under consideration.
 \end{definition}
 
-Generic mirror separation is a genericity hypothesis on the numerical parameters of a fixed ordered template. It rules out accidental algebraic coincidences in which a shift $h\notin\mathcal{K}_F$ nevertheless preserves all active edge distances. When the exceptional set $Z$ is proper on the relevant component of $\Theta$, it has relative measure zero there; in this precise sense the hypothesis holds for almost every nondegenerate continuous choice of parameters. The main theorem below is stated for mirror-separated parameter choices and does not assert that every ordered template satisfies this genericity condition.
+\begin{remark}[Genericity]
+Mirror separation rules out accidental geometric coincidences in which a shift $h\notin\mathcal{K}_F$ nevertheless preserves all active edge distances. For a fixed ordered template, failure of mirror separation is described by algebraic equalities in the parameters. When these equalities define a proper exceptional set in the relevant nondegenerate parameter component, that set has relative measure zero. In this sense, mirror separation is an almost-always condition for continuous nondegenerate parameter choices. The main theorem below is stated for mirror-separated parameters.
+\end{remark}
 
 The next section uses this hypothesis to prove the algebraic rank count.
