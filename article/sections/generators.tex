@@ -1,7 +1,7 @@
 \section{Graph-Derived Generators}
 \label{sec:generators}
 
-This section defines the graph-derived generators that encode branch transformations and their mirror cliques. We use cone generators for dependency propagation, base generators for common predecessor cliques, and the mask matrix to project generator combinations to branch masks.
+This section defines the graph-derived generators that encode branch transformations and their associated mirror cliques. We introduce cone generators to represent the algebraic propagation of branch decisions within their downstream cones. Base generators are defined for each unique predecessor clique in $\mathcal{C}$. Finally, we construct the generator mask matrix to map linear combinations of these generators to their net branch masks.
 
 A generator represents a branch transformation together with the mirror clique that explains its geometric action. Each generator is a pair
 \[
