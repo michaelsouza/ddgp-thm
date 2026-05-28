@@ -12,7 +12,12 @@ To ensure that only shifts within $\mathcal{K}_F$ preserve these distances under
 
 \begin{definition}[Generic mirror separation]
 \label{def:mirror-sep}
-View the predecessor data and the edge lengths in $F$ as parameters on the real algebraic set where all required lateration steps are nondegenerate. The instance satisfies generic mirror separation if there is a proper algebraic exceptional set $Z$ such that, for every parameter choice outside $Z$, every shift $h\in\mathbb{F}_2^{B_{\mathrm{c}}}\setminus\mathcal{K}_F$, and every constrained branch code $s\in\mathbb{F}_2^{B_{\mathrm{c}}}$ for which the lateration embeddings $x(s)$ and $x(s\oplus h)$ are defined, the two embeddings assign different lengths to at least one active edge in $F$.
+Let $P$ be the real algebraic set of nondegenerate lateration parameters (predecessor coordinates and active edge lengths). 
+The instance satisfies generic mirror separation if there exists a proper algebraic exceptional set $Z \subset P$ such that, for all parameters in $P \setminus Z$, any shift $h \notin \mathcal{K}_F$ and branch code $s$ satisfy
+\[
+\|x_a(s \oplus h) - x_b(s \oplus h)\|_2 \neq \|x_a(s) - x_b(s)\|_2
+\]
+for at least one active edge $\{a,b\} \in F$ (where both embeddings are defined).
 \end{definition}
 
 We use generic mirror separation as an explicit instance-level hypothesis. The main theorem below does not assert that every ordered instance satisfies it; rather, it proves the rank count for instances that do.
