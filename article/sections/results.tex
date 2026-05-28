@@ -1,7 +1,7 @@
 \section{Main Results}
 \label{sec:results}
 
-We now prove the rank-count theorem. First, we define the candidate branch-shift space produced by zero labeled violations. A linear-algebra lemma computes its dimension, and a preservation lemma shows that every shift in this space preserves the active constraints. We then introduce mirror separation exactly where it is needed: to rule out additional feasible shifts outside this candidate space.
+The central objective of this section is to establish a precise equivalence between the physical geometry of distance-preserving branch shifts and the algebraic structure of the binary subspace $\mathcal{K}_F \subseteq \mathbb{F}_2^{B_{\mathrm{c}}}$. Specifically, we show that the algebraic space $\mathcal{K}_F$ is constructively feasible—meaning every shift in $\mathcal{K}_F$ preserves all active edge lengths—and that, under a natural generic separation condition, no other distance-preserving shifts can exist.
 
 Geometrically, moving from a branch code $s$ to $s \oplus h$ via a branch shift $h \in \mathbb{F}_2^{B_{\mathrm{c}}}$ corresponds to a sequence of partial reflections. A shift preserves the validity of all active constraints if it is produced by a generator combination with zero net labeled violations, meaning $\alpha \in \ker V$. Because multiple generator combinations can yield the same branch mask, the candidate feasible branch-shift space is the image of this kernel under the mask matrix $M$:
 \[
