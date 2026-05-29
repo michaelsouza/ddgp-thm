@@ -42,7 +42,7 @@ C_1=\{v_1, v_3\},
 \qquad
 C_2=\{v_1, v_4\}.
 \]
-The first generates $v_3$ and the free vertex $v_7$, the second generates $v_4$ and $v_5$, and the third generates $v_6$. Since $v_4$ and $v_5$ depend on $v_3$, and $v_6$ depends on $v_4$, we have
+The first is the predecessor clique for $v_3$ and the free vertex $v_7$, but only $v_3$ contributes to the constrained generator masks. The second generates $v_4$ and $v_5$, and the third generates $v_6$. Since $v_4$ and $v_5$ depend on $v_3$, and $v_6$ depends on $v_4$, we have
 \[
 \operatorname{Cone}(v_3)\cap B_{\mathrm{c}}=\{v_3,v_4,v_5,v_6\},
 \qquad
@@ -53,40 +53,49 @@ The graph structure, predecessor dependency arcs, and pruning edges are illustra
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.5, >=stealth, every node/.style={circle, draw, minimum size=8mm, inner sep=0pt, font=\small}]
+\begin{tikzpicture}[
+    scale=1.05,
+    >=stealth,
+    every node/.style={circle, draw, minimum size=8mm, inner sep=0pt, font=\small},
+    seed/.style={fill=purple!15, draw=purple!70!black, line width=0.8pt},
+    constrained/.style={fill=green!12, draw=green!55!black, line width=0.8pt},
+    free/.style={fill=yellow!20, draw=orange!75!black, line width=0.8pt},
+    dep/.style={->, thick, black!70},
+    prune/.style={dashed, ultra thick, red!85!black}
+]
     % Nodes
-    \node[fill=blue!10] (v1) at (0,0) {$v_1$};
-    \node[fill=blue!10] (v2) at (2,-0.5) {$v_2$};
-    \node[fill=green!10] (v3) at (0,2) {$v_3$};
-    \node[fill=green!10] (v4) at (1.5,1) {$v_4$};
-    \node[fill=green!10] (v5) at (3,2) {$v_5$};
-    \node[fill=green!10] (v6) at (0.5,3) {$v_6$};
-    \node[fill=yellow!20] (v7) at (3,-1.2) {$v_7$};
+    \node[seed] (v1) at (0,0) {$v_1$};
+    \node[seed] (v2) at (0,-2.25) {$v_2$};
+    \node[constrained] (v3) at (4.05,0) {$v_3$};
+    \node[constrained] (v4) at (0,2.25) {$v_4$};
+    \node[constrained] (v5) at (4.05,2.25) {$v_5$};
+    \node[constrained] (v6) at (4.05,-2.25) {$v_6$};
+    \node[free] (v7) at (-2.25,-2.25) {$v_7$};
     
     % Initial clique edge
     \draw[thick] (v1) -- (v2);
     
     % Predecessor arcs (directed)
-    \draw[->, thick, black!60] (v1) to (v3);
-    \draw[->, thick, black!60] (v2) to (v3);
+    \draw[dep] (v1) to[bend left=10] (v3);
+    \draw[dep] (v2) to[bend right=28] (v3);
 
-    \draw[->, thick, black!60] (v1) to (v4);
-    \draw[->, thick, black!60] (v3) to (v4);
+    \draw[dep] (v1) to (v4);
+    \draw[dep] (v3) to (v4);
     
-    \draw[->, thick, black!60] (v1) to (v5);
-    \draw[->, thick, black!60] (v3) to (v5);
+    \draw[dep] (v1) to[bend left=10] (v5);
+    \draw[dep] (v3) to (v5);
     
-    \draw[->, thick, black!60] (v1) to (v6);
-    \draw[->, thick, black!60] (v4) to (v6);
+    \draw[dep] (v1) to[bend right=4] (v6);
+    \draw[dep] (v4) to (v6);
 
-    \draw[->, thick, black!60] (v1) to[bend right=18] (v7);
-    \draw[->, thick, black!60] (v2) to[bend left=12] (v7);
+    \draw[dep] (v1) to (v7);
+    \draw[dep] (v2) to (v7);
     
     % Pruning edges (dashed red)
-    \draw[dashed, ultra thick, red] (v3) to[bend left=15] (v6);
-    \draw[dashed, ultra thick, red] (v4) to (v5);
+    \draw[prune] (v4) to (v5);
+    \draw[prune] (v3) to (v6);
 \end{tikzpicture}
-\caption{Combinatorial predecessor dependency graph and pruning edges for the 7-vertex worked example; node positions are schematic. Directed arcs represent predecessor discretization constraints ($E_D$), dashed red lines represent $E_P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$, blue nodes form $V_0$, green nodes are branch-decision vertices in $B_{\mathrm{c}}$, and the yellow node is the free branch vertex $v_7\in B_{\mathrm{f}}$.}
+\caption{Combinatorial predecessor dependency graph and pruning edges for the 7-vertex worked example; node positions are schematic. Directed arcs represent predecessor discretization constraints ($E_D$), dashed red lines represent $E_P = \{\{v_3, v_6\}, \{v_4, v_5\}\}$, purple nodes form $V_0$, green nodes are branch-decision vertices in $B_{\mathrm{c}}$, and the yellow node is the free branch vertex $v_7\in B_{\mathrm{f}}$.}
 \label{fig:worked-example}
 \end{figure}
 

@@ -3,7 +3,7 @@
 
 The central objective of this section is to establish a precise equivalence between the physical geometry of distance-preserving branch shifts and the algebraic structure of the binary subspace $\mathcal{K}_F \subseteq \mathbb{F}_2^{B_{\mathrm{c}}}$. Specifically, we show that the algebraic space $\mathcal{K}_F$ is constructively feasible—meaning every shift in $\mathcal{K}_F$ preserves all active edge lengths—and that, under a natural generic separation condition, no other distance-preserving shifts can exist.
 
-Geometrically, moving from a branch code $s$ to $s \oplus h$ via a branch shift $h \in \mathbb{F}_2^{B_{\mathrm{c}}}$ corresponds to a sequence of partial reflections. A shift preserves the validity of all active constraints if it is produced by a generator combination with zero net labeled violations, meaning $\alpha \in \ker V$. Because multiple generator combinations can yield the same branch mask, the candidate feasible branch-shift space is the image of this kernel under the mask matrix $M$:
+Geometrically, moving from a branch code $s$ to $s \oplus h$ via a branch shift $h \in \mathbb{F}_2^{B_{\mathrm{c}}}$ corresponds to a sequence of partial reflections; whenever such a constrained shift is added to a full branch code, it is extended by zero on $B_{\mathrm{f}}$. A shift preserves the validity of all active constraints if it is produced by a generator combination with zero net labeled violations, meaning $\alpha \in \ker V$. Because multiple generator combinations can yield the same branch mask, the candidate feasible branch-shift space is the image of this kernel under the mask matrix $M$:
 \[
 \mathcal{K}_F = M(\ker V).
 \]
@@ -55,18 +55,76 @@ Substituting these dimensions into the rank-nullity equation gives:
 This completes the proof.
 \end{proof}
 
-The next lemma is the geometric direction encoded by the labeled violation matrix: zero net labeled violation gives a composition of mirror-compatible blocks, hence preserving every active edge.
+The next lemma isolates the local geometric step needed below. It states that a mirror-compatible block is not merely an abstract bit mask: it is realized by a valid lateration reflection on the active subsystem.
 
-\begin{lemma}[Zero-violation preservation]
-\label{lem:preservation}
-Let $\alpha \in \ker V$ and let $h = M\alpha$. If $s \in \Xi_F$, then $s \oplus h \in \Xi_F$.
+\begin{lemma}[Block admissibility]
+\label{lem:block-admissibility}
+Let $C$ be a predecessor clique and let
+\[
+r(C)=\min\{q\in B_{\mathrm{c}}: U_q=C\}.
+\]
+Let $S\subseteq B_{\mathrm{c}}$ satisfy
+\[
+S\subseteq \{r(C),\ldots,n\}
+\qquad\text{and}\qquad
+S\cap C=\varnothing.
+\]
+Assume that $(S,C)$ is mirror-compatible with the active edge set $F$: for every active edge $e=\{a,b\}\in F$ with $|e\cap S|=1$, the endpoint fixed by the block belongs to $C$, i.e.,
+\[
+e\setminus S \subseteq C.
+\]
+For any nondegenerate branch embedding $x(s)$, let $s_{\mathrm{c}}=s|_{B_{\mathrm{c}}}$, let $R_C$ be the Euclidean reflection across $\operatorname{aff}\{x_c(s):c\in C\}$, and define
+\[
+y_i =
+\begin{cases}
+R_C(x_i(s)), & i\in S,\\
+x_i(s), & i\notin S.
+\end{cases}
+\]
+Then the coordinates $(y_i)_{i\in L}$ are obtained by the constrained branch code $s_{\mathrm{c}}\oplus \mathbf{1}_S$, and every active edge length is preserved:
+\[
+\|y_a-y_b\|_2=\|x_a(s)-x_b(s)\|_2
+\qquad
+\text{for all } \{a,b\}\in F.
+\]
 \end{lemma}
 
 \begin{proof}
-We group the selected generators in $\alpha$ by mirror clique. For a fixed clique $C$, let $\alpha_C \subseteq \mathcal{G}_C$ be the subset of generators in $\alpha$ with mirror clique $C$, and let $S_C = \bigoplus_{g \in \alpha_C} S_g$ be the XOR sum of their supports. The row $(e,C)$ of $V\alpha$ represents the net violation parity of generators with mirror $C$ against the active edge $e \in F$. Since $V\alpha = 0$, this parity is zero for every active edge $e \in F$ and every mirror clique $C$.
+First consider the lateration edges. If $i\in S$, then $i\in B_{\mathrm{c}}$, hence $i\in L$. Since $L$ is closed under fixing sets, every predecessor $u\in U_i$ also lies in $L$, so the discretization edge $\{u,i\}$ belongs to $E_D[L]\subseteq F$. If $u\notin S$, then $\{u,i\}$ crosses the block boundary, and mirror-compatibility gives $u\in C$. Thus
+\[
+U_i\subseteq S\cup C.
+\]
+Consequently the transformed predecessor simplex of $i$ is the image of the original predecessor simplex under the same reflection $R_C$: predecessors in $S$ are reflected, and predecessors in $C$ are fixed by $R_C$.
+
+If $i\notin S$ and $i\notin C$, then no predecessor of $i$ can lie in $S$. Indeed, if some $u\in U_i\cap S$, then the active edge $\{u,i\}\in E_D[L]$ would cross the block boundary, and mirror-compatibility would force $i\in C$, a contradiction. Hence the predecessor simplex of such an $i$ is unchanged.
+
+It follows, by induction in the DDGP order, that the coordinates $y_i$ are produced by valid lateration choices on the active subsystem. Vertices outside $S$ keep the same local lateration choice. Vertices in $S$ have both their coordinate and their predecessor simplex transformed by the reflection $R_C$; since $R_C$ reverses the local orientation across the predecessor affine hull, the corresponding lateration branch bit is toggled. Therefore the resulting constrained branch code is $s_{\mathrm{c}}\oplus \mathbf{1}_S$.
+
+It remains to check active edge lengths. Let $e=\{a,b\}\in F$. If both endpoints belong to $S$, then both are acted on by the same Euclidean isometry $R_C$, so the length of $e$ is preserved. If neither endpoint belongs to $S$, both endpoints are fixed, so the length is preserved. Finally, suppose exactly one endpoint belongs to $S$, say $a\in S$ and $b\notin S$. By mirror-compatibility, $b\in C$, hence $R_C$ fixes $x_b(s)$. Therefore
+\[
+\|y_a-y_b\|_2
+=
+\|R_C(x_a(s))-x_b(s)\|_2
+=
+\|R_C(x_a(s))-R_C(x_b(s))\|_2
+=
+\|x_a(s)-x_b(s)\|_2.
+\]
+Thus every edge in $F$ is preserved.
+\end{proof}
+
+The following lemma is the geometric direction encoded by the labeled violation matrix: zero net labeled violation gives a composition of mirror-compatible blocks, hence preserving every active edge.
+
+\begin{lemma}[Zero-violation preservation]
+\label{lem:preservation}
+Let $\alpha \in \ker V$ and let $h = M\alpha$. If $s_{\mathrm{c}} \in \Xi_F$, then $s_{\mathrm{c}} \oplus h \in \Xi_F$.
+\end{lemma}
+
+\begin{proof}
+Fix a full extension $s\in\mathbb{F}_2^B$ of $s_{\mathrm{c}}$; active-edge lengths are independent of free bits. We group the selected generators in $\alpha$ by mirror clique. For a fixed clique $C$, let $\alpha_C=\{g\in\mathcal{G}_C: \alpha_g=1\}$ be the selected generators with mirror clique $C$, and let $S_C = \bigoplus_{g \in \alpha_C} S_g$ be the XOR sum of their supports. The row $(e,C)$ of $V\alpha$ represents the net violation parity of generators with mirror $C$ against the active edge $e \in F$. Since $V\alpha = 0$, this parity is zero for every active edge $e \in F$ and every mirror clique $C$.
 
 \paragraph{Part 1: Mirror-compatibility of blocks.}
-We first show that the block $(S_C, C)$ is mirror-compatible with each active edge. Suppose that an active edge $e = \{a,b\} \in F$ crosses $S_C$, meaning that exactly one endpoint lies in $S_C$. Without loss of generality, assume $a \in S_C$ and $b \notin S_C$. Let $\chi_g: \mathcal{V} \to \{0,1\}$ denote the indicator function of $S_g$ for each $g \in \alpha_C$. The indicator function of $S_C$ satisfies $\chi_{S_C}(v) \equiv \sum_{g \in \alpha_C} \chi_g(v) \pmod 2$. 
+We first show that the block $(S_C, C)$ is mirror-compatible with each active edge. Suppose that an active edge $e = \{a,b\} \in F$ crosses $S_C$, meaning that exactly one endpoint lies in $S_C$. Without loss of generality, assume $a \in S_C$ and $b \notin S_C$. Let $\chi_g: V \to \{0,1\}$ denote the indicator function of $S_g$ for each $g \in \alpha_C$. The indicator function of $S_C$ satisfies $\chi_{S_C}(v) \equiv \sum_{g \in \alpha_C} \chi_g(v) \pmod 2$. 
 
 Because generator supports are disjoint from their own mirror cliques, $S_g \cap C = \varnothing$ for all $g \in \alpha_C$, which implies $S_C \cap C = \varnothing$ and hence $a \notin C$. Now, suppose for contradiction that the fixed endpoint $b$ is also not in $C$. A generator $g \in \alpha_C$ violates $e$ with label $C$ if and only if it crosses $e$ (i.e., $|e \cap S_g| = 1$) and the fixed endpoint $e \setminus S_g$ lies outside $C$. Since $a \notin C$ and $b \notin C$, the latter condition is satisfied for every crossing generator. The number of such crossing generators in $\alpha_C$ is 
 \[
@@ -74,15 +132,26 @@ Because generator supports are disjoint from their own mirror cliques, $S_g \cap
 \]
 Thus, an odd number of generators in $\alpha_C$ violate $e$, contributing an odd parity to the row $(e,C)$ of $V\alpha$. This contradicts $V\alpha = 0$. Hence, the fixed endpoint $b$ must lie in $C$, establishing mirror-compatibility.
 
-\paragraph{Part 2: Sequential distance preservation.}
-To show that the combined transformation preserves the lengths of all active edges, we apply the nonzero blocks $(S_C, C)$ sequentially. We order the mirror cliques $C_1, C_2, \dots, C_k$ according to the discretization sequence (so that the corresponding discretization vertices satisfy $v_{C_1} < v_{C_2} < \dots < v_{C_k}$). Because the support of any generator with mirror $C_j$ only contains vertices discretized at or after $v_{C_j}$, we have $S_{C_j} \subseteq \{v_{C_j}, \dots, n\}$. Since $C_i \subseteq \{1, \dots, v_{C_i}-1\}$ and $v_{C_i} < v_{C_j}$ for all $j > i$, it follows that $S_{C_j} \cap C_i = \varnothing$. 
+\paragraph{Part 2: Applying admissible blocks.}
+By Part 1, every nonzero block $(S_C,C)$ is mirror-compatible with $F$. Moreover, $S_C\cap C=\varnothing$ because every generator support with mirror $C$ is disjoint from $C$.
 
-We apply the blocks in the reverse discretization order: $C_k, C_{k-1}, \dots, C_1$, and argue by induction. At the step for $C_i$, the only blocks applied so far are those for $C_j$ with $j > i$. Since $S_{C_j} \cap C_i = \varnothing$ for all $j > i$, the vertices of $C_i$ have not been toggled by any previous steps, so they lie exactly on their original coordinates, spanning the original mirror hyperplane $\operatorname{aff}(C_i)$. For any edge $e = \{u,v\} \in F$:
-\begin{enumerate}
-    \item If both endpoints are reflected or neither endpoint is reflected by $S_{C_i}$, the current length of $e$ is preserved by the rigid isometry of the reflection.
-    \item If exactly one endpoint is reflected (say $u \in S_{C_i}$ and $v \notin S_{C_i}$), mirror-compatibility guarantees that the fixed endpoint $v$ lies in $C_i$. Since $v \in C_i$, its position has not been toggled at this or any previous step, so it lies on $\operatorname{aff}(C_i)$. Therefore, reflecting $u$ across $\operatorname{aff}(C_i)$ preserves the distance between $u$ and $v$.
-\end{enumerate}
-Thus, each block preserves all active-edge lengths at the moment it is applied. After all blocks are applied, the accumulated branch mask is $\bigoplus_C S_C = M\alpha = h$, and therefore $s \oplus h \in \Xi_F$.
+For any mirror clique $C$ that appears among the generators, let
+\[
+r(C)=\min\{q\in B_{\mathrm{c}}: U_q=C\}
+\]
+be the first constrained vertex generated from $C$. Order the nonzero mirror cliques $C_1,\ldots,C_k$ so that $r(C_1)<\cdots<r(C_k)$. Because the support of any generator with mirror $C_i$ only contains vertices discretized at or after $r(C_i)$, we have $S_{C_i}\subseteq\{r(C_i),\ldots,n\}$, so Lemma~\ref{lem:block-admissibility} applies to each block.
+
+Apply the corresponding admissible blocks in reverse order $C_k,\ldots,C_1$. If $j>i$, then $S_{C_j}\subseteq\{r(C_j),\ldots,n\}$ while $C_i\subseteq\{1,\ldots,r(C_i)-1\}$, so $S_{C_j}\cap C_i=\varnothing$. Thus later blocks do not move the mirror clique needed by earlier blocks. Each application preserves all active edge lengths by Lemma~\ref{lem:block-admissibility}. The accumulated constrained branch mask is
+\[
+\bigoplus_C \mathbf{1}_{S_C}
+=
+\bigoplus_{g:\,\alpha_g=1} m_g
+=
+M\alpha
+=
+h.
+\]
+Therefore the final constrained code is $s_{\mathrm{c}}\oplus h$, and since all active edge lengths have been preserved, $s_{\mathrm{c}}\oplus h\in\Xi_F$.
 \end{proof}
 
 Lemma~\ref{lem:preservation} proves the constructive inclusion: shifts in $\mathcal{K}_F$ generate feasible constrained codes from any feasible reference code. The converse could fail only if a shift outside $\mathcal{K}_F$ preserved all active distances by an accidental geometric coincidence. The following hypothesis excludes exactly those extra solutions.
@@ -94,14 +163,29 @@ Fix an ordered DDGP template, which determines $M$, $V$, and $\mathcal{K}_F = M(
 
 \begin{definition}[Mirror-separated parameters]
 \label{def:mirror-sep}
-A nondegenerate parameter choice $\theta \in \Theta$ is mirror-separated if, for every shift $h \notin \mathcal{K}_F$ and every branch code $s$, there exists an active edge $\{a,b\} \in F$ such that
+A nondegenerate parameter choice $\theta \in \Theta$ is mirror-separated if, for every constrained shift $h\in\mathbb{F}_2^{B_{\mathrm{c}}}\setminus\mathcal{K}_F$ (extended by zero on $B_{\mathrm{f}}$) and every full branch code $s\in\mathbb{F}_2^B$, there exists an active edge $\{a,b\} \in F$ such that
 \[
 \|x^\theta_a(s \oplus h) - x^\theta_b(s \oplus h)\|_2^2 \neq \|x^\theta_a(s) - x^\theta_b(s)\|_2^2.
 \]
 \end{definition}
 
-\begin{remark}[Genericity and probability one]
-Mirror separation rules out accidental geometric coincidences in which a shift $h\notin\mathcal{K}_F$ nevertheless preserves all active edge distances. For a fixed ordered template, failure of mirror separation is described by algebraic equalities inside the nondegenerate domain $\Theta$. When these equalities define a proper exceptional set in the relevant nondegenerate parameter component, that set has relative measure zero. Consequently, any probability distribution on $\Theta$ that is absolutely continuous with respect to the corresponding relative Lebesgue measure assigns probability zero to this failure set. In this conditional sense, mirror separation holds with probability one for continuous nondegenerate parameter choices.
+\begin{remark}[A genericity criterion for mirror separation]
+\label{rem:mirror-separation-genericity}
+Mirror separation rules out accidental geometric coincidences in which a shift $h\notin\mathcal{K}_F$ nevertheless preserves all active edge distances. Fix the ordered template, the active subsystem $L$, and the active edge set $F$. For each constrained branch shift $h\in\mathbb{F}_2^{B_{\mathrm{c}}}\setminus\mathcal{K}_F$ and active edge $e=\{a,b\}\in F$, consider the discrepancy function
+\[
+\Delta_{h,e}(\theta;s)
+=
+\|x^\theta_a(s\oplus h)-x^\theta_b(s\oplus h)\|_2^2
+-
+\|x^\theta_a(s)-x^\theta_b(s)\|_2^2,
+\]
+defined on the nondegenerate parameter choices $\theta\in\Theta$ for which the corresponding branch embeddings exist. Mirror separation fails exactly when, for some shift $h\notin\mathcal{K}_F$ and some branch code $s$, all active-edge discrepancies vanish:
+\[
+\Delta_{h,e}(\theta;s)=0
+\qquad
+\text{for every } e\in F.
+\]
+Consequently, if for every $h\notin\mathcal{K}_F$ and every branch code $s$ at least one discrepancy $\Delta_{h,e}(\cdot;s)$ is not identically zero on the relevant nondegenerate parameter component, then the failure set for mirror separation is contained in a finite union of proper exceptional sets defined by the vanishing of nonzero discrepancy functions. In particular, mirror separation holds for almost all such nondegenerate parameters, in the same Lebesgue-measure sense used for generic DMDGP statements.
 \end{remark}
 
 Finally, the main theorem states that, under mirror separation, the converse also holds on the pruning-constrained branch set. The full count then follows by multiplying by the free branch decisions in $B_{\mathrm{f}}$.
@@ -112,9 +196,9 @@ Assume $K \ge 2$ and $\Xi \ne \varnothing$. Assume also that the present predece
 \[
 \Xi_F
 =
-s^\ast_{\mathrm{c}} + \mathcal{K}_F
+s^\ast_{\mathrm{c}} \oplus \mathcal{K}_F
 =
-s^\ast_{\mathrm{c}} + M(\ker V).
+s^\ast_{\mathrm{c}} \oplus M(\ker V).
 \]
 Consequently,
 \[
@@ -133,15 +217,13 @@ f+
 Fix $s^\ast \in \Xi$ and let $s^\ast_{\mathrm{c}} = s^\ast|_{B_{\mathrm{c}}}$.
 
 $(\supseteq)$ For any $h \in \mathcal{K}_F$, Lemma~\ref{lem:preservation} gives
-$s^\ast_{\mathrm{c}} \oplus h \in \Xi_F$, so $s^\ast_{\mathrm{c}} + \mathcal{K}_F \subseteq \Xi_F$.
+$s^\ast_{\mathrm{c}} \oplus h \in \Xi_F$, so $s^\ast_{\mathrm{c}} \oplus \mathcal{K}_F \subseteq \Xi_F$.
 
 $(\subseteq)$ Let $s_{\mathrm{c}} \in \Xi_F$ and set $h = s_{\mathrm{c}} \oplus s^\ast_{\mathrm{c}}$.
-If $h \notin \mathcal{K}_F$, mirror separation yields an active edge whose length
-differs between the embeddings of $s^\ast_{\mathrm{c}}$ and $s_{\mathrm{c}}$,
-contradicting both being feasible. Hence $h \in \mathcal{K}_F$ and
-$\Xi_F \subseteq s^\ast_{\mathrm{c}} + \mathcal{K}_F$.
+Extend $h$ by zero on $B_{\mathrm{f}}$ and put $\widetilde{s}=s^\ast\oplus h$. Then $\widetilde{s}$ has constrained part $s_{\mathrm{c}}$ and is active-feasible. If $h \notin \mathcal{K}_F$, mirror separation gives an active-edge length difference between $s^\ast$ and $\widetilde{s}$, a contradiction. Hence $h \in \mathcal{K}_F$ and
+$\Xi_F \subseteq s^\ast_{\mathrm{c}} \oplus \mathcal{K}_F$.
 
-Together, $\Xi_F = s^\ast_{\mathrm{c}} + M(\ker V)$. Since free branches on
+Together, $\Xi_F = s^\ast_{\mathrm{c}} \oplus M(\ker V)$. Since free branches on
 $B_{\mathrm{f}}$ combine independently, $\lvert\Xi\rvert = 2^f \lvert\Xi_F\rvert
 = 2^{f + \dim\mathcal{K}_F}$, and Lemma~\ref{lem:rank} gives the rank formula.
 \end{proof}
