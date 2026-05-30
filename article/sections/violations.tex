@@ -29,14 +29,31 @@ The labeled violations are indexed by both the edge and the mirror clique. Let
 =
 \{(e, C_g) \mid g \in \mathcal{G},\ e \in F,\ g \text{ violates } e\}.
 \]
+\begin{definition}[Labeled violation matrix]
+\label{def:violation-matrix}
 The labeled violation matrix is the linear map
 \[
-V: A \to \mathbb{F}_2^{\mathcal{L}}.
+V: A \to \mathbb{F}_2^{\mathcal{L}},
 \]
-Rows of $V$ are indexed by labeled pairs $\ell_i=(e_i,C_i)\in\mathcal{L}$, and columns are indexed by generators $g^j$. The entries of $V$ are
+whose $j$-th column encodes which labeled pairs $(e,C)\in\mathcal{L}$ are violated by generator $g^j$.
+Rows are indexed by labeled pairs $\ell_i=(e_i,C_i)\in\mathcal{L}$, and columns are indexed by generators $g^j$. The entries of $V$ are
 \[
 V_{ij} = 1
 \quad\Longleftrightarrow\quad
 C_i = C_{g^j} \quad\text{and}\quad g^j \text{ violates } e_i.
 \]
+\end{definition}
+
+\noindent Explicitly, $V$ is the $\lvert\mathcal{L}\rvert\times m$ binary matrix whose columns are the labeled violation patterns of each generator:
+\[
+V \;=\;
+\begin{bmatrix}
+  \Big| & \Big| & & \Big| \\[4pt]
+  v_{g^1} & v_{g^2} & \cdots & v_{g^m} \\[4pt]
+  \Big| & \Big| & & \Big|
+\end{bmatrix},
+\]
+where each column $v_{g^j}\in\mathbb{F}_2^{\mathcal{L}}$ has a $1$ in row $(e,C)$ if and only if $g^j$ violates active edge $e$ with mirror label $C=C_{g^j}$.
+Rows are indexed by labeled pairs $\mathcal{L}=\{(e_1,C_1),\ldots\}$, and columns are indexed by the generators $\mathcal{G}=\{g^1,\ldots,g^m\}$.
+
 Thus, $V\alpha$ represents the net labeled violation pattern of the generator combination $\alpha$. The same active edge may be crossed by transformations using different predecessor mirrors; such violations are kept in distinct rows and cannot cancel unless their mirror labels agree.

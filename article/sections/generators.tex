@@ -83,4 +83,16 @@ M\alpha = \bigoplus_{g^j:\,\alpha_j = 1} m_{g^j}.
 \]
 \end{definition}
 
+\noindent Concretely, $M$ is the $\lvert B_{\mathrm{c}}\rvert\times m$ binary matrix whose columns are the generator masks:
+\[
+M \;=\;
+\begin{bmatrix}
+  \Big| & \Big| & & \Big| \\[4pt]
+  m_{g^1} & m_{g^2} & \cdots & m_{g^m} \\[4pt]
+  \Big| & \Big| & & \Big|
+\end{bmatrix},
+\]
+where each column $m_{g^j}\in\mathbb{F}_2^{B_{\mathrm{c}}}$ is the branch mask of generator $g^j$.
+Rows are indexed by the pruning-constrained branches $B_{\mathrm{c}}$, and columns are indexed by the generators $\mathcal{G}=\{g^1,\ldots,g^m\}$.
+
 The vector $M\alpha$ represents the net branch mask produced by the generator combination $\alpha$.
