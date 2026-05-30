@@ -3,7 +3,7 @@
 
 This section sets up the combinatorial objects used in the counting argument. We first fix the ordered predecessor system that produces the branch decisions, then use its dependency structure to identify which decisions can influence pruning constraints. This separates the branch-code space into constrained and free coordinates, and yields a smaller constrained code whose cardinality determines the total number of realizations.
 
-Let the chosen order be built into the vertex labels, so that $V=\{1,\ldots,n\}$. For each vertex $i$, write $U_i$ for the predecessor set of $i$. Additionally, let $V_0=\{1,\ldots,K\}$ be the fixed initial clique in $\mathbb{R}^K$. For $i\le K$, set $U_i=\varnothing$. For every non-seed vertex $i > K$, the predecessor set $U_i \subseteq \{1,\ldots,i-1\}$ has size $K$. Note that the predecessor relation defines a directed acyclic graph with an arc $j \to i$ whenever $j \in U_i$.
+Let the chosen order be built into the vertex labels, so that $V=\{1,\ldots,n\}$. For each vertex $i$, write $U_i$ for the predecessor set of $i$. Additionally, let $V_0=\{1,\ldots,K\}$ be the fixed initial clique in $\mathbb{R}^K$. For $i\le K$, set $U_i=\varnothing$. For every non-seed vertex $i > K$, the predecessor set $U_i \subseteq \{1,\ldots,i-1\}$ has size $K$ and induces a prescribed clique in $G$. Note that the predecessor relation defines a directed acyclic graph with an arc $j \to i$ whenever $j \in U_i$.
 
 For the rest of the paper, the ordered predecessor family $U=(U_i)_{i\in V}$ is fixed. All predecessor closures are taken with respect to this family, so we suppress the subscript $U$ and write $\operatorname{Fix}$ and $\operatorname{Cone}$.
 
@@ -33,7 +33,7 @@ The dependency cone of a vertex $i$ is
 where $w$ ranges over vertices. If no later vertex has $i$ as a predecessor, this gives the terminal base case $\operatorname{Cone}(i)=\{i\}$.
 \end{definition}
 
-Let $E_D$ denote the discretization edges induced by the predecessor relation, and let $E_P = E\setminus E_D$ denote the pruning edges. The full branch-decision set is
+Let $E_D = \binom{V_0}{2} \cup \{\{u,i\} : i>K,\, u \in U_i\}$ denote the seed and discretization edges induced by the predecessor relation, and let $E_P = E\setminus E_D$ denote the pruning edges. The full branch-decision set is
 \[
 B = V\setminus V_0.
 \]

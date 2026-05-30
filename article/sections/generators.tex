@@ -46,12 +46,7 @@ B_{\mathrm{c}} \cap \bigcup_{w:\,U_w=C} \operatorname{Cone}(w)
 \]
 \end{definition}
 
-Base generators are useful because two transformations with the same branch mask may have different geometric meanings if they use different mirror cliques. 
-Specifically, two distinct generators $g_1 = (m, C_1)$ and $g_2 = (m, C_2)$ can share the same algebraic branch mask $m \in \mathbb{F}_2^{B_{\mathrm{c}}}$, representing the same coordinate flips. 
-However, if $C_1 \neq C_2$, their mirror cliques span distinct affine hyperplanes in $\mathbb{R}^K$. 
-Because a branch flip is realized as a spatial reflection across the hyperplane spanned by its predecessor clique, these generators correspond to different isometric transformations. 
-This yields distinct spatial coordinates for the vertices in their propagation cones, altering the Euclidean distances for pruning edges. 
-Therefore, algebraic redundancy in the branch masks does not imply geometric equivalence, and both generators must be treated as distinct labeled operations.
+Base generators are highly valuable because a single algebraic branch mask can correspond to multiple generator presentations. We must retain these duplicate masks as distinct labeled columns of the mask and violation matrices rather than collapse them under a quotient operation. This is because the algebraic violation test for each generator is evaluated strictly relative to its mirror clique; the mask captures the coordinate branch-code shift, while the label records the specific affine mirror used by that algebraic certificate of feasibility.
 
 After defining both kinds of generators, set $\mathcal{G}$ to be the labeled generator family
 \[

@@ -66,15 +66,15 @@ Mirror-compatibility is a purely topological and combinatorial requirement on ho
 
 \begin{lemma}[Block admissibility]
 \label{lem:block-admissibility}
-Let $C$ be a predecessor clique with $r(C)=\min\{q\in B_{\mathrm{c}}: U_q=C\}$, and let $S\subseteq B_{\mathrm{c}}$ satisfy $S\subseteq \{r(C),\ldots,n\}$ and $S\cap C=\varnothing.$ If $(S,C)$ is mirror-compatible with the active edge set $F$ (Definition~\ref{def:mirror-compatible}), then for any nondegenerate branch embedding $x(s)$ (with $s_{\mathrm{c}}=s|_{B_{\mathrm{c}}}$), let $R_C$ be the Euclidean reflection across the affine hull $\operatorname{aff}\{x_c(s) : c \in C\}$. Then the coordinates
+Let $C$ be a predecessor clique with $r(C)=\min\{q\in B_{\mathrm{c}}: U_q=C\}$, and let $S\subseteq B_{\mathrm{c}}$ satisfy $S\subseteq \{r(C),\ldots,n\}$ and $S\cap C=\varnothing.$ If $(S,C)$ is mirror-compatible with the active edge set $F$ (Definition~\ref{def:mirror-compatible}), then for any nondegenerate branch embedding $x(s)$ (with $s_{\mathrm{c}}=s|_{B_{\mathrm{c}}}$), let $R_C$ be the Euclidean reflection across the affine hull $\operatorname{aff}\{x_c(s) : c \in C\}$. Then, for $i \in L$, the coordinates
 \[
 y_i =
 \begin{cases}
 R_C(x_i(s)), & i\in S,\\
-x_i(s), & i\notin S
+x_i(s), & i\in L\setminus S
 \end{cases}
 \]
-are obtained by the constrained branch code $s_{\mathrm{c}}\oplus \mathbf{1}_S$, and every active edge length is preserved:
+are obtained on the active subsystem by the constrained branch code $s_{\mathrm{c}}\oplus \mathbf{1}_S$, and every active edge length is preserved:
 \[
 \|y_a-y_b\|_2=\|x_a(s)-x_b(s)\|_2
 \qquad
@@ -83,11 +83,11 @@ are obtained by the constrained branch code $s_{\mathrm{c}}\oplus \mathbf{1}_S$,
 \end{lemma}
 
 \begin{proof}
-First consider the discretization edges. If $i\in S$, then $i\in B_{\mathrm{c}}$, hence $i\in L$. Since $L$ is closed under fixing sets, every predecessor $u\in U_i$ also lies in $L$, so the discretization edge $\{u,i\}$ belongs to $E_D[L]\subseteq F$. If $u\notin S$, then $\{u,i\}$ crosses the block boundary, and mirror-compatibility gives $u\in C$. Thus we have $U_i\subseteq S\cup C$. Consequently, the transformed predecessor simplex of $i$ is the image of the original predecessor simplex under the same reflection $R_C$: predecessors in $S$ are reflected, and predecessors in $C$ are fixed by $R_C$.
+First consider the seed and discretization edges in the active subsystem; seed-clique edges are fixed. If $i\in S$, then $i\in B_{\mathrm{c}}$, hence $i\in L$. Since $L$ is closed under fixing sets, every predecessor $u\in U_i$ also lies in $L$, so the discretization edge $\{u,i\}$ belongs to $E_D[L]\subseteq F$. If $u\notin S$, then $\{u,i\}$ crosses the block boundary, and mirror-compatibility gives $u\in C$. Thus we have $U_i\subseteq S\cup C$. Consequently, the transformed predecessor simplex of $i$ is the image of the original predecessor simplex under the same reflection $R_C$: predecessors in $S$ are reflected, and predecessors in $C$ are fixed by $R_C$.
 
-If $i\notin S$ and $i\notin C$, then no predecessor of $i$ can lie in $S$. Indeed, if some $u\in U_i\cap S$, then the active edge $\{u,i\}\in E_D[L]$ would cross the block boundary, and mirror-compatibility would force $i\in C$, a contradiction. Hence the predecessor simplex of such an $i$ is unchanged.
+If $i\in L\setminus (S\cup C)$, then no predecessor of $i$ can lie in $S$. Indeed, if some $u\in U_i\cap S$, then the active edge $\{u,i\}\in E_D[L]$ would cross the block boundary, and mirror-compatibility would force $i\in C$, a contradiction. Hence, the predecessor simplex of such an active vertex is unchanged.
 
-It follows, by induction in the DDGP order, that the coordinates $y_i$ are produced by valid lateration choices on the active subsystem. Vertices outside $S$ keep the same local lateration choice. Vertices in $S$ have both their coordinate and their predecessor simplex transformed by the reflection $R_C$; since $R_C$ reverses the local orientation across the predecessor affine hull, the corresponding lateration branch bit is toggled. Therefore the resulting constrained branch code is $s_{\mathrm{c}}\oplus \mathbf{1}_S$.
+It follows, by induction in the DDGP order restricted to $L$, that the coordinates $y_i$ are produced by valid lateration choices on the active subsystem. Vertices in $L\setminus S$ keep the same local lateration choice. Vertices in $S$ have both their coordinate and their predecessor simplex transformed by the reflection $R_C$; since $R_C$ reverses the local orientation across the predecessor affine hull, the corresponding lateration branch bit is toggled. Therefore the resulting constrained branch code is $s_{\mathrm{c}}\oplus \mathbf{1}_S$.
 
 It remains to check active edge lengths. Let $e=\{a,b\}\in F$. If both endpoints belong to $S$, then both are acted on by the same Euclidean isometry $R_C$, so the length of $e$ is preserved. If neither endpoint belongs to $S$, both endpoints are fixed, so the length is preserved. Finally, suppose exactly one endpoint belongs to $S$, say $a\in S$ and $b\notin S$. By mirror-compatibility, $b\in C$, hence $R_C$ fixes $x_b(s)$. Therefore
 \[
@@ -169,7 +169,7 @@ Lemma~\ref{lem:preservation} proves the constructive inclusion: shifts in $\math
 Fix an ordered DDGP template, which determines $M$, $V$, and $\mathcal{K}_F = M(\ker V)$. A parameter choice $\theta$ for this template is nondegenerate if every lateration step is well defined and, whenever the predecessors of a non-seed vertex have been placed, the corresponding intersection of $K$ spheres consists of two distinct reflected choices. 
 \end{definition}
 
-We denote by $\Theta \subset \mathbb{R}^M$ the open, dense set of such nondegenerate parameter choices. For any parameter vector $\theta \in \Theta$, we write $x^\theta(s)$ for the unique physical lateration embedding associated with the branch code $s \in \mathbb{F}_2^B$.
+Let $p$ be the dimension of the chosen parameter space for the fixed template. We denote by $\Theta \subseteq \mathbb{R}^p$ the set of nondegenerate parameter choices; in the usual Euclidean parameterization this set is open and dense. For any parameter vector $\theta \in \Theta$, we write $x^\theta(s)$ for the unique physical lateration embedding associated with the branch code $s \in \mathbb{F}_2^B$.
 
 While nondegeneracy ensures that the binary search tree of realizations is topologically well-defined at every step, it is a local condition. It does not prevent "accidental" global distance preservation where two distinct branches, separated by a reflection shift $h \notin \mathcal{K}_F$ not justified by the symmetry group, happen to satisfy all pruning constraints due to an extraordinary numerical alignment of the parameters. To mathematically rule out these exceptional coordinate alignments and guarantee that the algebraic kernel $\mathcal{K}_F$ characterizes \emph{exactly} the viable branch moves, we introduce a stronger, global geometric requirement.
 
@@ -197,7 +197,7 @@ defined on the nondegenerate parameter choices $\theta\in\Theta$ for which the c
 \qquad
 \text{for every } e\in F.
 \]
-Consequently, if for every $h\notin\mathcal{K}_F$ and every branch code $s$ at least one discrepancy $\Delta_{h,e}(\cdot;s)$ is not identically zero on the relevant nondegenerate parameter component, then the failure set for mirror separation is contained in a finite union of proper exceptional sets defined by the vanishing of nonzero discrepancy functions. In particular, mirror separation holds for almost all such nondegenerate parameters, in the same Lebesgue-measure sense used for generic DMDGP statements and zero-measure pruning coincidences in~\cite{liberti2012discretizable}.
+Consequently, if for every $h\notin\mathcal{K}_F$ and every branch code $s$ at least one discrepancy $\Delta_{h,e}(\cdot;s)$ is not identically zero on the relevant nondegenerate parameter component, then the failure set for mirror separation is contained in a finite union of proper exceptional sets defined by the vanishing of nonzero discrepancy functions. Under this non-identity criterion, mirror separation holds for almost all such nondegenerate parameters, in the same Lebesgue-measure sense used for generic DMDGP statements and zero-measure pruning coincidences in~\cite{liberti2012discretizable}.
 \end{remark}
 
 Finally, the main theorem states that, under mirror separation, the converse also holds on the pruning-constrained branch set. The full count then follows by multiplying by the free branch decisions in $B_{\mathrm{f}}$.

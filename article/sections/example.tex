@@ -131,7 +131,7 @@ M=
 \end{bmatrix}.
 \]
 
-The active edge set for the constrained subproblem is $F = E_D[L] \cup E_P$, where the discretization edges induced on $L$ are
+The active edge set for the constrained subproblem is $F = E_D[L] \cup E_P$. Besides the fixed seed clique edge $\{v_1,v_2\}$, the discretization edges induced on $L$ are
 \[
 \{v_1, v_3\},\{v_2, v_3\},
 \{v_1, v_4\},\{v_3, v_4\},
@@ -207,77 +207,40 @@ The two independent feasible constrained branch shifts are the mask $\{v_3,v_4,v
 \subsection{Concrete Geometric Realization}
 \label{sec:example-geometry}
 
-To ground this algebraic structure, we provide a concrete geometric realization in $\mathbb{R}^2$ with exact coordinates and distances. The coordinates are chosen so that all active distances are positive and can be verified directly.
+To ground this algebraic structure, we provide a concrete geometric realization in $\mathbb{R}^2$ with exact coordinates. This numerical setup illustrates how the combinatorial conditions established by our theory manifest physically as distance-preserving operations.
 
 \paragraph{Reference Coordinate Embedding.}
-Place the initial clique $V_0 = \{v_1, v_2\}$ and the reference branch for $v_3$ at
+We place the initial clique $V_0 = \{v_1, v_2\}$ and the branch decision vertex $v_3$ at
 \[
 v_1 = (0,0), \quad v_2 = (-2,0), \quad v_3 = (0,2).
 \]
-Now place the remaining vertices at their reference coordinates
+The remaining vertices are placed at their reference coordinates:
 \[
 v_4 = (1, 1), \quad v_5 = (2, 2), \quad v_6 = (2, 0), \quad v_7 = (-1,1).
 \]
+These coordinates determine the physical edge weights. All discretization distances are positive and can be verified directly: $d_{13} = 2$, $d_{23} = 2\sqrt{2}$, $d_{14} = d_{34} = d_{17} = d_{27} = \sqrt{2}$, $d_{15} = 2\sqrt{2}$, $d_{35} = 2$, $d_{16} = 2$, and $d_{46} = \sqrt{2}$. The two active pruning distances to be tested by our constraint matrices are
+\[
+d_{36} = \|v_3 - v_6\|_2 = 2\sqrt{2},
+\qquad
+d_{45} = \|v_4 - v_5\|_2 = \sqrt{2}.
+\]
+The free vertex $v_7$ contributes only its discretization distances $d_{17}$ and $d_{27}$, which do not appear in the active pruning set $F$ since $v_7 \notin L$.
 
-The edge lengths are determined by this embedding. The free vertex contributes only the discretization distances $d_{17}$ and $d_{27}$; these are not part of the constrained active set $F$ because $v_7\notin L$.
-\begin{itemize}
-    \item Discretization distances:
-    \[
-    \begin{aligned}
-    d_{13} &= \|(0,0) - (0,2)\|_2 = 2, \quad & d_{23} &= \|(-2,0) - (0,2)\|_2 = 2\sqrt{2}; \\
-    d_{14} &= \|(0,0) - (1,1)\|_2 = \sqrt{2}, \quad & d_{34} &= \|(0,2) - (1,1)\|_2 = \sqrt{2}; \\
-    d_{15} &= \|(0,0) - (2,2)\|_2 = 2\sqrt{2}, \quad & d_{35} &= \|(0,2) - (2,2)\|_2 = 2; \\
-    d_{16} &= \|(0,0) - (2,0)\|_2 = 2, \quad & d_{46} &= \|(1,1) - (2,0)\|_2 = \sqrt{2}; \\
-    d_{17} &= \|(0,0) - (-1,1)\|_2 = \sqrt{2}, \quad & d_{27} &= \|(-2,0) - (-1,1)\|_2 = \sqrt{2}.
-    \end{aligned}
-    \]
-    \item Pruning distances:
-    \[
-    d_{36} = \|(0,2) - (2,0)\|_2 = 2\sqrt{2}, \quad d_{45} = \|(1,1) - (2,2)\|_2 = \sqrt{2}.
-    \]
-\end{itemize}
+\paragraph{Physical Reflection and Violation Mechanics.}
+We can now trace how individual generator moves deform the embedding and interact with the pruning constraints. First, consider the cone generator $g_3$. The mirror for $v_3$ is the $x$-axis, $\operatorname{aff}(v_1, v_2)$. Activating $g_3$ reflects the downstream cone $\{v_3, v_4, v_5, v_6\}$ across this line. Because all affected vertices are reflected together and the fixed endpoints $v_1,v_2$ lie exactly on the mirror, all discretization and pruning distances are trivially preserved. Similarly, the mirror for $v_7$ is also the $x$-axis. Reflecting $v_7$ to $v_7' = (-1,-1)$ preserves its discretization distances $d_{17}$ and $d_{27}$ and has no contact with the pruning edges. This shows geometrically why the branch decision $v_7$ is completely free, contributing the independent factor $2^f = 2$ to the final solution count.
 
-\paragraph{Reflection Checks.}
-We check selected generator moves:
-\begin{enumerate}
-    \item \textbf{Initial branch change at $v_3$:}
-    The mirror for $v_3$ is $\operatorname{aff}(v_1, v_2)$ (the $x$-axis). The cone generator $g_3$ reflects $v_3,v_4,v_5,v_6$ across this line. Since all affected vertices are reflected together and the fixed endpoints $v_1,v_2$ lie on the mirror, all discretization and pruning distances are preserved.
+In contrast, isolated branch shifts that do not belong to the kernel $\ker V$ physically violate the pruning constraints. For instance, the mirror for $v_5$ is the $y$-axis, $\operatorname{aff}(v_1, v_3)$. Mirroring only $v_5$ across the $y$-axis yields $v_5' = (-2, 2)$. While this preserves all discretization distances, it stretches the pruning edge $\{v_4, v_5\}$ to $\|v_4 - v_5'\|_2 = \sqrt{10} \ne \sqrt{2}$, confirming a physical violation. This matches the algebraic violation matrix where $g_5$ has a $1$ in row $(\{v_4,v_5\}, C_1)$. Similarly, the cone generator $g_4$ reflects $v_4$ and its descendant $v_6$ across the $y$-axis, yielding $v_4' = (-1,1)$ and $v_6' = (-2,0)$. This preserves the discretization distance $\{v_4, v_6\}$ and the pruning distance $\{v_3, v_6\}$ (since $v_3$ lies on the $y$-axis mirror), but violates the active edge $\{v_4, v_5\}$ to length $\sqrt{10}$. Lastly, the mirror for $v_6$ is the line $y=x$, $\operatorname{aff}(v_1, v_4)$. Reflecting only $v_6$ gives $v_6' = (0,2)$, which collapses the pruning distance to $v_3$ from $2\sqrt{2}$ to $0$, mapping to the algebraic violation of $g_6$ against $\{v_3,v_6\}$.
 
-    \item \textbf{Free branch change at $v_7$:}
-    The mirror for $v_7$ is also $\operatorname{aff}(v_1, v_2)$, the $x$-axis. Reflecting $v_7=(-1,1)$ gives $v_7'=(-1,-1)$. The two predecessor distances $d_{17}$ and $d_{27}$ are preserved, and no pruning edge uses $v_7$. Thus this branch decision is independent of the constrained count and contributes the factor $2^f=2$.
+\paragraph{Kernel-Induced Cancellation and Dynamic Mirrors.}
+The core power of our framework is demonstrated when we apply the nontrivial feasible branch shift $h = \{v_4, v_5, v_6\} \in \mathcal{K}_F$, represented algebraically by the generator combination $g_4 \oplus g_5$ (or equivalently by $g_{C_1}$), where adding the redundant generator pair $g_{C_2} \oplus g_6$ yields the same branch mask. Geometrically, this shift instructs us to reflect $v_4, v_5$, and $v_6$ simultaneously across the $y$-axis ($x=0$), yielding:
+\[
+v_4' = (-1, 1), \quad v_5' = (-2, 2), \quad v_6' = (-2, 0).
+\]
+Because all three vertices are reflected by the same isometric reflection $R_{C_1}$ across the $y$-axis, the internal active distance $\|v_4' - v_5'\|_2 = \sqrt{2} = d_{45}$ is preserved. 
 
-    \item \textbf{Single branch change at $v_5$:}
-    The mirror for $v_5$ is $\operatorname{aff}(v_1, v_3)$ (the $y$-axis, $x=0$). Mirroring $v_5 = (2,2)$ across the $y$-axis yields $v_5' = (-2, 2)$. 
-    If we change only the branch bit at $v_5$, the pruning edge $\{v_4, v_5\}$ has its distance changed to $\|(1,1) - (-2,2)\|_2 = \sqrt{10} \ne \sqrt{2}$. This represents a single violation of the edge $\{v_4, v_5\}$ by the generator $g_5$.
-    
-    \item \textbf{Cone move rooted at $v_4$ ($g_4$):}
-    The cone generator $g_4$ reflects $v_4$ and its descendant $v_6$ across the $y$-axis, giving
-    \[
-    v_4' = (-1, 1), \quad v_6' = (-2, 0).
-    \]
-    The discretization distance $\{v_4, v_6\}$ is preserved. The pruning distance $\{v_3, v_6\}$ is also preserved because $v_3$ lies on the mirror. However, the pruning distance to $v_5 = (2,2)$ becomes $\|(-1, 1) - (2, 2)\|_2 = \sqrt{10} \ne \sqrt{2}$. This is the violation of the active edge $\{v_4, v_5\}$ by the generator $g_4$.
+The interaction with the dynamic mirror of $v_6'$ reveals the beauty of this cancellation. In the original embedding, $v_6$ is placed using the mirror $\operatorname{aff}(v_1, v_4)$. Under the branch shift, $v_4$ moves to $v_4'$, so the dynamic mirror for the subsequent step rotates to $\operatorname{aff}(v_1, v_4')$, which is the line $y = -x$. The coordinates $v_6' = (-2,0)$ are the exact reflection of the reference $v_6 = (2,0)$ across the $y$-axis. Because $v_6'$ is placed symmetrically with respect to the rotated mirror $y = -x$, the discretization distances are preserved. Crucially, the pruning distance to the fixed vertex $v_3 = (0,2)$ is preserved:
+\[
+\|v_3 - v_6'\|_2 = \|(0,2) - (-2,0)\|_2 = 2\sqrt{2} = d_{36}.
+\]
+This coordinate realization illustrates how the algebraic kernel $\ker V$ maps perfectly to viable physical realizations in this system, factoring out the representation redundancies and matching the rank-count prediction.
 
-    \item \textbf{Alternate branch at $v_6$ ($g_6$):}
-    The mirror for $v_6$ is $\operatorname{aff}(v_1, v_4)$, the line $y = x$. Reflecting $v_6=(2,0)$ across this line gives
-    \[
-    v_6' = (0,2).
-    \]
-    The predecessor distances to $v_1$ and $v_4$ are preserved, but the pruning distance to $v_3$ changes from $2\sqrt{2}$ to $0$. This is the violation of the active edge $\{v_3, v_6\}$ by the generator $g_6$.
-    
-    \item \textbf{Simultaneous reflection ($s \oplus \{v_4, v_5, v_6\}$):}
-    If we apply the nontrivial feasible branch shift $h = \{v_4, v_5, v_6\}$, we reflect all three vertices across the $y$-axis ($x=0$) and obtain
-    \[
-    v_4' = (-1, 1), \quad v_5' = (-2, 2), \quad v_6' = (-2, 0).
-    \]
-    The dynamic mirror for $v_6'$ becomes $\operatorname{aff}(v_1, v_4')$, which is $y = -x$. The predecessor distances are preserved by reflection, and the pruning distance to $v_3 = (0,2)$ remains
-    \[
-    \|(0,2) - (-2,0)\|_2 = 2\sqrt{2} = d_{36}.
-    \]
-    The pruning distance between $v_4'$ and $v_5'$ is
-    \[
-    \|v_4' - v_5'\|_2 = \|(-1, 1) - (-2, 2)\|_2 = \sqrt{2} = d_{45}.
-    \]
-    All discretization and pruning distances are preserved.
-\end{enumerate}
-
-This coordinate realization verifies the rank count in a case where the generator presentation has a nontrivial kernel, the feasible constrained shift space has dimension two, and the free branch set contributes a nontrivial factor $2^f=2$.
